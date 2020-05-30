@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Contains user_default_page.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Implements hook_help().
+ */
+function user_default_page_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the user_default_page module.
+    case 'help.page.user_default_page':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Customize the destination that a user is redirected to after logging in or logged out.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/*
+ * Implements hook_user_logout().
+ */
+function user_default_page_user_logout($account) {
+  // Load all entities belongs to "user_default_page_config_entity".
+  $entities_load = \Drupal::entityTypeManager()->getStorage('user_default_page_config_entity')->loadMultiple();
+  // Get User Role(s).
+  $roles  = $account->getRoles();
+  $uid = $account->id();
+  $logout_redirect = '';
+  $logout_message = '';
+  // Check for redirect logout path.
+  foreach ($entities_load as $entity) {
+    if (array_intersect($entity->get_user_roles(), $roles)) {
+      $logout_redirect = $entity->get_logout_redirect();
+      $logout_message = $entity->get_logout_redirect_message();
+    }
+    $users_array = $entity->get_users();
+    if (strpos($users_array, $uid.',') !== false) {
+      $logout_redirect = $entity->get_logout_redirect();
+      $logout_message = $entity->get_logout_redirect_message();
+    }
+  }
+  if (($logout_redirect) && !empty($logout_message)) {
+    // Set Logout redirect message.
+    drupal_set_message(t($logout_message));
+    user_default_page_redirect($logout_redirect);
+  }
+}
+
+/*
+ * Implements hook_user_login().
+ */
+function user_default_page_user_login($account) {
+  // Load all entities belongs to "user_default_page_config_entity".
+  $entities_load = \Drupal::entityTypeManager()->getStorage('user_default_page_config_entity')->loadMultiple();
+  // Get User Role(s).
+  $roles  = $account->getRoles();
+  $uid = $account->id();
+  $login_redirect = '';
+  $login_message = '';
+  // Check for redirect login path.
+  foreach ($entities_load as $entity) {
+    if (array_intersect($entity->get_user_roles(), $roles)) {
+      $login_redirect = $entity->get_login_redirect();
+      $login_message = $entity->get_login_redirect_message();
+    }
+    $users_array = $entity->get_users();
+    if (strpos($users_array, $uid.',') !== false) {
+      $login_redirect = $entity->get_login_redirect();
+      $login_message = $entity->get_login_redirect_message();
+    }
+  }
+  if ($login_redirect) {
+    // Set Login redirect message.
+    if ($login_message) {
+      drupal_set_message(t($login_message));
+    }
+    user_default_page_redirect($login_redirect);
+  }
+}
+
+/**
+ * Redirect path for login and logout.
+ */
+function user_default_page_redirect($path) {
+  $url_object = \Drupal::service('path.validator')->getUrlIfValid($path);
+  $url_object->setAbsolute();
+  $url = $url_object->toString();
+  $response = new RedirectResponse($url);
+  $response->send();
+  //exit;
+}

@@ -1,0 +1,161 @@
+[
+    {
+        "name": "symfony/yaml",
+        "version": "v2.8.19",
+        "version_normalized": "2.8.19.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "286d84891690b0e2515874717e49360d1c98a703"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/286d84891690b0e2515874717e49360d1c98a703",
+            "reference": "286d84891690b0e2515874717e49360d1c98a703",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9"
+        },
+        "time": "2017-03-20 09:41:44",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Yaml\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "phpoffice/phpexcel",
+        "version": "1.8.1",
+        "version_normalized": "1.8.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PHPOffice/PHPExcel.git",
+            "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+            "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+            "shasum": ""
+        },
+        "require": {
+            "ext-xml": "*",
+            "ext-xmlwriter": "*",
+            "php": ">=5.2.0"
+        },
+        "time": "2015-05-01 07:00:55",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PHPExcel": "Classes/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL"
+        ],
+        "authors": [
+            {
+                "name": "Maarten Balliauw",
+                "homepage": "http://blog.maartenballiauw.be"
+            },
+            {
+                "name": "Mark Baker"
+            },
+            {
+                "name": "Franck Lefevre",
+                "homepage": "http://blog.rootslabs.net"
+            },
+            {
+                "name": "Erik Tilt"
+            }
+        ],
+        "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+        "homepage": "http://phpexcel.codeplex.com",
+        "keywords": [
+            "OpenXML",
+            "excel",
+            "php",
+            "spreadsheet",
+            "xls",
+            "xlsx"
+        ]
+    },
+    {
+        "name": "aklump/loft_data_grids",
+        "version": "0.4.30",
+        "version_normalized": "0.4.30.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aklump/loft_data_grids.git",
+            "reference": "8d4763e4f2b1985350b83951d5169b41fd982cb0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aklump/loft_data_grids/zipball/8d4763e4f2b1985350b83951d5169b41fd982cb0",
+            "reference": "8d4763e4f2b1985350b83951d5169b41fd982cb0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.5",
+            "phpoffice/phpexcel": "~1.8",
+            "symfony/yaml": "2.*"
+        },
+        "time": "2017-03-27 18:16:28",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "AKlump\\LoftDataGrids\\": "src/AKlump/LoftDataGrids"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Aaron Klump",
+                "email": "sourcecode@intheloftstudios.com",
+                "homepage": "http://www.intheloftstudios.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP Classes to allow data placement in a grid structure and exporting in various data formats.",
+        "homepage": "http://github.com/aklump/loft_data_grids",
+        "keywords": [
+            "csv",
+            "excel",
+            "export",
+            "spreadsheet"
+        ]
+    }
+]

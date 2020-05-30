@@ -1,0 +1,50 @@
+<div class="cert">
+
+    <div class="numbering extralight">
+        <div class="number">Serial No : <span class="blue">{{node.field_serial_no.value}}</span></div>
+    </div>
+
+    <div class="header">
+        <div class="cert-company blue extrabold center">{{node.field_deal_name.0.entity.field_llp_name.0.value}}</div>
+
+        <div class="cert-id grey extralight center" style="font-size:18px">{{node.field_deal_name.0.entity.field_llp_.0.value}}</div>
+    </div>
+
+    <div class="cert-title med center">PARTNERSHIP CERTIFICATION</div>
+        <div class="reg center cert-appoint">This certifies that</div>
+
+        <div class="userdetails center grey">
+            {{node.field_deal_name.0.entity.field_link_to_partners_list.0.value}}
+
+            <div class="username blue">{{ node.field_full_name.0.value }}</div>
+            <div class="userIC blue">{{ node.field_nric.0.value }}</div>
+        </div>
+
+        <div class="center cert-info">
+            have invested&nbsp;&nbsp;&nbsp;&nbsp;<span class="bold blue">RM {{ node.field_amount2.value }}</span>&nbsp;&nbsp;&nbsp;&nbsp;and is entitled<br>
+            as partner holding&nbsp;&nbsp;&nbsp;&nbsp;<span class="bold blue">{{ node.field_actual_shares.0.value }}</span>&nbsp;&nbsp;&nbsp;&nbsp;share(s)<br>
+            as at&nbsp;&nbsp;&nbsp;&nbsp;<span class="bold blue">{{ node.field_deal_name.0.entity.field_issuance_date.0.value|date('j M Y') }}</span>
+        </div>
+
+    <div class="footer">
+        <div class="footer-left">
+            <div class=" disclaimer light">This Limited Liability Partnership was registered on <span class="grey">{{ node.field_deal_name.0.entity.field_llp_reg_date.0.value|date('j F Y') }}</span> under the Limited Liability Partnership Act 2002 in Malaysia</div>
+
+            <div class="cert-add light">
+                <div>LLP Registered Office</div>
+                <div class="grey extralight">{{node.field_deal_name.0.entity.field_llp_address.0.value}}</div>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <div class="cert-name">
+                <div class="bold center">{{node.field_deal_name.0.entity.field_compliance_officer.0.value}}</div>
+                <div class="light center">Compliance Officer</div>
+            </div>
+        </div>
+
+        <div style="clear:both;"></div>
+    </div>
+
+    <div style="clear:both;"></div>
+</div>

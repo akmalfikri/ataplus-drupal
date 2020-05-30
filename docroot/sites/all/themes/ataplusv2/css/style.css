@@ -1,0 +1,1695 @@
+* {
+	font-family: 'Montserrat', sans-serif;
+	border:0;
+	font-weight:300;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #999;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #999;
+}
+:-ms-input-placeholder { /* IE 10+ */
+ color: #999;
+}
+:-moz-placeholder { /* Firefox 18- */
+color:#999;
+}
+p {
+	font-size:16px;
+	line-height:20px;
+}
+header {
+	background:#fff;
+}
+a, a:hover {text-decoration: none}
+
+header.opac {
+	position:fixed;
+	width:100%;
+	z-index:99;background: rgba(255,255,255,0.8) !important;}
+.blue {
+
+color:#282561;
+}
+.nopadding {padding:0;}
+.nomargin {margin:0;}
+.blocked {display: block !important}
+.overflowed {overflow:auto;}
+.answer { margin-bottom:30px; }
+.legal-header {font-size:24px; color:#A9177E; font-weight:400;margin-bottom:30px;}
+.font15 {font-size:15px; line-height:22px;}
+.font16 {font-size:16px;line-height:23px;}
+.font17 {font-size:17px;line-height:24px;}
+.font18 {font-size:18px;line-height:25px;}
+.font19 {font-size:19px;line-height:26px;}
+.font20 {font-size:20px;line-height:27px;}
+.font22 {font-size:22px;line-height:29px;}
+.font24 {font-size:24px;line-height:31px;}
+.font26 {font-size:26px;line-height:33px;}
+.font28 {font-size:28px;line-height:35px;}
+.font30 {font-size: 30px;line-height:37px;}
+.font32 {font-size: 32px;line-height:39px;}
+.font34 {font-size: 34px;line-height:41px;}
+.font36 {font-size: 36px;line-height:44px;}
+.bg-blue {
+	background:#282561;
+}
+.border-blue { border:9px solid #282561 }
+.purple, .purple a{
+	color:#a9177e;
+}
+.bg-dark-blue {background: #161638;}
+.dark-blue { color:#161638; }
+.border-purple { border:9px solid #a9177e; }
+.bg-purple {
+	background:#a9177e;
+}
+.bg-dark-grey {background:#818181;}
+.dark-grey { color:#818181; }
+.dark-purple, .dark-purple a {
+	color: #601f6c;
+}
+.bg-dark-purple {
+	background:#601f6c;
+}
+.border-dark-purple { border:9px solid #601f6c; }
+.white, .white a, .white a:hover, .white a:active {
+	color:#fff;
+}
+
+.white a:hover, .white a:active {
+    text-decoration: underline;
+}
+.bg-white {
+	background: #fff;
+}
+.pink {
+	color:#DF1283;
+}
+.bg-pink {
+	background: #DF1283
+}
+.grey {
+	color:#e7e7eb;
+}
+.bg-grey {
+	background:#e7e7eb;
+}
+.border-grey {
+	border:9px solid #e7e7eb;
+}
+.border-white {
+	border:9px solid #fff;
+}
+.fontsuperlight {
+	font-weight: 200 !important;
+}
+.fontlight {
+	font-weight:300 !important;
+}
+.fontreg {
+	font-weight:400 !important;
+}
+.fontmedium1 {
+	font-weight:500 !important;
+}
+.fontmedium2 {
+	font-weight:600 !important;
+}
+.fontbold {
+	font-weight: 700 !important;
+}
+header nav li a {
+	font-weight:300;
+	font-size:16px;
+}
+.list-none {
+	margin:0;
+	padding:0;
+}
+.list-none li {
+	list-style: none;
+	display: inline-block;
+	padding:10px 0;
+}
+.image-circle {
+	border-radius: 50%;
+	width:200px;
+}
+.mini-menu li:first-child {
+	padding-right:30px;
+}
+.text-shadow {
+	text-shadow: 0px 1px 4px rgba(22,22,56,0.6);
+}
+.nav.navbar-nav {
+	margin-top:18px;
+}
+.crowd-wp {
+	background:url(../img/home-top-bg.jpg) center bottom no-repeat;
+    background-size: cover;
+    height:650px;
+    padding-top:170px;
+}
+.crowd-wp2 {
+	background:url("../img/crowd.jpg");
+	background-size:cover;
+}
+#user-login-form  {
+	font-size: 16px;
+	}
+.banner-title {
+	font-size:2.5em;
+	margin:0 0 30px 0;
+}
+.banner-desc {
+	font-size:22px;
+		padding: 15px;
+    line-height: 1.5em;
+
+}
+.boxes3 {
+	font-size:30px;
+}
+.box-footer {
+	background:rgba(255,255,255,0.5);
+}
+.banner {
+	padding-top:100px;
+	padding-bottom:100px;
+}
+.padd20 {
+	padding:20px;
+}
+.paddtopbottom20 {
+	padding-top:20px;
+	padding-bottom:20px;
+}
+.padd30 {
+	padding:30px;
+}
+.paddtopbottom30 {
+	padding-top:30px;
+	padding-bottom:30px;
+}
+.padd40 {
+	padding:40px;
+}
+.padd50 {
+	padding:50px;
+}
+.padd60 {
+	padding:60px;
+}
+.paddtopbottom40 {
+	padding-top:40px;
+	padding-bottom:40px;
+}
+.paddtopbottom60 {
+	padding-top:60px;
+	padding-bottom:60px;
+}
+.paddtop20 {padding-top: 20px}
+.paddtop40 {padding-top: 40px}
+.paddtop60 {padding-top: 60px}
+.paddtop80 {padding-top: 80px}
+.paddtop100 {padding-top: 100px}
+.paddtop120 {padding-top:120px;}
+
+.paddbottom40 {padding-bottom: 40px}
+.paddbottom60 {padding-bottom: 60px}
+.paddbottom80 {padding-bottom: 80px}
+.paddbottom100 {padding-bottom: 100px}
+.paddbottom120 {padding-bottom: 120px}
+
+.margin20 {margin:20px !important;}
+.margin30 {margin:30px !important;}
+.margin40 {margin:40px !important;}
+.margin60 {margin:60px !important;}
+.margin80 {margin:80px !important;}
+.margintop20 {margin-top:20px !important;}
+.margintop30 {margin-top:30px !important;}
+.margintop40 {margin-top:40px !important;}
+.margintop60 {margin-top:60px !important;}
+.margintop80 {margin-top:80px !important;}
+.marginbottom0 {margin-bottom: 0 !important}
+.marginbottom10 {margin-bottom: 10px !important}
+.marginbottom20 {margin-bottom:20px !important;}
+.marginbottom30 {margin-bottom:30px !important;}
+.marginbottom40 {margin-bottom:40px !important;}
+.marginbottom60 {margin-bottom:60px !important;}
+.marginbottom80 {margin-bottom:80px !important;}
+.btn {
+	text-transform: uppercase;
+	width:250px;
+	border-radius:0;
+
+}
+
+
+.ghost-btn-pink {
+	background: transparent;
+	border:3px solid #DF1283;
+	color:#DF1283;
+}
+.ghost-btn-pink:hover {
+	background: #DF1283;
+	border:3px solid #DF1283;
+	color:#fff;
+}
+
+.ghost-btn-purple {
+	background: transparent;
+	border:3px solid #a9177e;
+	color:#a9177e;
+}
+.ghost-btn-purple:hover {
+	background: #a9177e;
+	border:3px solid #a9177e;
+	color:#fff;
+}
+.ghost-btn-white, .ghost-btn-white2 {
+	background: transparent;
+	color:#ffffff;
+	border:3px solid #ffffff;
+}
+.ghost-btn-white:hover {
+	background: #a9177e;
+	color:#ffffff;
+	border:3px solid #ffffff;
+}
+.ghost-btn-white2:hover {
+	background: #601f6c;
+	color:#ffffff;
+	border:3px solid #ffffff;
+}
+
+
+.btn-reg {
+	font-size:25px;
+	font-weight:300;
+}
+.btn-semi {
+	font-size:18px;
+	font-weight:300;
+}
+.btn-bold {
+	font-size:25px;
+	font-weight:600;
+}
+footer .fontmedium1 {
+	font-size:17px !important;
+}
+.window-wp {
+	background:url(../img/window-wp.jpg);
+}
+.full-wp {
+	background-size:cover !important;
+}
+.discoverdeals .boxes3 img {
+	width: 121.7%;
+    margin: -30px 0 0 -30px;
+}
+.discoverdeals .boxes3:hover {
+	border-color: #a9177e !important
+}
+.discoverdeals button {width:100%;font-size:20px;font-weight:300;}
+.p-desc {
+	font-size:14px;
+	font-weight: 400;
+	margin:15px 0 10px 0;
+	text-align: justify;
+}
+.view-discover-deals .p-desc {
+    min-height: 130px;
+}
+
+.view-discover-deals .btn-reg {
+    min-height:130px;
+}
+#user-login-form  {
+	width:80% !important;
+	margin:0 auto;
+}
+#user-pass {color:#fff;}
+#user-login-form .form-item label, #user-pass .form-item label {
+    width: 35% !important;
+    float: left;
+}
+#user-login-form .form-item input, #user-pass .form-item input {
+    width: 65% !important;
+
+}
+#user-login-form .form-type-password label {
+    margin-top: 15px;
+}
+#user-pass button#edit-submit {
+    background: none;
+    border: 3px solid #fff;
+    margin: 23px auto;
+    font-size: 16px;
+}
+#user-pass button#edit-submit:hover {
+    background: #fff;
+    border: 3px solid #fff;
+    margin: 23px auto;
+    font-size: 16px;
+    color:#a9177e;
+}
+#user-pass .form-item-name label {
+    font-size: 18px;
+}
+#user-pass p {font-size: 13px;
+    font-style: italic;
+    font-weight: 200;}
+.forgotpassword-page .pull-left.col-md-6.text-left, .forgotpassword-page .pull-right.col-md-6.text-right {font-size:22px;}
+input[type=text],
+input[type=password],
+input[type=email], .select {
+	width:100%;
+	background:none !important;
+	border:0;
+	font-size:18px;
+	border-bottom:2px solid rgba(96,31,108,0.3);
+	outline:0;
+	color:#fff;
+	font-weight: 300;
+	display: block;
+	padding:10px 0;
+	border-radius:0px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
+	transition:none;
+}
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus , .select:focus{
+	width:100%;
+	background:none !important;
+	border:0;
+	font-size:18px;
+	border-bottom:2px solid #fff;
+	outline:0;
+	color:#fff;
+	font-weight: 300;
+	display: block;
+	padding:10px 0;
+	border-radius:0px;
+	border-radius:0px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
+	transition:none;
+}
+.select {
+	border-radius: 0 !important;
+	padding:15px 0 !important;
+}
+#user-register-form input[type=text]:focus,
+#user-register-form input[type=password]:focus,
+#user-register-form input[type=email]:focus,
+#user-form input[type=text]:focus,
+#user-form input[type=password]:focus,
+#user-form input[type=email]:focus,
+ {
+	width:100%;
+	background:none !important;
+	border:0;
+	font-size:18px;
+	border-bottom:2px solid #A9177E;
+	outline:0;
+	color:#fff;
+	font-weight: 300;
+	display: block;
+	padding:10px 0;
+}
+form { overflow: auto }
+#user-register-form input[type=text],
+#user-register-form input[type=password],
+#user-register-form input[type=email],
+#user-form input[type=text],
+#user-form input[type=password],
+#user-form input[type=email]
+{
+	width:100%;
+	background:none !important;
+	border:0;
+	font-size:18px;
+	border-bottom:2px solid #ccc;
+	outline:0;
+	color:#000 !important;
+	font-weight: 300;
+	display: block;
+	padding:10px 0;
+}
+#user-register-form .col-md-3.blue.fontmedium1 {
+	font-size:18px;
+	padding-top:12px;
+
+}
+input[type=submit], .btn {
+    width: 300px;
+    margin: 25px auto;
+    max-width: 100%;
+    display: block;
+}
+.user-profile label, #user-register-form label, #user-form label {
+    padding: 15px 0;
+    margin: 0;
+    font-weight: 400;
+    font-size: 19px;
+}
+#user-register-form .radio label, #user-register-form .checkbox label,
+#user-form .radio label, #user-form .checkbox label  {
+	padding-left:20px;
+}
+
+.select {height: 45px;
+    box-shadow: none;
+}
+.user-profile input, .user-profile .select {
+	color:#161638 !important;
+	font-weight: 400;
+	font-size:18px;
+	 padding:10px 0;
+	 background:white;
+}
+.user-profile input:focus,.user-profile .select:focus {
+	color:#000 !important;
+	font-weight: 400;
+	font-size:18px;
+	 padding:10px 0;
+	border-bottom:2px solid rgba(96,31,108,0.3) !important;
+}
+.user-profile, #user-register-form, #user-form{
+	overflow:auto;
+}
+.user-profile .radio label {
+    padding: 15px 0 0 8px!important;
+}
+.user-profile .radio { margin-right:20px; }
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+.legal {
+	background: url(../img/bg-legal.jpg);
+	background-size:cover;
+}
+.legal2, .risk-disclaimer {
+	background: url(../img/bg-legal2.jpg);
+	background-size:cover;
+}
+.legal2 .btn { display:block; }
+.learning {
+
+	background:url(../img/bg-learning.jpg);
+	background-size: cover;
+}
+
+.knowledge-lab {
+
+    background:url(../img/kl_8.png);
+    background-size: cover;
+}
+
+.knowledge-lab1 {
+
+    background:url(../img/kl_9.png);
+    background-size: cover;
+}
+
+.knowledge-lab2 {
+
+    background:url(../img/kl_10.png);
+    background-size: cover;
+}
+
+.knowledge-lab3 {
+
+    background:url(../img/kl_11.png);
+    background-size: cover;
+}
+
+.knowledge-lab4 {
+
+    background:url(../img/kl_12.png);
+    background-size: cover;
+}
+
+.learning-icons img, .knowledge-icons img {
+	width:40%;
+	margin:0 auto 60px auto;
+	display:block;
+	max-width:100%;
+}
+
+#views-bootstrap-knowledge-base-category-grid-page-1 span:hover, #views-bootstrap-knowledge-base-category-grid-page-1 span:hover {
+    text-decoration: underline;
+}
+
+.knowledge-icons img {
+    padding:10px;
+}
+
+.learning-3boxes img, .learning-3boxes svg {
+	width:80%;
+	margin:0 auto;
+	display:block;
+	max-width:100%;
+}
+.learning-3boxes { text-align: center }
+.learning-icons p {
+	font-weight:200;
+	font-size:16px;
+	margin-top:20px;
+}
+.learning-icons .col-sm-4 {text-align: center}
+.learning2 {
+
+	background:url(../img/learning-bg2.jpg);
+	background-size: cover;
+}
+.faqs {
+
+	background:url(../img/faq-bg.jpg);
+	background-size: cover;
+}
+.faq-question {
+	border-left:3px solid #a9177e ;
+	padding: 5px 0 5px 20px;
+	color:#a9177e;
+	font-weight: 500;
+	font-size:20px;
+}
+.aboutus { background:url(../img/aboutus-bg.jpg) center bottom; background-size:cover;height:500px;}
+.aboutus2 { height:450px; position:relative; }
+.aboutus2 img {
+    position:absolute; width:100%; z-index:-10; top:0; right:0;
+    -webkit-filter: grayscale(100%) opacity(80%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%) opacity(80%);
+}
+.overlay-purple{
+  background-color: rgba(169, 23, 126, 0.5);
+}
+
+.howstart .row { margin-bottom:5px; }
+.howstart .row .row{ margin-bottom:0px; }
+.howstart [class*="col-"]{
+
+}
+.boxshadow {
+	-webkit-box-shadow: 10px 10px 41px -6px rgba(0,0,0,0.47);
+-moz-box-shadow: 10px 10px 41px -6px rgba(0,0,0,0.47);
+box-shadow: 10px 10px 41px -6px rgba(0,0,0,0.47);
+}
+.team img { max-width: 100%;width:75%; margin:0 auto 20px auto; display:block; }
+.partners-grid a {display: block;margin:5px; min-height: 310px; vertical-align: middle}
+.partners-grid img {width:75%; margin:0 auto;padding:40px 20px;}
+.discover-deal { background: url(../img/bg-discoverdeal.png) center bottom;background-size:cover; }
+#announcement .modal-dialog {padding:10px;}
+#announcement .header {padding:20px 0;}
+.follow-link, .contact-link { font-size:16px;color:#999;text-align: center;padding:20px; }
+.follow-link:hover, .contact-link:hover { background:#bbb; text-decoration: none; color:#fff;}
+.deal-listings h3 {margin:5px 0 15px 0;}
+p.deal-desc {font-size:16px; font-weight: 400}
+.share-text{float: left;
+    margin: 22px 10px 0 0;}
+    .social-media-link {margin-top: 5px;float:left;}
+.social-media-link a {display:inline-block; text-indent: -999px}
+.social-media-link .fb { background:url(../img/social.png) left bottom no-repeat;width:30px;height: 33px; }
+.social-media-link .fb:hover { background:url(../img/social.png) left top no-repeat;width:30px;height: 33px; }
+
+.social-media-link .twt {     background: url(../img/social.png) center bottom no-repeat; width: 50px;height: 33px;
+ }
+.social-media-link .twt:hover { background:url(../img/social.png) center top no-repeat;width:50px;height: 33px; }
+
+.social-media-link .in { background:url(../img/social.png) right bottom no-repeat;width:34px;height: 33px; }
+.social-media-link .in:hover { background:url(../img/social.png) right top no-repeat;width:34px;height: 33px; }
+#deal-details {
+	width: 82%;
+    margin: 0 auto 15px auto;
+	}
+#deal-details tr td {
+	text-align: right;
+	border:0;
+	padding:2px 0;
+	}
+#deal-details tr th {
+	border:0;
+	text-align:
+	left; padding:2px 0;}
+.footer-menu {
+	padding:0;
+	margin:0;
+	list-style: none
+}
+
+.progress {
+    overflow: hidden;
+    height: 30px;
+    margin:10px 0;
+    background-color: #f5f5f5;
+    border-radius: 0;
+
+}
+.deal-listings.border-white:hover {
+	border-color: #a9177e
+}
+.hidden {display:none;}
+
+.deal {background:url(../img/bg-deal.jpg) center bottom; background-size:cover;height:500px;}
+.term-sheet .row {margin-bottom:5px;}
+.profile-new-investment .pull-right, .profile-updates .pull-right, .profile-comments .pull-right { width:90px; }
+.profile-new-investment, .profile-updates, .profile-comments  { clear:both;overflow: auto}
+.rounded-bordered {
+	display: block;
+	border-radius: 50%;
+	border:6px solid #a9177e;
+	width:100%;
+}
+.profile-deal { margin-bottom: 50px }
+#profile-deal-details {
+	color:#a9177e;
+	font-size: 18px;
+}
+#profile-deal-details td {
+	padding:8px 12px;
+	font-weight: 400
+}
+
+#profile-deal-details td:nth-child(2) {
+	text-align: right
+}
+.readiness-profile {padding:15px 0;}
+.readiness-profile .radio {margin-left:20px}.readiness-profile .radio label {padding:0 !important;}
+footer p {
+	font-size:14px;
+}
+.footer-menu li {
+	list-style: none;
+	margin: 7px 0;
+}
+.footer-menu li a {
+	font-size:14px;
+	color:#fff;
+	font-weight:200 !important;
+}
+
+.nav-tabs > li > a:hover, .nav-tabs > li.active > a {
+    border:none;
+    border-bottom: 4px solid #a9177e;
+    background: none !important;
+}
+.nav-tabs > li {
+    display: inline-block;
+}
+.nav-tabs > li > a {
+    margin-right: 2px;
+    font-size: 18px;
+    font-weight: 400;
+}
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 20px 35px;
+}
+
+.footer {
+	margin-top:0;
+	border-top:none;
+}
+
+.form-actions .btn {
+	margin-right:0;
+}
+
+.amount-holder div,
+.equity-holder div { display: inline-block; }
+.amount-holder {margin-bottom:30px;}
+.amount-label, .eq-label { font-size:29px;color:#ccc;text-transform:uppercase;font-weight:500;text-align:right;width:20%; }
+.amount, .eq { width:78%; text-align:right;}
+.amount {font-size:40px !important;font-weight: 600; border-bottom:2px solid #fff; padding:0 0 5px 15px;}
+.eq {font-size:29px;color:#ccc;text-transform:uppercase;font-weight:500;}
+
+.signup-form .tabs, .register-page .tabs {
+	display:none;
+}
+
+body {
+	margin-top:0;
+}
+
+.login a, .login a:hover, .login a:focus{
+	font-size:18px;
+}
+
+.login-page label {
+	color:#fff;
+}
+
+.nav-tabs {
+	border:none;
+	margin-bottom:10px;
+}
+img.greyscale:hover {
+	opacity:0.4;
+ filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+   -webkit-filter: grayscale(100%);
+   -moz-filter: grayscale(100%);
+   -ms-filter: grayscale(100%);
+   filter: grayscale(100%);
+   filter: gray; /* IE 6-9 */
+}
+.playpause {
+    background-image:url(../img/playicon.png);
+    background-repeat:no-repeat;
+    width:200px;
+    height:200px;
+    position:absolute;
+    left:0%;
+    right:0%;
+    top:0%;
+    bottom:0%;
+    margin:auto;
+    background-size:contain;
+    background-position: center;
+}
+.video {
+    width: 100%;
+
+}
+.wrapper{
+    display:table;
+
+    position:relative;
+    width:100%;
+}
+.login-page .button.js-form-submit {
+    background: transparent;
+    border: 3px solid #fff;
+    margin: 20px auto 0 auto;
+    font-size: 18px;
+    padding: 5px;
+}
+.announcement-page, .aboutus2-page {
+	background: url(../img/announcement.jpg);
+	background-size:cover;
+}
+.pitch-page {
+    background: url(../img/pitch-head2.jpg);
+    background-size:cover;
+}
+.news-page {
+    background: url(../img/news-head.png);
+    background-size:cover;
+}
+
+.partners-page {
+    background: url(../img/partners-head.jpg);
+    background-size:cover;
+}
+
+.press-page {
+    background: url(../img/press-head.jpg);
+    background-size:cover;
+}
+
+.guide-page {
+    background: url(../img/guide.jpg);
+    background-size:cover;
+}
+.navbar-brand > img {
+    display: block;
+    width: 155px;
+}
+.navbar {    margin: 5px 0 10px 0;}
+.nav.navbar-nav {
+    margin-top: 10px;
+}
+.path-frontpage p.banner-desc.white.fontreg.text-shadow {
+    line-height: 29px;
+}
+.signup-form .pull-left a, .signup-form .pull-right a {
+    font-size: 20px;
+}
+@media screen and (min-width:768px) {
+	.user-register-form.user-form .form-item input {
+    width: 80% !important;
+    display: inline-block !important;
+}
+.user-register-form.user-form .form-item label {
+    width: 19% !important;
+    display: inline-block !important;
+}
+.password-strength, .password-confirm {
+	width:81%;
+	float:right;
+}
+.form-item-field-terms-cond-value label.control-label.option.js-form-required.form-required {
+    width: 100% !important;
+}
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+
+    border: 1px solid #fff !important;
+    border-bottom: 4px solid #a9177e !important;
+}
+.user-register-form button#edit-submit, .user-form button#edit-submit {
+    border: 4px solid #a9177e;
+    background: transparent;
+    color: #a9177e;
+    padding: 9px 15px;
+    font-size: 16px;
+    margin: 0 auto !important;
+}
+.view-discover-deals { margin:0 10px; }
+.view-discover-deals .boxes3 img {
+    margin: 0;
+    width: 100%;
+}
+.view-discover-deals a {color:#666;}
+.insider {
+    padding: 10px 25px;
+}
+.boxes3.padd30.border-grey a, .boxes3.padd30.border-grey a:hover {text-decoration: none;color:#000;}
+.howstart .row {
+    background: white;
+}
+.flag-follow a {
+    font-size: 16px;
+    color: #999;
+    text-align: center;
+    padding: 20px;
+    display: block;
+
+}
+.flag-follow a:hover {
+	background: #bbb;
+    text-decoration: none;
+    color: #fff;
+}
+form#user-form {
+    border: 9px solid #a9177e;
+    padding: 10px;
+}
+#user-form .field-group-fieldset {
+    border: 0;
+}
+#user-form .panel-heading {
+    background: transparent !important;
+    border: 0;
+}
+#user-form .panel-title {color: #999;
+    font-size: 28px;
+    font-weight: 600;}
+    .form-item input {
+    width: 78% !important;
+    min-height: 54px;
+}
+.password-strength, .password-confirm, #edit-current-pass--description {width:78% !important;float:right;}
+.form-item label {
+    width: 22%;
+    float: left;
+}
+.form-item .select-wrapper {width:78%;}
+.form-item .select-wrapper select {min-height: 55px;
+    border: 0;
+    box-shadow: none;
+    border-bottom: 2px solid rgba(96,31,108,0.3);
+    border-radius: 0;    font-size: 20px;
+    font-weight: 400;}
+.form-type-date { width:78%; }
+.form-type-date input#edit-field-date-0-value-date {width:100% !important;}
+.form-file {
+    padding: 10px !important;
+    border: 0;
+    box-shadow: none;
+    border-bottom: 2px solid rgba(96,31,108,0.3);
+    border-radius: 0;
+    font-size: 16px !important;
+}
+.notification-page a img {margin: -30px 0 10px -30px;
+    width: 122%;}
+    div#profile {
+    border: 9px solid #a9177e;
+    padding: 25px;
+}
+#profile .field {
+    margin-bottom: 20px;
+}
+#profile .field--item {
+    font-size: 18px;
+    color: #282561;
+}
+#profile .field--type-image img {
+    border: 6px solid #a9177e;
+}
+ul.pull-right.list-none.text-right li a {
+    padding: 11px;
+}
+.nav > li > a:hover {
+	background:none;
+	font-weight:500;
+}
+.pull-right.list-none.text-right li a:hover {
+	background: #eee;
+    padding: 11px;
+    color: #000;
+}
+
+.path-frontpage .featured-company, .discover-deal-page .featured-company {
+	padding: 80px 0;
+	height: 400px;
+	position: relative;
+	overflow: hidden;
+}
+
+.path-frontpage .featured-company img,  .discover-deal-page .featured-company img {
+	position: absolute;
+	left: 0;
+	z-index: -1;
+	top:0;
+	width: 100%;
+}
+
+.discover-deal-page .form-group{
+	margin-bottom: 0;
+}
+.path-frontpage .discoverdeals .boxes3 {margin-bottom:30px;}
+.path-frontpage .homerow .boxes3 {min-height:250px;}
+.path-frontpage .discoverdeals a.btn {display:table;width:100%; font-weight:500;border:4px solid #A9177E;}
+.path-frontpage .discoverdeals a.btn:hover {background:#fff; border:4px solid #A9177E; color:#A9177E}
+.menu.nav.navbar-nav {float:right;}
+.field.field--name-field-reward-s-.field--type-text-long.field--label-inline .field--item {
+    clear: both;
+    margin-bottom: 20px;
+}
+.field.field--name-field-term {
+    margin-bottom: 13px;
+}
+.field.field--name-field-title-2 {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.atadeals-invest-amount-form input#edit-amount {
+    background: none;
+    border: 0;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    border-radius: 0;
+    width: 100% !important;
+}
+.eq-label {
+    font-size: 21px;
+}
+.form-inline.form-item.js-form-item.form-type-number.js-form-type-number.form-item-amount.js-form-item-amount.form-no-label.form-group {
+    width: 80%;
+    float: right;
+}
+.name-label, .nric-label, .investee-label, .date-label {
+   width: 20%;
+    text-align: right;
+    font-weight: 300;
+    color: #ccc;
+    float: left;
+    font-size: 17px;
+}
+.name-holder, .date-holder, .nric-holder, .investee-holder {
+    text-align: right;
+    font-size:17px;
+    clear:both;
+}
+.atadeals-invest-amount-form div#edit-actions button {
+    margin: 0 auto;}
+    img {
+    max-width: 100%;
+}
+.carousel-caption { top:40% }
+.carousel-caption h3 {
+    font-size: 36px;
+		margin: 0 auto;
+}
+.carousel-caption p {
+    font-size: 20px;
+		max-width: 500px;
+		margin: 0 auto;
+		padding-top:20px;
+		line-height: 1.5em;
+}
+ .view-discover-deals .boxes3 {min-height:700px; margin-bottom:25px;max-height:700px;}
+ div#edit-field-investor-declaration-wrapper label {
+    width: 100% !important;
+}
+input#edit-legal-main-terms-and-conditions, #edit-field-investor-declaration-wrapper input {
+    width: 20px !important;
+    height: 20px !important;
+}
+.form-item.form-type-checkbox.form-item-legal-main-terms-and-conditions label {width:100% !important;}
+/*--una tambah mobile---*/
+@media screen and (max-width: 767px) {
+
+#deal-page li {float:none;}
+#deal-page li a {
+    padding: 10px 15px;
+}
+#deal-page {text-align: center;}
+	.carousel-inner img {max-width: 200% !important;
+    width: 200%;     margin-left: -30%;}
+	img {
+    max-width: 100%;
+}
+.carousel-caption { top:50px; }
+.carousel-caption h3 {
+    font-size: 28px;
+}
+.carousel-caption p {
+    font-size: 15px;
+}
+	body {overflow-x:hidden;}
+	.user-form .form-wrapper .form-item label, .user-form .form-item .select-wrapper select {width:100%;}
+	.user-form .image-widget {overflow:visible;}
+	.path-frontpage .boxes3 {margin-bottom:30px;}
+	.user-form legend {
+    border: 0;
+    margin: 0; font-size:17px;}
+    .user-form .form-type-date {
+    width: 100%;}
+    input#edit-field-gender-male {
+    width: 23px !important;
+    height: 23px;
+	}
+	input#edit-field-gender-female {
+    width: 23px !important;
+    height: 23px;
+	}
+	.user-form label.control-label {
+    width: 100%;}
+	input#edit-field-investor-declaration-value {
+    width: 15px !important;
+    height: 15px !important;
+    margin: 4px 0 0 -17px;
+    padding: 0 !important;
+    min-height: 0;
+}
+	div#edit-field-gender, #edit-field-investor-type {
+    margin-left: 15px;}
+	.user-form .form-wrapper .form-item input {width:100% !important;display: block !important}
+	.path-frontpage .main-container.js-quickedit-main-content .row {margin-left:0;margin-right: 0}
+	.featured-company img {
+
+    width: auto !important;
+    max-width: none !important;}
+    .path-frontpage .paddtopbottom40.container.discoverdeals.text-center img {
+    max-width: 80%;
+    display: block;
+    margin: 0 auto 20px auto !important;}
+    .discover-deal-page .overflowed.container.bg-white.paddtopbottom40 {
+    padding: 20px 0;}
+    .boxes3 {position:relative;margin-bottom:30px;}
+    .featured-company {
+    padding: 80px 30px !important;}
+    .risk-disclaimer {
+    padding: 30px 25px !important;}
+    .footer {    padding: 35px 15px !important;}
+    .banner {padding-left: 30px;padding-right: 30px}
+    .bg-purple.padd60.loginpage, .forgotpassword-page .bg-purple.padd60 {
+    padding: 30px 0 0 0;}
+    .padd40.signup-form {
+    padding: 25px;}
+    #user-login-form .form-item label, #user-pass .form-item label {
+    width: 100% !important;
+    float: none;
+    margin: 0 0 15px 0px;}
+    #user-login-form {
+    width: 100% !important;
+    margin: 0 auto;
+    text-align: center;}
+    #user-login-form .form-item input, #user-pass .form-item input {
+    width: 100% !important;}
+    #user-login-form .form-item label, #user-pass .form-item label {
+    width: 100%;
+    float: none;
+    margin: 0 0 10px 0px !important;}
+    #user-login-form button#edit-submit {
+    margin-top: 35px;
+    margin-bottom: 30px;}
+    .bg-purple.registerpage.padd60 {
+    padding: 30px 20px;}
+    .bg-white.padd40.register-page {
+    padding: 15px 20px;}
+    .register-page .form-item label {
+    width: 100%;
+    float: none;}
+    .register-page .form-item input {
+    width: 100% !important;
+    min-height: 0;}
+    .register-page input#edit-field-terms-cond-value {
+    width: 30px !important;
+    margin: 6px 0 0 -28px !important;}
+    .register-page button#edit-submit {
+    margin-bottom: 20px !important;}
+    .path-frontpage .paddtopbottom40.container.discoverdeals.text-center .boxes3 img {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0;}
+
+    button.navbar-toggle span.icon-bar {
+    background: #777;
+    width: 29px !important;
+    height: 3px !important;}
+    .menu.nav.navbar-nav {float:none;}
+    nav.navbar {
+    height: 70px;}
+    .navbar-toggle {margin-top: -32px}
+    #navbar-collapse .pull-right { float: none !important;
+    text-align: center;}
+    div#navbar-collapse {
+    margin: 30px 0px 0 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    z-index: 90;}
+    .nav li a {
+    color: #000;
+    font-size: 19px;}
+    .nav li a:hover {
+    color: #fff;background:#a9177e;
+    font-size: 19px;}
+    header .container {padding-left:0 !important;padding-right: 0 !important}
+    .deal-page {
+    padding: 0 25px !important;}
+    #deal-page-content .col-sm-9.nomargin.nopadding.bg-white {
+    padding: 0 !important;}
+    .social-media-link {
+    margin-top: 5px;
+    float: none;}
+    .deal-page .col-sm-3.nomargin.nopadding.bg-white {
+    margin-bottom: 40px;}
+     .term-sheet .col-sm-9, .term-sheet .col-sm-3 {
+    padding-left: 15px !important;
+    padding-right: 15px !important;}
+    #edit-account .form-item input {
+    width: 100% !important;
+    min-height: auto;}
+    #edit-account .form-item label {
+    width: 100%;
+    float: none;}
+    #edit-account .password-strength, #edit-account .password-confirm, #edit-account #edit-current-pass--description {
+    width: 100% !important;
+    float: none;}
+    #edit-account .form-item .select-wrapper {
+    width: 100%;}
+    #edit-account .radio input[type=radio] {
+    width: 20px !important;
+    float: left;
+        margin: 8px 10px 0 -25px;}
+    #edit-account .radio label.control-label {
+    padding: 0 0 0 25px !important;}
+    #edit-account .checkbox input[type=checkbox] {
+    width: 15px !important;}
+    .user-profile .nav-tabs li a {
+    padding: 5px 10px !important;
+    margin-right: 8px;}
+    .amount-holder div, .equity-holder div {
+    display: block;
+	}
+	.form-inline.form-item.js-form-item.form-type-number.js-form-type-number.form-item-amount.js-form-item-amount.form-no-label.form-group
+	{width:100%;}
+	.eq {width:100%}
+	.name-label, .nric-label, .investee-label, .date-label {
+    width: 100%;
+    text-align: left;
+    font-weight: 300;
+    color: #ccc;
+    float: left;
+    font-size: 16px;}
+    .name-holder, .date-holder, .nric-holder, .investee-holder {
+    text-align: left;
+    font-size: 16px;
+    clear: both;
+    margin-bottom: 15px;
+    line-height: 22px;}
+    .nric-label {
+    line-height: 22px;}
+    .amount-holder {
+    margin-bottom: 30px;
+    overflow: auto;}
+    .amount-label, .eq-label {
+    font-size: 20px;
+    color: #ccc;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align:left;
+    width: 100%;}
+    .equity-holder {
+    margin-bottom: 20px;}
+    .user-profile label{    font-weight: 500;padding:15px 0 0 0; font-size:17px !important;}
+    .user-profile input[type=text], .user-profile input[type=password], .user-profile input[type=email], select, textarea
+    {font-size:15px;min-height: 0;}
+    .panel-body {
+    padding: 0;}
+    .user-form .form-wrapper .form-item input[type=radio] {
+    width: 15px !important;
+    height: 15px !important;
+    padding: 0 !important;
+    min-height: 0;}
+
+
+
+
+
+}
+
+table p {
+	font-size:14px;
+}
+.termsheet-mobile dt {
+    font-weight: 400;
+    padding: 13px;
+    background: #a9177e;
+    color: #fff;
+}
+.termsheet-mobile dd {
+    margin-left: 0;
+    background: #ededed;
+    padding: 13px;
+}
+#edit-field-investor-type input, #edit-field-gender input, .form-item-field-investor-declaration-value label {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+.blog-mostviewed {
+    background: url(/sites/all/themes/ataplusv2/img/blog-bg3.png);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.blog-recentposts {
+    background: url(/sites/all/themes/ataplusv2/img/blog-bg2.png);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.blog-search {
+    background: url(/sites/all/themes/ataplusv2/img/blog-bg1.png);
+    padding: 18px 20px;    margin-top: 30px;
+}
+.blog-search h3 {    margin: 0 !important}
+.blog-content.container {
+    margin: 40px auto 20px auto;
+}
+
+.blogpost h1.banner-title span {
+    font-weight: 500;
+}
+
+a.deal-ed {
+    font-size: 25px;
+    color: #000;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+}
+.insider .btn {
+    margin-top:20px
+}
+p.ed2 {
+background: #e7e7eb ;
+padding: 10px 25px;
+}
+#views-bootstrap-investments-page-1 .insider {
+padding: 25px 0;
+}
+span.label-ed {
+   float: right;
+}
+p.ed1 {
+   font-weight: 700;
+	 padding:0 25px;
+}
+
+p.ed3 {
+	padding:0 25px;
+}
+
+#views-bootstrap-investments-page-1 p a:last-child {
+    margin: 0;
+}
+.image-video-holder.paddbottom40 {
+    padding-bottom: 0;
+}
+
+p .days-left { padding:10px 0; }
+
+.view-discover-deals img {
+    padding:0 0 10px 0;
+}
+
+#discussion select#edit-comment-body-0-format--2 {
+ padding:0 !important;
+ border:0 !important;
+ min-height:0 !important;
+ font-size:14px !important;
+}
+.field--widget-text-textarea label.control-label.js-form-required.form-required {
+    width: 100%;
+    float: none;
+}
+h2.block-title {
+    display: none;
+}
+#discussion input#edit-subject-0-value {
+    width: 100% !important;
+    float: none;
+    min-height: 0;
+    border: 0;
+    background: #f7f7f7 !important;
+    padding: 5px 10px;
+    height: 44px;
+}
+#discussion button#edit-submit--2 {
+    width: 104px;
+    float: left;
+    margin: 10px 0;
+    padding: 10px;
+}
+#discussion button#edit-preview {
+    float: left;
+    width: 134px;
+    margin: 10px 0 0 10px;
+    height: 40px;
+}
+@media screen and (max-width:767px) {
+
+#deal-page li {float:none;}
+#deal-page li a {
+    padding: 10px 15px;
+}
+#deal-page {text-align: center;display:block !important;}
+
+.carousel-inner img {
+        margin-left: 0px !important;
+    }
+.carousel-caption {
+    top: 0px;
+}
+
+.carousel-caption h3 {
+    font-size: 20px;
+}
+
+
+.carousel-caption .btn {
+    text-shadow: none;
+    margin: 8px 0px 0px 0px;
+    font-size: 12px;
+    width: auto !important;
+    display: block;
+    border: none;
+    background: #FFF;
+    color: #a9177e;
+    font-weight: bold;
+}
+
+
+.carousel-caption p {
+    font-size: 15px;
+    display: block;
+    padding-top: 10px;
+}
+
+.carousel-indicators {
+    bottom: -5px !imporant;
+}
+
+
+}
+.bg-orange {background:#EC7B38;}
+.orange {color:#EC7B38}
+.padd10 {padding:10px}
+.packagelist-content img {display: block;margin: 0 auto;max-width: 100%;}
+.packagelist-content ul { font-size:16px; }
+.packagelist-content .row {margin-bottom:20px}
+.packagelist-content a.padd10.blocked.text-capitalize {text-align:center;}
+.packagelist-content a.padd10.bg-purple {border:4px solid #A9177E;}
+.packagelist-content a.padd10.bg-orange {border:4px solid #EC7B38;}
+.packagelist-content a.padd10.bg-purple.blocked:hover {background:#fff; border:4px solid #A9177E; color:#A9177E}
+.packagelist-content a.padd10.bg-orange.blocked:hover {background:#fff; border:4px solid #EC7B38; color:#EC7B38}
+.packagelist-content .get {color:orange;font-weight: 600;}
+.packagelist-content .quick {color:#A9177E;font-weight: 600;}
+.packagelist-content .row h3 {    margin: 15px 0 10px 0;
+    font-size: 37px;
+    font-weight: 600;}
+.packagelist-content .rm {
+    font-weight:500;padding:100px 0 0 15px;font-size:24px;display:block}
+.packagelist-content .price {
+    font-size: 41px;
+    font-weight: 600;
+    position: absolute;
+    text-align: right;
+    padding: 0px 30px 6px 0;
+    bottom: 0;
+    right: 0;
+}
+.packagelist-content .stage1-box {
+min-height:450px;
+}
+.view-discover-deals .deal-title {
+    min-height:90px;
+}
+
+.view-discover-deals .deal-excerpt {
+    min-height:200px;
+}
+
+.readiness {
+	font-size:15px;
+}
+
+.readiness i {
+	font-size: 35px;
+	float: right;
+}
+
+#webform-submission-investor-readiness-add-form form {
+    padding:25px
+}
+#webform-submission-investor-readiness-add-form .form-item input[type=radio] {
+    width: 18px !important;
+    min-height: 0 !important;
+}
+#webform-submission-investor-readiness-add-form fieldset.fieldgroup {
+    margin-bottom: 30px;
+}
+#webform-submission-investor-readiness-add-form legend span.fieldset-legend {
+    font-size: 23px;
+    margin-bottom: 10px;
+    display: table;
+}
+#webform-submission-investor-readiness-add-form .form-item label {
+    float: none;
+    margin-bottom: 6px;
+    font-size: 17px;
+    font-weight: 300;
+    width:100%;
+}
+
+.centered {margin:0 auto !important; }
+
+.login-page .banner-title, .forgotpassword-page .banner-title {
+    font-size:1em;
+}
+
+.register-page .form-group, .user-profile .form-group {
+    margin-bottom:30px;
+}
+
+.field--name-field-title-update {
+    font-weight:400 !important;
+    color:#a9177e;
+    line-height: 25px;
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.field--name-field-update-description {
+    font-size: 16px;
+    line-height: 20px;
+    color: #282561;
+    margin: 0 20px 30px 0;
+
+}
+
+.deal-updates ul > li{
+    list-style: none;
+}
+
+.list-group-item-heading {
+    margin:20px;
+}
+
+.list-group-item-text {
+    margin: 20px;
+    line-height: 1.3;
+}
+
+.node-deals-update-form {
+    margin:60px 0 30px 0;
+}
+
+.node-deals-update-form .input-group input, .node-deals-update-form .form-item input{
+    color:#000;
+    border-bottom: 2px solid rgba(96,31,108,0.3);
+}
+
+.form-item .form-type-textarea label {
+    float:none;
+    float: none;
+    padding: 20px 0;
+}
+
+.node-deals-update-form label {
+    font-size: 20px;
+    color: #282561;
+    font-weight: 500;
+    padding-right: 30px;
+}
+
+.node-deals-update-form table#field-updates-values th {
+    color: #252861;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 10px 0;
+}
+
+.field--widget-entity-reference-paragraphs {
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+}
+
+.node-deals-update-form .ui-autocomplete-input {
+    width:100% !important;
+}
+
+.tabledrag-toggle-weight {
+    margin: 25px 25px 0 25px;
+}
+
+.featured {
+    position:relative;
+    width:100%;
+    height:731px;
+}
+
+.featured img {
+    width:100%;
+}
+
+.featured .featured-caption {
+    position:absolute;
+    z-index:2;
+    left:20%;
+    right:20%
+}
+
+.view-partners .row {
+    margin-top:40px;
+    margin-bottom:40px;
+}
+
+.view-partners .views-field-field-logo img:hover, .views-bootstrap-partners-4-rowa-block-1, .views-field-field-logo img:hover{
+    -webkit-filter: grayscale(1) opacity(90%);
+    filter: grayscale(1) opacity(90%);
+}
+
+.view-partners .views-field-field-logo img {
+    margin: 0 auto !important;
+}
+
+@media screen and (max-width: 480px) {
+    .field--name-field-investor-declaration {
+        height:80px;
+    }
+    .modal .banner-title {
+        font-size:1.8em;
+    }
+}
+
+.deal-page hr {
+    margin-top:40px;
+}
+
+.deal-page h3 {
+    margin-top:0px;
+}
+
+#modal-invest-1 .btn {
+    margin-bottom:20px !important;
+}
+
+#block-referral h2.block-title, #block-referral-2 h2.block-title {
+    display:block;
+}
+
+#edit-field-investor-type .form-item label {
+    width:100%;
+}
+
+#edit-field-investor-type-sophisticated {
+    margin-top:15%;
+}
+
+#edit-field-investor-type-retail, #edit-field-investor-type-angel {
+    margin-top:12%;
+}
+
+.field--name-field-investor-type .fieldgroup {
+    padding-left:20px;
+}
+
+.modal-content {
+    background:transparent;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    border:none !important;
+}
+
+#drupal-modal--header .modal-title {
+    display:none;
+}
+
+.modal-header {
+    background-color:transparent;
+    border:none;
+}
+
+.modal-body {
+    background: #161638;
+    color:#fff;
+}
+
+.carousel-inner img{
+
+width: 100% !important;
+
+}
+
+.upcomingdeals .boxes3 img {
+    width: 121.7%;
+}

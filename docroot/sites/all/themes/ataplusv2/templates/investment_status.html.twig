@@ -1,0 +1,23 @@
+<div class="container marginbottom60">
+<h3>Investment Payment Status</h3>
+
+<div class=""><h5>Thank you for your investment.</h5>
+
+<p>Below are the details of your investment for your record.
+We shall contact you once the campaign has closed.</p> <br />
+<p>Note : Please be informed that your investment amount will only be reflected on the fundraising progress once your investment is CONFIRMED.</p>
+</div>
+
+<table>
+	<thead></thead>
+	<tbody>
+	<tr><td>Transaction ID</td><td>{{ tranID }}</td></tr>
+	<tr><td>Investment ID</td><td>{{ orderID }}</td></tr>
+	<tr><td>Amount</td><td>{{ amount }}</td></tr>
+	<tr><td>Date and Time</td><td>{{ paydate }}</td></tr>
+	<tr><td>Status</td><td>{{ status }}</td></tr>
+	</tbody>
+
+</table>
+<a href ="{{ url }}" class="btn ghost-btn-pink centered blocked font18">Return to Deal Page</a>
+</div>

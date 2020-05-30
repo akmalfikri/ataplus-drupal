@@ -1,0 +1,5 @@
+entity.investment.add_form:
+  route_name: entity.investment.add_form
+  title: 'Add Investment'
+  appears_on:
+    - entity.investment.collection

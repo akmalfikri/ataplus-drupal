@@ -1,0 +1,14 @@
+name: Simple Access
+description: Provides simple hide/view access for nodes.
+# core: 8.x
+type: module
+package: Access control
+configure: simple_access.admin
+files:
+  - views/simple_access_views_plugin_group.inc
+
+# Information added by Drupal.org packaging script on 2018-04-10
+version: '8.x-3.0-alpha1'
+core: '8.x'
+project: 'simple_access'
+datestamp: 1523336293

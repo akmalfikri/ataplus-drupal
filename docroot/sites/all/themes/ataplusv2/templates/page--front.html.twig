@@ -1,0 +1,194 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template in this directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Navigation:
+ * - breadcrumb: The breadcrumb trail for the current page.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - messages: Status and error messages. Should be displayed prominently.
+ * - tabs: Tabs linking to any sub-pages beneath the current page (e.g., the
+ *   view and edit tabs when displaying a node).
+ * - action_links: Actions local to the page, such as "Add menu" on the menu
+ *   administration interface.
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.navigation: Items for the navigation region.
+ * - page.navigation_collapsible: Items for the navigation (collapsible) region.
+ * - page.highlighted: Items for the highlighted content region.
+ * - page.help: Dynamic help text, mostly for admin pages.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.footer: Items for the footer region.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+{% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
+{# Navbar #}
+{% if page.navigation or page.navigation_collapsible %}
+  {% block navbar %}
+    {%
+      set navbar_classes = [
+        '',
+      ]
+    %}
+    <header{{ navbar_attributes.addClass(navbar_classes) }} id="navbar" role="banner">
+      {% if not navbar_attributes.hasClass(container) %}
+        <div class="{{ container }}">
+      {% endif %}
+      <nav class="navbar">
+      <div class="navbar-header">
+            <a class="navbar-brand" href="{{ front_page }}"><img src="/{{ directory }}/img/atapluslogo.png">
+            </a>
+      </div>
+        <div class="pull-right">
+        {{ page.navigation }}
+
+        {# .btn-navbar is used as the toggle for collapsed navbar content #}
+        {% if page.navigation_collapsible %}
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">{{ 'Toggle navigation'|t }}</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        {% endif %}
+        </div>
+
+      {# Navigation (collapsible) #}
+      {% if page.navigation_collapsible %}
+        <div id="navbar-collapse" class="navbar-collapse collapse">
+        <div class="pull-right">
+          {{ page.navigation_collapsible }}
+        </div>
+        </div>
+      {% endif %}
+
+      </nav>
+      {% if not navbar_attributes.hasClass(container) %}
+        </div>
+      {% endif %}
+    </header>
+  {% endblock %}
+{% endif %}
+
+{# Main #}
+{% block main %}
+      {# Header #}
+        {% if page.header %}
+          {% block header %}
+          <div role="heading">
+            {{ page.header }}
+          </div>
+        {% endblock %}
+      {% endif %}
+
+      {# Highlighted #}
+        {% if page.highlighted %}
+          {% block highlighted %}
+            <div class="highlighted">{{ page.highlighted }}</div>
+          {% endblock %}
+        {% endif %}
+
+  <div role="main" class="main-container js-quickedit-main-content">
+    <div class="row">
+
+      <!--<div class="home-top crowd-wp">
+
+      <div class="container banner text-center">
+
+
+
+            <h1 class="banner-title white fontmedium2 text-shadow">Wealth is infinite<br>
+    when the crowd unites</h1>
+            <p class="banner-desc white fontreg text-shadow">Introducing World's First Blockchain Enhanced
+               <br>Licensed Equity Crowdfunding Platform.</p>
+
+      </div>-->
+
+      {{ drupal_view('banner_homepage', 'block_1') }}
+
+   </div>
+   <div class="container homepage paddtopbottom40">
+   <div class="row homerow">
+    <div class="col-md-4"> <div class="crowd-wp2 padd30 boxes3"><span class="fontmedium2 white">It's now time to choose</span></div></div>
+    <div class="col-md-4"> <div class="boxes3 padd30 border-purple "><a href="/learning/investor"><span class="fontmedium2 purple">Get involved with companies you believe in</span></a></div></div>
+    <div class="col-md-4"> <div class="boxes3 padd30 border-dark-purple"><a href="/learning/entrepreneur"><span class="fontmedium2 dark-purple">Pitch and raise funds for business to grow</span></a></div></div>
+   </div>
+   </div>
+
+
+   <div class="paddtopbottom40 container discoverdeals text-center">
+   <h1 class="banner-title blue fontmedium2">Discover Deals</h1>
+   <div class="row">
+
+
+    {{ drupal_view('discover_deals', 'block_2') }}
+    <hr />
+    <strong><a href="/discover" class="margintop40 btn bg-purple white font18">VIEW MORE DEALS</a></strong>
+
+   </div>
+   </div>
+
+    <div class="container upcomingdeals text-center paddtopbottom40">
+      <h1 class="banner-title blue fontmedium2">Upcoming Deals</h1>
+      <div class="row">
+       {{ drupal_view('upcoming_deals', 'block_1') }}
+     </div>
+    </div>
+
+   <div class="bg-dark-blue">
+   <div class="container white">
+    <iframe src="https://player.vimeo.com/video/160050837" style="width:100%; height:600px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+   </div>
+   </div>
+
+   <div class="paddtopbottom40 container discoverdeals text-center">
+   <h1 class="banner-title blue fontmedium2">As Seen & Heard On</h1>
+     <a href="https://www.bfm.my/" target="_blank"><img src="/{{ directory }}/img/bfm-logo.jpg" class="greyscale" width="200" style="margin:0 15px"></a>
+     <a href="https://www.digitalnewsasia.com/" target="_blank"><img src="/{{ directory }}/img/digital-news-asia.jpg" class="greyscale" width="200" style="margin:0 15px"></a>
+     <a href="https://themalaysianreserve.com/" target="_blank"><img src="/{{ directory }}/img/malaysian-reserve.jpg" class="greyscale" width="300" style="margin:0 15px"></a>
+     <a href="https://www.nst.com.my/" target="_blank"><img src="/{{ directory }}/img/nst.jpg" width="250" class="greyscale" style="margin:0 15px"></a>
+   </div>
+{% endblock %}
+
+{% if page.footer %}
+  {% block footer %}
+    <footer class="footer bg-dark-blue white padd30" role="contentinfo">
+      {{ page.footer }}
+    </footer>
+  {% endblock %}
+{% endif %}

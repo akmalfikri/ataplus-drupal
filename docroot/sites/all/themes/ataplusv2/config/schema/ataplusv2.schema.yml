@@ -1,0 +1,5 @@
+# Schema for the theme setting configuration file of the THEMETITLE theme.
+
+ataplusv2.settings:
+  type: theme_settings
+  label: 'ATAPlus v2 settings'

@@ -1,0 +1,106 @@
+<?php
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+
+function ataplusv2_theme_suggestions_page_alter(array &$suggestions, array $vars)
+{
+    // Add content type suggestions.
+    if ($node = \Drupal::request()->attributes->get('node')) {
+        array_splice($suggestions, 1, 0, 'page__node__' . $node->getType());
+    }
+}
+
+function ataplusv2_preprocess_page(&$vars)
+{
+    if (isset($vars['node'])) {
+        $vars['title'] = $vars['node']->title->value;
+    } else {
+        $vars['title'] =$vars['page']['#title'];
+    }
+}
+
+function ataplusv2_preprocess_node(&$vars)
+{
+    $vars['theme_path'] = base_path() . $vars['directory'];
+    $user = \Drupal::currentUser();
+    $current_user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+
+
+    if (isset($vars['node'])) {
+        $vars['title'] = $vars['node']->title->value;
+        $vars['machine'] = preg_replace('@[^a-z0-9-]+@', '-', strtolower($vars['title']));
+        $vars['uid'] = $user->id();
+
+        $dob1 = $current_user->get('field_date_')->value;
+        $date = new DateTime($dob1);
+        $now = new DateTime();
+        $interval = $now->diff($date);
+        $vars['age'] = $interval->y;
+        $vars['username'] = $current_user->getUsername();
+
+        $vars['nid'] = $vars['node']->id();
+        if ($vars['uid'] == $vars['node']->getOwnerId()) {
+            $vars['is_author'] = true;
+        }
+    } else {
+        $vars['title'] =$vars['page']['#title'];
+    }
+
+
+
+    if ($vars['node']->getType() == "project") {
+        // Setting days left for deals
+
+        if ($vars['node']->field_end_date_time) {
+            $today = new DateTime();
+            $date = new DateTime($vars['node']->field_end_date->value);
+            $date_ago = $vars['node']->field_end_date_time;
+            //$diff = date_diff($load, $today);
+            $interval = $today->diff($date);
+            $vars['days_left'] = (int)$interval->format("%r%a");
+        }
+
+        // Setting values raised and percentage for deals
+
+        if (!empty($vars['node']->field_value_raised)) {
+            $amount = $vars['node']->field_value_raised->value;
+            $vars['target'] = $vars['node']->field_minimum_offering_size->value;
+            $vars['amount_left'] = $vars['target'] - $amount;
+            $vars['amount'] = number_format($amount);
+
+            if (!empty($amount)) {
+                $percentage_raised = $amount / $vars['target'] * 100;
+                $vars['percentage_raised'] = round($percentage_raised);
+            }
+        }
+
+        if ($vars['node']->id() == '1341') {
+            $vars['progress_title'] = "Our Progress";
+        } else {
+            $vars['progress_title'] = "Our Achievements";
+        }
+
+        $vars['form_invest'] = \Drupal::formBuilder()->getForm(Drupal\investment\Form\InvestForm::class, $vars['node']->nid->value);
+
+        $view = \Drupal\views\Views::getView('invested');
+        $view->build('embed_1');
+        $total_invested = $view->query->query()->countQuery()->execute()->fetchField();
+        $vars['total_invested'] = $total_invested;
+    }
+}
+
+function ataplusv2_preprocess_user(&$variables)
+{
+    /** @var User $account */
+    $account = $variables['elements']['#user'];
+
+    $variables['cur_username'] = $account->getDisplayName();
+}
+
+function ataplusv2_page_attachments_alter(&$page){
+    $page['#attached']['library'][] = 'core/drupal.dialog.ajax';
+}

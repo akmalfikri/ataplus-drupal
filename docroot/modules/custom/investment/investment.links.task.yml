@@ -1,0 +1,27 @@
+# Investment routing definition
+investment.settings_tab:
+  route_name: investment.settings
+  title: 'Settings'
+  base_route: investment.settings
+
+entity.investment.canonical:
+  route_name: entity.investment.canonical
+  base_route: entity.investment.canonical
+  title: 'View'
+
+entity.investment.edit_form:
+  route_name: entity.investment.edit_form
+  base_route: entity.investment.canonical
+  title: 'Edit'
+
+entity.investment.version_history:
+  route_name: entity.investment.version_history
+  base_route: entity.investment.canonical
+  title: 'Revisions'
+
+entity.investment.delete_form:
+  route_name:  entity.investment.delete_form
+  base_route:  entity.investment.canonical
+  title: Delete
+  weight: 10
+

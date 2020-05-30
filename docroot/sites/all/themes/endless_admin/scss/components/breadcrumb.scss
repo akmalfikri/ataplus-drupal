@@ -1,0 +1,19 @@
+/**
+ * @file
+ * Breadcrumbs.
+ */
+
+@import "../variables";
+
+.breadcrumb {
+  line-height: $lh-default;
+  padding: 20px 0 10px;
+
+  li:before {
+    color: $color-mute;
+    content: ' / '
+  }
+  a {
+    font-style: italic;
+  }
+}

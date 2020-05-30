@@ -1,0 +1,12 @@
+name: First Time Login
+description: A module that prompts user to update their profile.
+type: module
+package: User interface
+# core: 8.x
+configure: first_time_login.settings
+
+# Information added by Drupal.org packaging script on 2017-07-07
+version: '8.x-1.0'
+core: '8.x'
+project: 'first_time_login'
+datestamp: 1499430849

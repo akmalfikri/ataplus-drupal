@@ -1,0 +1,11 @@
+/**
+ * Content header.
+ */
+
+@import "../variables";
+
+.content-header {
+  overflow: hidden;
+  background-color: $bg-body;
+  padding: 1rem 0 0;
+}

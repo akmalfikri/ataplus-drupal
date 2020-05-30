@@ -1,0 +1,30 @@
+investment.invest:
+  path: '/invest/deal/{arg}'
+  defaults:
+    _form: '\Drupal\investment\Form\InvestForm'
+    _title: 'Invest'
+  requirements:
+    _permission: 'can invest'
+
+investment.donate:
+  path: '/donate/deal/{arg}'
+  defaults:
+    _form: '\Drupal\investment\Form\DonateForm'
+    _title: 'Donate'
+  requirements:
+    _permission: 'can donate'
+
+investment.return:
+  path: '/invest/payreturn'
+  defaults:
+    _controller: '\Drupal\investment\Controller\InvestmentController::response'
+    _title: 'Commitment'
+  requirements:
+    _permission: 'can donate'
+
+investment.callback:
+  path: '/invest/paycallback'
+  defaults:
+    _controller: '\Drupal\investment\Controller\InvestmentController::payCallback'
+  requirements:
+    _permission: 'can donate'

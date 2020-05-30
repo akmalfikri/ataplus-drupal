@@ -1,0 +1,12 @@
+name: Invite
+type: module
+description: Allow users to invite others to the site.
+# core: 8.x
+package: Invite
+configure: invite.invite
+
+# Information added by Drupal.org packaging script on 2018-07-29
+version: '8.x-1.0-beta1+30-dev'
+core: '8.x'
+project: 'invite'
+datestamp: 1532857688

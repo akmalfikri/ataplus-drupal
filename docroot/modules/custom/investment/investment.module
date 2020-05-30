@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Contains investment.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+function investment_form_alter(&$form, &$form_state, $form_id)
+{
+  if ($form_id == 'node_deals_update_form') {
+    if(isset($form['field_deal']) && isset($_GET['deal']))
+    {
+      $node = \Drupal\node\Entity\Node::load($_GET['deal']);
+      $form['field_deal']['widget'][0]['target_id']['#default_value'] = $node;
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function investment_help($route_name, RouteMatchInterface $route_match)
+{
+    switch ($route_name) {
+    // Main module help for the investment module.
+    case 'help.page.investment':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Add investment into ATAPlusv2 Project') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function investment_theme()
+{
+    return [
+    'investment' => [
+      'render element' => 'children',
+    ],
+    'investment_status' => [
+      'variables' => ['tranID' => null, 'orderID' => null, 'amount' => null, 'paydate' => null, 'status' => null, 'url' => null, 'investment_payment_table' => null],
+      'template' => 'invest_confirm'
+    ],
+  ];
+}
+
+function investment_mail($key, &$message, $params)
+{
+    $options = [
+        'langcode' => $message['langcode'],
+    ];
+
+    switch ($key) {
+         case 'invest':
+            $message['from']    = 'invest@ata-plus.com';
+            $message['subject'] = t('@deal : Thank You for Your Investment Commitment', [
+              '@deal' => $params['deal']
+            ], $options);
+            $message['body'][]  = t("Dear @name,\n\nThank you very much for your investment commitment into @issuer.\n\nWe acknowledge your commitment and hereby confirm that we have received the following details of your investment deposited into the appointed Trustee Account:\n\nFull Name: @name\nTime: @time\nCommitted Amount (RM): @amount\nTransaction ID: @tranId\nOrder ID: @orderId\n\nWe will inform you accordingly on the progress of @deal equity crowdfunding campaign.\n\nOnce the target funding is achieved, we will then take the necessary steps to formalise the partnership and realise your stake.\n\nOnce again, we are truly grateful for your support and are eager to welcome you as a Partner to @deal!\n\nShould you have any enquiries regarding the investment, please do not hesitate to drop us an email at invest@ata-plus.com.\n\nThank you, have a nice day!\n\nBest regards,\n\nTeam Ata\nwww.ata-plus.com\nAta Plus Sdn Bhd", [
+                '@deal' => $params['deal'],
+                '@issuer' => $params['issuer'],
+                '@name' => $params['name'],
+                '@time' => $params['time'],
+                '@equity' => $params['equity'],
+                '@orderId' => $params['orderId'],
+                '@tranId' => $params['tranId'],
+                '@amount' => $params['amount']
+              ], $options);
+
+            $params['headers']['Bcc'] = 'zayan@ata-plus.com , elain@ata-plus.com';
+            break;
+    }
+}

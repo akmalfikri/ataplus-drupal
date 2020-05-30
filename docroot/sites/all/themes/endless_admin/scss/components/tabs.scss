@@ -1,0 +1,428 @@
+/**
+ * Tabs.
+ */
+
+@import "../variables";
+
+.is-collapse-enabled .tabs,
+.is-horizontal .tabs {
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    right: 0;
+  }
+
+}
+/* Span the full width of the viewport */
+.content-header .is-horizontal .tabs:before,
+.content-header .is-collapse-enabled .tabs:before {
+  left: -2.5em;
+  right: -2.5em;
+}
+
+/**
+ * Tab
+ *
+ * 1. Required by some elements such as <button>
+ * 2. Fixed height needed to ensure alignment with absolutely-positioned
+ *    active tab.
+ */
+.tabs__tab {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: -1px 0 0;
+  padding: 13px 1em;
+  width: 100%;  /* 1 */
+  background-color: $bg-secondary;
+  color: #0074bd;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    background-color: $bg-primary;
+    color: #fff;
+  }
+}
+li.tabs__tab {
+  display: block;
+  padding: 0;
+
+  /* This is required to win over specifity of [dir="rtl"] .tabs__tab */
+  [dir="rtl"] & {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+li.tabs__tab a {
+  padding: 13px 1em;
+}
+.tabs a:hover,
+.tabs a:focus {
+  text-decoration: none;
+}
+
+/* Primary tabs */
+.tabs.primary {
+  clear: both;
+  margin: 0;
+
+  .tabs__tab.is-active {
+    z-index: 15;
+    border-radius: $border-radius 0 0 0; /* LTR */
+    background-color: #ffffff;
+    color: $color-primary;
+
+    a {
+      color: $color-primary;
+
+      &:hover,
+      &:focus {
+        background-color: $bg-tab;
+        color: $color-primary;
+      }
+    }
+  }
+  [dir="rtl"] & .tabs__tab.is-active {
+    border-top-left-radius: 0;
+    border-top-right-radius: $border-radius;
+  }
+  a {
+    background: none;
+    font-weight: normal;
+  }
+  a:focus {
+    color: #008ee6;
+    background-color: #fafaf7;
+    text-decoration: underline;
+  }
+  .is-active a:focus {
+    background: none;
+    text-decoration: underline;
+  }
+}
+
+/* Only add the arrow if there's space */
+@media screen and (min-width:18.75em) { /* 300px */
+  .tabs.primary a {
+    background: url(/core/misc/icons/0074bd/chevron-right.svg) 99% center no-repeat;
+
+    [dir="rtl"] & {
+      background: url(/core/misc/icons/0074bd/chevron-left.svg) 1% center no-repeat;
+    }
+  }
+  .tabs.primary .tabs__tab.is-active a {
+    background-image: none;
+  }
+}
+.tabs__trigger {
+  display: none;
+}
+
+/* JS dependent styling */
+.is-collapse-enabled {
+  .tabs__trigger {
+    position: absolute;
+    z-index: 10;
+    right: 0; /* LTR */
+    top: 1px;
+    left: auto; /* LTR */
+    box-sizing: border-box;
+    display: block;
+    padding-right: 4px;
+    padding-left: 4px;
+    border-left: 0; /* LTR */
+    border-radius: 0 $border-radius 0 0; /* LTR */
+    font-family: $font-family-base;
+    font-size: 18px;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    outline: 0;
+    width: 25%;
+
+    [dir="rtl"] & {
+      border-right: 0;
+      border-left: 1px solid $form-border;
+      border-radius: $border-radius 0 0 0;
+      right: auto;
+      left: 0;
+    }
+  }
+  .tabs {
+    font-size: 18px;
+    font-size: 1.8rem;
+    max-height: 0;
+    padding-top: 48px;
+  }
+  .tabs__tab {
+    &:hover,
+    &:focus {
+      color: #fff;
+
+      a {
+        color: #fff;
+      }
+    }
+    &.is-active {
+      position: absolute;
+      top: 1px;
+      left: 0; /* LTR */
+      width: 75%;
+      border-bottom: 0;
+
+      [dir="rtl"] & {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+  .tabs.primary .tabs__tab.is-active {
+    background-color: $bg-light;
+  }
+  .tabs.primary a.is-active:before {
+    content: none;
+  }
+}
+
+.tabs.is-open {
+  max-height: 999em;
+}
+.is-open .tabs__tab.is-active {
+  background-color: #fff;
+  color: $color-primary;
+}
+
+/* Styles for the horizontal state always take priority */
+.is-horizontal {
+  .tabs {
+    max-height: none !important;
+    padding-top: 0 !important;
+    overflow: hidden;
+  }
+  .tabs__tab {
+    float: left; /* LTR */
+    height: auto;
+    width: auto;
+    margin: 0 2px 0 0;
+    text-align: center;
+
+    [dir="rtl"] & {
+      float: right;
+      /* This is required to win over specifity of [dir="rtl"] .tabs > li */
+      margin-left: 0;
+    }
+    &:first-child {
+      border-radius: $border-radius 0 0 0; /* LTR */
+    }
+    &:last-child {
+      border-radius: 0 $border-radius 0 0; /* LTR */
+    }
+  }
+  .tabs__tab + .tabs__tab {
+    margin-left: 0; /* LTR */
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  .tabs.primary a {
+    background-image: none;
+    color: #aaa;
+    font-size: 18px;
+    font-size: 1.8rem;
+    padding: 13px 1em;
+
+    @include media-breakpoint-up(md) {
+      padding: 13px 2em;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $bg-primary;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+  .tabs__trigger {
+    display: none;
+  }
+
+  /* Override the states above */
+  .tabs__tab.is-active,
+  .tabs.primary .tabs__tab.is-active,
+  [dir="rtl"] & .tabs.primary .tabs__tab.is-active {
+    background-color: $bg-tab;
+    border-radius: $border-radius $border-radius 0 0;
+    border-bottom: 0;
+    margin: 0 2px 0 0;
+    position: relative;
+    top: 0;
+    width: auto;
+  }
+}
+
+[dir="rtl"] .is-horizontal .tabs.primary .tabs__tab:first-child {
+  border-radius: 0 $border-radius 0 0;
+}
+[dir="rtl"] .is-horizontal .tabs.primary .tabs__tab:last-child {
+  border-radius: $border-radius 0 0 0;
+}
+
+/* Secondary tabs */
+.tabs.secondary {
+  display: block;
+  margin-top: 0;
+
+  .tabs__tab {
+    background-color: $bg-tab;
+    border-left: $tab-border-l solid transparent;
+    color: #0074bd;
+    display: block;
+    margin-left: 0; /* LTR */
+    padding: 0; /* LTR */
+    transition: border-color 0.2s, background-color 0.2s;
+
+    @include media-breakpoint-up(md) {
+      border: none;
+      border-bottom: $tab-border-b solid transparent;
+      display: inline-block;
+      width: auto;
+    }
+
+    [dir="rtl"] & {
+      padding-left: 15px;
+      padding-right: 16px;
+      margin-left: 0;
+      margin-right: 0px;
+    }
+    + .tabs__tab {
+      border-top: 1px solid #d9d8d4;
+    }
+    &.is-active {
+      color: #004f80;
+      border-left: $tab-border-l solid $bg-primary; /* LTR */
+
+      @include media-breakpoint-up(md) {
+        border-bottom-color: $bg-primary;
+        border-left: none;
+      }
+
+      [dir="rtl"] & {
+        border-left: $tab-border-l solid $bg-primary;
+      }
+    }
+    &:hover,
+    &:focus {
+      color: $color-primary;
+      border-left: $tab-border-l solid $color-primary; /* LTR */
+
+      [dir="rtl"] & {
+        border-right: $tab-border-l solid $color-primary;
+      }
+    }
+  }
+  a {
+    background-color: transparent;
+    border-color: $border-color;
+    color: #999;
+    font-weight: bold;
+    padding: 14px 1.5rem 13px;
+    text-decoration: none;
+
+    @include media-breakpoint-up(md) {
+      border-left: none;
+      padding: 4px 20px 17px;
+    }
+  }
+  .is-active a {
+    color: $color-primary;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .tabs.secondary .tabs__tab:hover,
+  .tabs.secondary .tabs__tab:focus {
+    border-bottom-color: #999;
+  }
+}
+
+[dir="rtl"] {
+  /* This is required to win over specificity of [dir="rtl"] .tabs.secondary .tabs__tab */
+  .views-displays .tabs.secondary li,
+  .views-displays .tabs.secondary li.is-active {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* This is required to win over specificity of [dir="rtl"] .tabs.secondary .tabs__tab.is-active */
+  .views-displays .tabs.secondary li.is-active {
+    border: 0 none;
+    padding-right: 0;
+  }
+
+  /* This is required to win over specificity of [dir="rtl"] .tabs.secondary .tabs__tab:hover */
+  .views-displays .tabs li.tabs__tab:hover {
+    border: 0 none;
+    padding-right: 0;
+  }
+  /* This is required to win over specificity of [dir="rtl"] li.tabs__tab a */
+  .tabs.secondary a {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+  /* This is required to win over specificity of [dir="rtl"] .tabs.secondary a */
+  .views-displays .tabs.secondary a {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+
+/* Styles for the horizontal state */
+.is-horizontal {
+  .tabs.secondary .tabs__tab {
+    background: none;
+    border-bottom: $tab-border-b solid transparent;
+    border-left: none; /* LTR */
+    border-right-color: transparent; /* LTR */
+    border-top: 0;
+    float: left; /* LTR */
+    margin-right: 0;
+    padding: 0;
+    position: relative;
+    top: 0;
+    z-index: 15;
+
+    /**
+     * 1. This is required to win over specifity of
+     *      [dir="rtl"] .tabs.secondary .tabs__tab:hover,
+     *      [dir="rtl"] .tabs.secondary .tabs__tab:focus
+     */
+    [dir="rtl"] & {
+      float: right;
+      border-right: $tab-border-l solid transparent;
+      border-left-color: transparent;
+      padding-right: 0; /* 1 */
+    }
+
+    &.is-active,
+    &.is-active:hover,
+    &.is-active:focus {
+      border-bottom-color: $color-primary;
+    }
+    &:hover,
+    &:focus {
+      border-bottom-color: #999;
+    }
+  }
+}

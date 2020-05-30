@@ -1,0 +1,39 @@
+add investment entities:
+  title: 'Create new Investment manually'
+
+can invest:
+  title: 'User can make Investment'
+
+can donate:
+  title: 'User can make Donation'
+
+administer investment entities:
+  title: 'Administer Investments'
+  description: 'Allow to access the administration form to configure Investment entities.'
+  restrict access: true
+
+delete investment entities:
+  title: 'Delete Investments'
+
+edit investment entities:
+  title: 'Edit Investments'
+
+access investment overview:
+  title: 'Access the Investment overview page'
+
+view published investment entities:
+  title: 'View published Investments'
+
+view unpublished investment entities:
+  title: 'View unpublished Investments'
+
+view all investment revisions:
+  title: 'View all Investment revisions'
+
+revert all investment revisions:
+  title: 'Revert all Investment revisions'
+  description: 'Role requires permission <em>view Investment revisions</em> and <em>edit rights</em> for investment entities in question or <em>administer investment entities</em>.'
+
+delete all investment revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Investment revisions</em> and <em>delete rights</em> for investment entities in question or <em>administer investment entities</em>.'

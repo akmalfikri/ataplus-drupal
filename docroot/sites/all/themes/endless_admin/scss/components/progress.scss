@@ -1,0 +1,30 @@
+/**
+ * @file
+ * Visual styles for progress bar.
+ *
+ * @see progress.js
+ */
+
+@import "../variables";
+
+.progress__track {
+  border: 3px solid $gray-500;
+  border-radius: $border-radius;
+  height: 0;
+  margin: .5em 0;
+}
+.progress__bar {
+  @include paper-box-shadow($bg-primary);
+  border: 3px solid $bg-primary;
+  border-radius: $border-radius;
+  margin-top: -3px;
+  margin-left: -3px; /* LTR */
+  padding: 0 1px;
+  height: 0;
+  transition: width 0.5s ease-out;
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: -3px;
+  }
+}

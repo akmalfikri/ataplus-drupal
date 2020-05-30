@@ -1,0 +1,8 @@
+# User default page menu items definition
+entity.user_default_page_config_entity.collection:
+  title: 'User default page'
+  route_name: entity.user_default_page_config_entity.collection
+  description: 'List User default page (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

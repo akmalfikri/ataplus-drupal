@@ -1,0 +1,15 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      '//use.fontawesome.com/releases/v5.0.6/css/all.css': {}
+  js:
+    js/js.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+cert-pdf:
+  css:
+    theme:
+      css/cert.css: {}
+      '//fonts.googleapis.com/css?family=Exo:200,300,400,500,600,700,800': {type: external, minified: true}

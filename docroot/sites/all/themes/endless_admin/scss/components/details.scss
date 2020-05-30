@@ -1,0 +1,62 @@
+/**
+ * @file
+ * Collapsible details.
+ *
+ * @see collapse.js
+ * @see http://nicolasgallagher.com/css-background-image-hacks/
+ */
+
+@import "../variables";
+
+details {
+  // line-height: 1.295em;
+  @include paper-box-shadow($form-border);
+  margin-top: 1em;
+  margin-bottom: 1em;
+  overflow: visible;
+  white-space: normal;
+
+  summary {
+    background-color: $bg-secondary;
+    border-radius: $border-radius;
+    color: #fff;
+    font-size: 16px;
+    font-size: 1.6rem;
+    font-weight: normal;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-transform: none;
+
+    &:focus {
+      outline: none;
+    }
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+details > .details-wrapper {
+  border: 1px solid $form-border;
+  border-top: none;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  padding: 0.5em 1.5em;
+
+  .vertical-tabs__panes & {
+    border: none;
+    padding: 0;
+  }
+}
+/* @todo Regression: The summary of uncollapsible details are no longer
+     vertically aligned with the .details-wrapper in browsers without native
+     details support. */
+summary {
+  cursor: pointer;
+  padding: 1rem 0.5em;
+}

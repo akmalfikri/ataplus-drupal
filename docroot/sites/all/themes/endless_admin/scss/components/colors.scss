@@ -1,0 +1,18 @@
+/**
+ * Reusable colors.
+ */
+
+@import "../variables";
+
+.color-success {
+  color: $color-status-fg;
+  background-color: $color-status;
+}
+.color-warning {
+  color: $color-warning-fg;
+  background-color: $color-warning;
+}
+.color-error {
+  color: $color-error-fg;
+  background-color: $color-error;
+}

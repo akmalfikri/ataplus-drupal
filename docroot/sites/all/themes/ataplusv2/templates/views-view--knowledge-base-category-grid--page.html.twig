@@ -1,0 +1,32 @@
+<div class="home-top knowledge-lab1 paddtop120 paddbottom40">
+<div class="container banner text-left">
+<h1 class="banner-title white fontmedium2  ">Knowledge Lab</h1>
+
+<p class="banner-desc white   ">Expertly Curated Resources for Entrepreneurs.</p>
+</div>
+</div>
+
+
+<div class="bg-white dark-blue paddtop40 paddbottom40">
+<div class="container text-center">
+<div class="col-md-10 col-md-offset-1">
+<!--<h1 class="banner-title">Empower businesses with your investment decision</h1>-->
+
+<p class="font24">The team at Ata Plus has scoured the internet for the best information available for you to build, run and enhance your business.</p>
+</div>
+</div>
+</div>
+
+<div class="learning-icons bg-purple paddtop60 paddbottom60">
+    <div class="container">
+        {% if rows %}
+            <div class="view-content">
+              {{ rows }}
+            </div>
+          {% elseif empty %}
+            <div class="view-empty">
+              {{ empty }}
+            </div>
+          {% endif %}
+    </div>
+</div>

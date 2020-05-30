@@ -1,0 +1,13 @@
+# Investment menu items definition
+entity.investment.collection:
+  title: 'Investment list'
+  route_name: entity.investment.collection
+  description: 'List of Investment'
+  parent: system.admin_content
+  weight: 100
+
+investment.admin.structure.settings:
+  title: Investment settings
+  description: 'Configure Investment entities'
+  route_name: investment.settings
+  parent: system.admin_config

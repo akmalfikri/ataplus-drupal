@@ -1,0 +1,95 @@
+/**
+ * @file
+ * Styles for the system status counter component.
+ */
+
+@import "../variables";
+
+.system-status-counter {
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  border-left: $tab-border-l solid transparent;
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+
+}
+.system-status-counter--checked {
+  @include paper-box-shadow-raised($gray-600);
+  background-color: $color-status;
+  border-left-color: $color-status-border;
+  color: $color-status-fg;
+}
+.system-status-counter--warning {
+  @include paper-box-shadow-raised($gray-600);
+  background-color: $color-warning;
+  border-left-color: $color-warning-border;
+  color: $color-warning-fg;
+}
+.system-status-counter--error {
+  @include paper-box-shadow-raised($gray-600);
+  background-color: $color-error;
+  border-left-color: $color-error-border;
+  color: $color-error-fg;
+}
+.system-status-counter__status-icon {
+  @include paper-box-shadow-raised($gray-600);
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  margin-top: -56px;
+  margin-left: -20px;
+  vertical-align: middle;
+
+  @include media-breakpoint-up(sm) {
+    margin-left: 15px;
+  }
+
+  &:before {
+    content: "";
+    background-size: 21px;
+    background-position: 50% center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.system-status-counter__status-icon--error:before {
+  background-image: url(/core/themes/stable/images/core/icons/e32700/error.svg);
+}
+.system-status-counter__status-icon--warning:before {
+  background-image: url(/core/themes/stable/images/core/icons/e29700/warning.svg);
+}
+.system-status-counter__status-icon--checked:before {
+  background-image: url(/core/themes/stable/images/core/icons/73b355/check.svg);
+}
+
+.system-status-counter__status-title {
+  display: inline-block;
+  font-size: 16px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 1em;
+  text-transform: uppercase;
+  padding: 10px 6px;
+  vertical-align: middle;
+
+  @include media-breakpoint-up(md) {
+    padding: 10px 3%;
+  }
+}
+.system-status-counter__title-count {
+  display: block;
+  margin-bottom: 2px;
+}
+.system-status-counter__details {
+  display: block;
+  font-weight: normal;
+  text-transform: none;
+  line-height: 1.5;
+}
+

@@ -1,0 +1,34 @@
+/**
+ * Add spacing to bottom of pages
+ */
+
+@import "../variables";
+
+.page-content-wrapper {
+  background-color: #fff;
+  border-top: 1em solid $bg-tab;
+  padding: 0 1.5em;
+
+  @include media-breakpoint-up(md) {
+    background-color: #fff;
+    border-top: 1em solid $bg-tab;
+    padding: 0 2.5em;
+  }
+}
+
+.page-content {
+  margin-bottom: 80px;
+}
+
+.region-highlighted {
+  padding-bottom: 1em;
+}
+
+.region-pre-content {
+  background-color: $bg-tab;
+  margin: 0 -1.5em;
+
+ @include media-breakpoint-up(md) {
+    margin: 0 -2.5em;
+  }
+}

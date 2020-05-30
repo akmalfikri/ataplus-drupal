@@ -1,0 +1,103 @@
+@import "mixins";
+
+// Media breakpoints - sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px,
+  xxxxl: 2000px,
+) !default;
+
+// Fonts.
+$font-family-sans-serif: "Lato", sans-serif !default;
+$font-family-monospace:  Menlo, Monaco, Consolas, monospace !default;
+$font-family-base: $font-family-sans-serif !default;
+$font-family-header: $font-family-sans-serif !default;
+
+// Colors.
+$white:  #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:  #000 !default;
+
+$color-text: #333 !default;
+$color-primary: #008ee6 !default;
+$color-secondary: #999 !default;
+
+$color-mute: $gray-700 !default;
+$color-strong: $black !default;
+
+$color-status: #bfeac3 !default;
+$color-status-border: #58da9c !default;
+$color-status-fg: $color-text !default;
+$color-warning: #faeaa9 !default;
+$color-warning-border: #f3cc31 !default;
+$color-warning-fg: $color-text !default;
+$color-error: #fbe1e3 !default;
+$color-error-border: #e73d4a !default;
+$color-error-fg: #e73d4a !default;
+
+$link-color: #0074bd !default;
+$link-color-hover: $color-primary !default;
+
+$bg-body: #222 !default;
+$bg-primary: $color-primary !default;
+$bg-secondary: #333 !default;
+$bg-light: #f9f9f9 !default;
+$bg-hover: #f7fcff !default;
+
+$bg-disabled: #ededed !default;
+$color-disabled: #5c5c5c !default;
+$border-color-disabled: #d4d4d4 !default;
+$opacity-disabled: .65 !default;
+
+$border-color: #333 !default;
+$border-color-hover: $bg-light !default;
+
+$border-radius: 4px !default;
+
+// Fonts.
+$fs-default: 16px !default;
+$lh-default: 1.4 !default;
+
+// Tabs.
+$bg-tab: $bg-light !default;
+
+$tab-border-l: 5px !default;
+$tab-border-b: 3px !default;
+
+// Buttons.
+$button-border-radius: 2px !default;
+
+// $button-bg: $bg-primary !default;
+$button-bg: $gray-600 !default;
+$button-bg-hover: #007aff !default;
+$button-bg-primary: #007aff !default;
+
+$button-border: transparent !default;
+$button-border-hover: $button-bg !default;
+$button-border-active: #204d74 !default;
+
+// Forms.
+$form-border: #c2cad8 !default;
+// $form-border: $gray-200 !default;
+$form-border-focus: #40b6ff !default;
+$form-border-hover: $form-border-focus !default;
+
+// Badges.
+$badge-font-size: 14px !default;
+$badge-font-weight: normal !default;
+$badge-padding-x: 1em !default;
+$badge-padding-y: 6px !default;
+$badge-border-radius: 2px !default;

@@ -1,0 +1,20 @@
+id: ataplus_user_migration
+migration_tags: null
+migration_group: null
+label: 'User migration from CSV'
+source:
+  plugin: csv
+  path: /var/www/html/ataplusv2.dev/docroot/ataplus.users.csv
+  header_row_count: 1
+  keys:
+    - ID
+process:
+  name: name
+  mail: user_email
+  field_full_name: display_name
+  field_a: MAILING ADDRESS
+destination:
+  plugin: 'entity:user'
+migration_dependencies:
+  required: {  }
+  optional: {  }

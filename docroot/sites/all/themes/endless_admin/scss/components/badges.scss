@@ -1,0 +1,34 @@
+
+@import "../variables";
+
+.badge {
+  @include paper-box-shadow($gray-600);
+  border-radius: $badge-border-radius;
+  display: inline-block;
+  font-size: $badge-font-size;
+  font-weight: $badge-font-weight;
+  line-height: 1;
+  padding: $badge-padding-y $badge-padding-x;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
+
+  // Empty badges collapse automatically
+  &:empty {
+    display: none;
+  }
+
+  &-default {
+    background-color: $bg-light;
+  }
+  &-primary {
+    background-color: $color-primary;
+    color: #fff;
+  }
+  &-warning {
+    background-color: $color-warning;
+  }
+  &-danger {
+    background-color: $color-error;
+  }
+}

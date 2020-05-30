@@ -1,0 +1,16 @@
+name: 'Users Export'
+description: 'Export your users to a flat file of various types.'
+package: User
+# core: 8.x
+# version: 8.x-1.0-rc1
+php: '5.3'
+dependencies:
+  - loft_data_grids
+type: module
+configure: users_export.form
+
+# Information added by Drupal.org packaging script on 2017-04-09
+version: '8.x-1.0-rc1'
+core: '8.x'
+project: 'users_export'
+datestamp: 1491751086

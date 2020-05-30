@@ -1,0 +1,49 @@
+/**
+ * @file
+ * Styles for Endless Admin's Pagination.
+ */
+
+@import "../variables";
+
+.pager__items {
+  margin: 0.25em 0 0.25em 1.5em; /* LTR */
+  padding: 0;
+}
+[dir="rtl"] .pager__items {
+  margin: 0.25em 1.5em 0.25em 0;
+}
+.pager__item {
+  display: inline-block;
+  color: $color-text;
+  margin: 0;
+  padding: .5em 0;
+}
+.pager__item a {
+  -webkit-font-smoothing: antialiased;
+  border-radius: 40px;
+  padding: 7px 13px 9px;
+  text-decoration: none;
+  transition: background-color 0.1s;
+
+  &:hover,
+  &:focus {
+    background-color: #aaa;
+    color: #fff;
+  }
+}
+.pager__item.is-active a {
+  @include paper-box-shadow-raised($bg-primary);
+  background-color: $bg-primary;
+  color: #fff;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+}
+.pager__item--next a,
+.pager__item--last a,
+.pager__item--first a,
+.pager__item--previous a {
+  color: $bg-primary;
+}

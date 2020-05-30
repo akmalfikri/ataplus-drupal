@@ -1,0 +1,5 @@
+name: Investment
+type: module
+description: Add investment into ATAPlusv2 Project
+core: 8.x
+package: Custom

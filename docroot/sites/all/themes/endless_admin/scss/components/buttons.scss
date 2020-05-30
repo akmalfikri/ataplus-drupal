@@ -1,0 +1,198 @@
+/**
+ * @file
+ * Structural styles for Endless Admin’s UI buttons
+ *
+ * Apply these classes to any element (<link>, <button>, <input>, etc.) that
+ * should appear as a button.
+ */
+
+@import "../variables";
+
+/**
+ * Buttons.
+ *
+ * 1. Enable z-index on buttons.
+ * 2. Normalize 'line-height'; can’t be changed from 'normal' in Firefox 4+.
+ * 3. Allows full range of styling in Webkit and Gecko.
+ * 4. Use px units to ensure button text is centered vertically.
+ * 5. Use rems to avoid the font size cascade of ems, with a px fallback for
+ *    older browsers.
+ * 6. Prevent fat text in WebKit.
+ *
+ * @todo Consider moving box-sizing into base.css under a universal selector.
+ * See https://www.drupal.org/node/2124251
+ *
+ */
+.button {
+  @include paper-box-shadow($border-color);
+  -moz-appearance: none;  /* 3 */
+  -webkit-appearance: none;  /* 3 */
+  -webkit-font-smoothing: antialiased;  /* 6 */
+  box-sizing: border-box;
+  background-color: $button-bg;
+  border: 1px solid $button-border;
+  border-radius: $button-border-radius;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-size: 1.4rem;  /* 5 */
+  font-weight: bold;
+  line-height: normal;  /* 2 */
+  padding: 8px 1.5em;  /* 4 */
+  position: relative;  /* 1 */
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  transition: box-shadow 0.1s cubic-bezier(0.4, 0, 1, 1), background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus {
+    @include paper-box-shadow-raised($border-color);
+    background-color: $button-bg;
+    border-color: $button-border-hover;
+    outline: none;
+    text-decoration: none;
+  }
+  &:active {
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.1);
+    border-color: $button-border-active
+  }
+
+  &--primary {
+    @include paper-box-shadow($button-bg-primary);
+    background-color: $button-bg-primary;
+    border-color: $button-bg-primary;
+
+    &:hover,
+    &:focus {
+      @include paper-box-shadow-raised($button-bg-primary);
+      background-color: $button-bg-primary;
+      border-color: $button-bg-primary;
+    }
+  }
+
+  &--small {
+    @include paper-box-shadow($button-bg);
+    background-color: #fff;
+    border-color: $button-bg;
+    color: $color-text;
+    font-size: 13px;
+    font-size: 1.3rem;
+
+    &:hover,
+    &:focus {
+      @include paper-box-shadow-raised($button-bg);
+      background-color: #fff;
+      border-color: $button-bg;
+      color: $color-text;
+    }
+  }
+
+  &:disabled,
+  &:disabled:active,
+  &.is-disabled,
+  &.is-disabled:active {
+    border-color: $border-color-disabled;
+    background: $bg-disabled;
+    box-shadow: none;
+    color: $color-disabled;
+    cursor: not-allowed;
+    font-weight: normal;
+    opacity: $opacity-disabled;
+  }
+}
+
+/**
+ * 1. Use px units to ensure button text is centered vertically.
+ */
+.no-touchevents .button--small {
+  padding: 6px 1em;  /* 1 */
+}
+
+/**
+ * Overrides styling from system.theme.
+ */
+.button-action:before {
+  margin-left: -0.2em; /* LTR */
+  padding-right: 0.2em; /* LTR */
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 16px;
+  -webkit-font-smoothing: auto;
+
+  [dir="rtl"] & {
+    margin-right: -0.2em;
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 0.2em;
+  }
+}
+
+/* Link actions. */
+
+/**
+ * Style a clickable/tappable element as a link. Duplicates the base style for
+ * the <a> tag, plus a reset for padding, borders and background.
+ */
+.link {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  color: $link-color;
+  cursor: pointer;
+  display: inline;
+  padding: 0;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $link-color-hover;
+    text-decoration: underline;
+  }
+}
+
+/**
+ * We've temporarily added the danger button here, bit of a harsh reset but we
+ * need it.
+ * @todo replace with link--danger.
+ * See https://www.drupal.org/node/2123731
+ */
+.button--danger {
+  display: inline;
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: #c72100;
+  font-weight: bold;
+  text-decoration: underline;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #ff2a00;
+    text-decoration: underline;
+    text-shadow: none;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: none;
+  }
+  &:disabled,
+  &.is-disabled {
+    -webkit-font-smoothing: antialiased;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    color: $color-disabled;
+    cursor: default;
+    padding: 0;
+    text-decoration: none;
+  }
+}

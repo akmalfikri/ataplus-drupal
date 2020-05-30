@@ -1,0 +1,20 @@
+selectAll:
+  version: 1.0
+  js:
+    js/selectAll.js: {}
+  css:
+    component:
+      css/selectAll.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+
+adminUi:
+  version: 1.0
+  js:
+    js/adminUi.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once

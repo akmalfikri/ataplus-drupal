@@ -1,0 +1,156 @@
+/**
+ * @file
+ * Override of misc/vertical-tabs.css.
+ */
+
+@import "../variables";
+
+.vertical-tabs {
+  border: none;
+  border-radius: $border-radius;
+  margin: 10px 0;
+  position: relative;
+}
+.vertical-tabs__menu {
+  border-top: none;
+  float: left; /* LTR */
+  line-height: 1;
+  margin: 0 -100% -1px 0; /* LTR */
+  padding: 0;
+  width: 240px;
+
+  [dir="rtl"] & {
+    float: right;
+    margin: 0 0 -1px -100%;
+  }
+}
+
+.vertical-tabs__menu-item {
+  background: #fff;
+  border: none;
+  margin-bottom: 2px;
+  position: relative;
+  text-decoration: none;
+
+  &:focus,
+  &:active {
+    text-decoration: none;
+    z-index: 2;
+  }
+  &.is-selected {
+    box-shadow: 0 0 0 0 transparent, 0 0 0 0 transparent, 0 4px 1px -2px rgba($form-border, 0.2), 0 3px 1px -2px rgba($form-border, 0.2);
+    background-color: #fff;
+    border: 1px solid $form-border;
+    border-right: 1px solid #fff; /* LTR */
+    color: #fff;
+    overflow-x: hidden;
+    width: 100%;
+    z-index: 1;
+
+    [dir="rtl"] & {
+      border-left: 1px solid #fff;
+      border-right: none;
+    }
+
+    a {
+      background-color: #fff;
+      color: $color-primary;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        background-color: #fff;
+        color: $color-primary;
+        outline: none;
+        text-decoration: none;
+        text-shadow: none;
+      }
+    }
+    .vertical-tabs__menu-item-title {
+      color: $color-primary;
+    }
+  }
+  &.last {
+    border-bottom: 1px solid $form-border;
+  }
+  a {
+    color: #aaa;
+    display: block;
+    padding: 10px 15px 15px;
+    background-color: $bg-secondary;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      background-color: $bg-primary;
+      color: #fff;
+      outline: none;
+      text-decoration: none;
+      text-shadow: none;
+    }
+  }
+  &:last-child a {
+    border-bottom: 0;
+  }
+}
+.vertical-tabs__menu-item a:focus {
+  outline: none;
+}
+.vertical-tabs__menu-item a:hover .vertical-tabs__menu-item-title,
+.vertical-tabs__menu-item a:focus .vertical-tabs__menu-item-title {
+  text-decoration: none;
+}
+// .vertical-tabs__menu-item a:active .vertical-tabs__menu-item-title,
+// .vertical-tabs__menu-item.is-selected a:focus .vertical-tabs__menu-item-title {
+//   text-decoration: none;
+// }
+.vertical-tabs__menu-item.is-selected a {
+  color: $color-primary;
+  padding-left: 11px; /* LTR */
+  border-bottom: none;
+  text-decoration: none;
+
+  [dir=rtl] & {
+    padding-left: 15px;
+    padding-right: 11px;
+  }
+  // &:hover,
+  // &:focus {
+  //   color: #007ecc;
+  // }
+}
+[data-vertical-tabs-panes] {
+  background-color: #fff;
+}
+.vertical-tabs__panes {
+  @include paper-box-shadow($form-border);
+  border: 1px solid $form-border; /* LTR */
+  margin: 0 0 0 240px; /* LTR */
+  padding: 10px 15px 10px 15px;
+
+  [dir="rtl"] & {
+    margin: 0 240px 0 0;
+    border-left: none;
+    border-right: 1px solid $form-border;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+.vertical-tabs__pane {
+  border: 0;
+  box-shadow: none;
+  color: $color-text;
+  margin: 0;
+  padding: 0;
+}
+.vertical-tabs__menu-item-summary {
+  display: block;
+  padding-top: 0.4em;
+  color: #666;
+}
+.vertical-tabs__pane > summary {
+  display: none;
+}

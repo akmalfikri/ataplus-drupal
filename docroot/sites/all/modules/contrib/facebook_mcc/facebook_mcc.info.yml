@@ -1,0 +1,13 @@
+name: Facebook Messenger Customer Chat
+description: Facebook Messenger Customer Chat Plugin For Drupal.
+package: Web services
+configure: facebook_mcc.config_form
+
+type: module
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2018-12-27
+version: '8.x-1.2'
+core: '8.x'
+project: 'facebook_mcc'
+datestamp: 1545927184

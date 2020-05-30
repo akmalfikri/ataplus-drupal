@@ -1,0 +1,926 @@
+/**
+ * @file
+ * The .admin.theme.css file is intended to contain presentation declarations
+ * including images, borders, colors, and fonts.
+ */
+@import "../variables";
+@import "buttons";
+
+.box-padding {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.box-margin {
+  margin: 12px 12px 0 12px;
+}
+.views-admin {
+  .links {
+    list-style: none outside none;
+    margin: 0;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  .icon {
+    height: 16px;
+    width: 16px;
+
+    &.compact {
+      display: block;
+      overflow: hidden;
+      direction: ltr;
+      text-indent: -9999px;
+    }
+    &.linked {
+      background-position: center -153px;
+    }
+    &.unlinked {
+      background-position: center -195px;
+    }
+    &.add {
+      background-position: center 3px;
+    }
+    &.delete {
+      background-position: center -52px;
+    }
+    &.rearrange {
+      background-position: center -111px;
+    }
+  }
+  .icon,
+  .icon-text {
+    background-attachment: scroll;
+    background-image: url(/core/themes/stable/images/views_ui/sprites.png);
+    background-position: left top; /* LTR */
+    background-repeat: no-repeat;
+
+    [dir="rtl"] & {
+      background-position: right top;
+    }
+  }
+  a.icon {
+    background: linear-gradient(-90deg, #fff 0, #e8e8e8 100%) no-repeat, repeat-y;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 0 0 rgba(0,0,0,0.3333) inset;
+
+    &:hover {
+      border-color: #d0d0d0;
+      box-shadow: 0 0 1px rgba(0,0,0,0.3333) inset;
+    }
+    &:active {
+      border-color: #c0c0c0;
+    }
+
+    &.add {
+      background-position: center 3px, left top; /* LTR */
+
+      [dir="rtl"] & {
+        background-position: center 3px, right top;
+      }
+    }
+    &.delete {
+      background-position: center -52px, left top; /* LTR */
+
+      [dir="rtl"] & {
+        background-position: center -52px, right top;
+      }
+    }
+    &.rearrange {
+      background-position: center -111px, left top; /* LTR */
+
+      [dir="rtl"] & {
+        background-position: center -111px, right top;
+      }
+    }
+  }
+  span.icon {
+    float: left; /* LTR */
+    position: relative;
+
+    [dir="rtl"] & {
+      float: right;
+    }
+  }
+  /* Targets any element with an icon -> text combo */
+  .icon-text {
+    padding-left: 19px; /* LTR */
+
+    [dir="rtl"] & {
+      padding-left: 0;
+      padding-right: 19px;
+    }
+  }
+
+  details details {
+    margin-bottom: 0;
+
+    &.container-inline {
+      margin-bottom: 1em;
+      margin-top: 1em;
+      padding-top: 0;
+    }
+    &.container-inline > .details-wrapper {
+      padding-bottom: 0;
+    }
+  }
+  /* Indent form elements so they're directly underneath the label of the checkbox that reveals them */
+  .form-type-checkbox + .form-wrapper {
+    margin-left: 16px; /* LTR */
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 16px;
+    }
+  }
+  /* sizes the labels of checkboxes and radio button to the height of the text */
+  .form-type-checkbox label,
+  .form-type-radio label {
+    line-height: 2;
+  }
+  .unit-title {
+    font-size: 15px;
+    line-height: 1.6154;
+    margin-bottom: 0;
+  }
+
+}
+
+.views-displays .tabs a:hover > .icon.add {
+  background-position: center -25px;
+}
+.views-displays .tabs .open a:hover > .icon.add {
+  background-position: center 3px;
+}
+details.box-padding {
+  border: none;
+}
+.form-item {
+  margin-top: 9px;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+.form-type-checkbox {
+  margin-top: 6px;
+}
+.form-checkbox,
+.form-radio {
+  vertical-align: baseline;
+}
+
+.container-inline {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  > * + *,
+  .details-wrapper > * + * {
+    padding-left: 4px; /* LTR */
+
+    [dir="rtl"] & {
+      padding-left: 0;
+      padding-right: 4px;
+    }
+  }
+}
+
+/* Hide 'remove' checkboxes. */
+.views-remove-checkbox {
+    display: none;
+}
+
+.views-admin-dependent .form-item {
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+.view-changed {
+  margin-bottom: 21px;
+}
+.views-ui-view-displays ul {
+  margin-left: 0; /* LTR */
+  padding-left: 0; /* LTR */
+  list-style: none;
+
+  [dir="rtl"] & {
+    margin-right: 0;
+    padding-right: 0;
+    margin-left: inherit;
+    padding-left: inherit;
+  }
+}
+
+/* These header classes are ambiguous and should be scoped to th elements */
+.views-ui-name {
+  width: 20%;
+}
+.views-ui-description {
+  width: 30%;
+}
+.views-ui-machine-name {
+  width: 15%;
+}
+.views-ui-displays {
+  width: 25%;
+}
+.views-ui-operations {
+  width: 10%;
+}
+
+/**
+ * I wish this didn't have to be so specific
+ */
+.form-item-description-enable + .form-item-description {
+  margin-top: 0;
+}
+.form-item-description-enable label {
+  font-weight: bold;
+}
+.form-item-page-create,
+.form-item-block-create {
+  margin-top: 13px;
+}
+.form-item-page-create label,
+.form-item-block-create label,
+.form-item-rest-export-create label {
+  font-weight: bold;
+}
+
+/* This makes the form elements after the "Display Format" label flow underneath the label */
+.form-item-page-style-style-plugin > label,
+.form-item-block-style-style-plugin > label {
+  display: block;
+}
+.views-attachment .options-set label {
+  font-weight: normal;
+}
+
+/* Styling for the form that allows views filters to be rearranged. */
+.group-populated {
+  display: none;
+}
+td.group-title {
+  font-weight: bold;
+}
+.views-ui-dialog td.group-title {
+  margin: 0;
+  padding: 0;
+}
+.views-ui-dialog td.group-title span {
+  display: block;
+  height: 1px;
+  overflow: hidden;
+}
+.group-message .form-submit,
+.views-remove-group-link,
+.views-add-group {
+  float: right; /* LTR */
+  clear: both;
+
+  [dir="rtl"] & {
+    float: left;
+  }
+}
+.views-operator-label {
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 0.5em; /* LTR */
+  text-transform: uppercase;
+
+  [dir="rtl"] & {
+    padding-left: 0;
+    padding-right: 0.5em;
+  }
+}
+.grouped-description,
+.exposed-description {
+  float: left; /* LTR */
+  padding-top: 3px;
+  padding-right: 10px; /* LTR */
+
+  [dir="rtl"] & {
+    float: right;
+    padding-left: 10px;
+    padding-right: 0;
+  }
+}
+
+.form-edit .form-actions {
+  background-color: $bg-secondary;
+  margin-top: 0;
+  padding: 8px 12px;
+}
+
+.views-display-top {
+  background-color: $bg-secondary;
+  padding: 5px 5px 0px;
+  position: relative;
+
+  .tabs {
+    margin-right: 18em; /* LTR */
+
+    [dir="rtl"] & {
+      margin-left: 18em;
+      margin-right: 0;
+    }
+    > li {
+      // margin-right: 6px; /* LTR */
+      // padding-left: 0; /* LTR */
+
+      [dir="rtl"] & {
+        // margin-left: 6px;
+        // margin-right: 0.3em;
+        // padding-right: 0;
+      }
+    }
+    > li:last-child {
+      margin-right: 0; /* LTR */
+
+      [dir="rtl"] & {
+        margin-left: 0;
+        margin-right: 0.3em;
+      }
+    }
+  }
+}
+.views-displays {
+  padding-bottom: 2em;
+}
+.views-displays .tabs {
+  a:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+  li a:hover {
+    background-color: $bg-primary;
+    color: #fff;
+  }
+  li.is-active a,
+  li.is-active a.is-active {
+    background-color: #fff;
+    color: $color-primary;
+  }
+  li.add ul.action-list li {
+    margin: 0;
+  }
+  li.tabs__tab:hover {
+    border: 0;
+    padding-left: 0; /* LTR */
+
+    [dir="rtl"] & {
+      padding-right: 0;
+    }
+  }
+  /* Display a red border if the display doesn't validate. */
+  li.is-active a.is-active.error,
+  .error {
+    border: 1px solid $color-error-border;
+    padding: 1px 6px;
+  }
+  .open > a {
+    background-color: #fff;
+    border-bottom: 1px solid transparent;
+    position: relative;
+  }
+  .open > a:hover {
+    color: $color-text;
+    background-color: #fff;
+  }
+}
+.views-displays .tabs.secondary {
+  border: 0;
+  margin-top: .5em;
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 0;
+    margin-right: 200px; /* LTR */
+  }
+
+  [dir="rtl"] & {
+    @include media-breakpoint-up(lg) {
+      margin-left: 200px;
+      margin-right: 0;
+    }
+  }
+
+  li,
+  li.is-active {
+    background: transparent;
+    border: 0;
+    margin: 0 0 -1px 0;
+    padding: 0;
+    width: auto;
+  }
+  li.add {
+    margin-top: 1px;
+    margin-left: .5em;
+
+    a {
+      @extend .button;
+      font-weight: normal;
+      padding: 2px 8px 4px 4px;
+
+      &:focus,
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+  a {
+    display: inline-block;
+    font-weight: normal;
+    padding: 6px 12px 8px;
+  }
+  .tabs__tab + .tabs__tab {
+    border-top: 0;
+  }
+}
+.views-displays .action-list {
+  li {
+    background-color: #fff;
+    border-color: $form-border;
+    border-style: solid;
+    border-width: 0 1px;
+    padding: 6px 12px;
+
+    &:first-child {
+      border-width: 1px 1px 0;
+    }
+    &:last-child {
+      border-width: 0 1px 1px;
+    }
+  }
+}
+.views-displays .tabs .action-list {
+  li {
+    &:last-child {
+      border-width: 0 1px 1px;
+    }
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+  input.form-submit {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    box-shadow: none;
+    color: $color-text;
+    margin: 0;
+    padding: 0;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+.edit-display-settings {
+  margin: 12px 0 0 0;
+}
+.edit-display-settings-top.views-ui-display-tab-bucket {
+  border-bottom: 1px solid $form-border;
+  line-height: 20px;
+  margin: 0 0 15px 0;
+  padding: 4px 0;
+  position: relative;
+}
+
+.views-display-column {
+  @include media-breakpoint-up(lg) {
+    border-right: 1px solid $form-border;
+    margin-right: 1em;
+    padding-right: 1em;
+
+  }
+  + .views-display-column {
+    margin-top: 0;
+  }
+}
+
+.views-live-preview {
+  border: 1px solid $form-border;
+  padding: 12px;
+}
+.view-preview-form {
+  .form-item-view-args,
+  .form-actions {
+  }
+  .arguments-preview {
+    font-size: 1em;
+  }
+  .form-item-view-args label {
+    float: left; /* LTR */
+    font-weight: normal;
+    height: 6ex;
+    margin-right: 0.75em; /* LTR */
+
+    [dir="rtl"] & {
+      float: right;
+      margin-left: 0.75em;
+      margin-right: 0.2em;
+    }
+  }
+}
+.form-item-live-preview,
+.form-item-view-args,
+.preview-submit-wrapper {
+  display: inline-block;
+}
+.form-item-live-preview,
+.view-preview-form .form-actions {
+  margin-top: .5em;
+  vertical-align: top;
+}
+@include media-breakpoint-up(lg) {
+  .view-preview-form .form-type-textfield .description {
+    white-space: nowrap;
+  }
+}
+
+/* These are the individual "buckets," or boxes, inside the display settings area */
+.views-ui-display-tab-bucket {
+  line-height: 2em;
+  margin: 0 0 1em 0;
+  position: relative;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+  &.access {
+    padding-top: 0;
+  }
+  &.page-settings {
+    border-bottom: medium none;
+  }
+  + .views-ui-display-tab-bucket {
+    border-top: medium none;
+  }
+  .views-display-setting {
+    color: #666;
+    font-size: 14px;
+    font-size: 1.4rem;
+    padding: 0 1em;
+
+    &:hover,
+    &:focus {
+      background-color: $bg-hover;
+    }
+    &:nth-of-type(even) {
+      background-color: $bg-light;
+
+      &:hover,
+      &:focus {
+        background-color: $bg-hover;
+      }
+    }
+  }
+  /* This is each row within one of the "boxes." */
+  .views-group-text {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+}
+.views-ui-display-tab-bucket__title {
+  font-size: 16px;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+/** Applies an overridden(italics) font style to overridden buckets.
+ * The better way to implement this would be to add the overridden class
+ * to the bucket header when the bucket is overridden and style it as a
+ * generic icon classed element. For the moment, we'll style the bucket
+ * header specifically with the overridden font style.
+ */
+.views-ui-display-tab-setting.overridden,
+.views-ui-display-tab-bucket.overridden .views-ui-display-tab-bucket__title {
+  font-style: italic;
+}
+
+
+.views-ui-display-tab-actions.views-ui-display-tab-bucket .views-display-setting {
+  background-color: transparent;
+}
+
+.views-display-setting .label {
+  margin-right: 3px; /* LTR */
+
+  [dir="rtl"] & {
+    margin-left: 3px;
+    margin-right: 0;
+  }
+}
+.views-edit-view {
+  margin-bottom: 15px;
+}
+
+/* The contents of the popup dialog on the views edit form. */
+.filterable-option .form-item {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.views-filterable-options {
+  border-top:  1px solid #ccc;
+
+  .form-type-checkbox {
+    padding: 5px 8px;
+    border-top: none;
+
+    .description {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  .filterable-option .title {
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+.views-filterable-options-controls {
+  .form-item {
+    margin: 0 0 0 2%; /* LTR */
+    width: 30%;
+
+    [dir="rtl"] & {
+      margin: 0 2% 0 0;
+    }
+  }
+  input,
+  select {
+    width: 100%;
+  }
+}
+.views-ui-dialog {
+  .ui-dialog-content {
+    padding: 0;
+  }
+  .views-filterable-options {
+    margin-bottom: 10px;
+  }
+  .views-add-form-selected.container-inline {
+    padding: 0;
+
+    > div {
+      display: block;
+    }
+  }
+  .form-item-selected {
+    margin: 0;
+    padding: 6px 16px;
+  }
+  .views-override:not(:empty) {
+    background-color: $bg-light;
+    padding: 8px 13px;
+  }
+  &.views-ui-dialog-scroll .ui-dialog-titlebar {
+    border: none;
+  }
+  .views-offset-top {
+    border-bottom: 1px solid #CCC;
+  }
+  .views-offset-bottom {
+    border-top: 1px solid #CCC;
+  }
+  .views-override > * {
+    margin: 0;
+  }
+  .views-progress-indicator {
+    color: #fff;
+    font-size: 11px;
+    position: absolute;
+    right: 10px; /* LTR */
+    top: 32px;
+
+    [dir="rtl"] & {
+      left: 10px;
+      right: auto;
+    }
+    &:before {
+      content: "\003C\00A0";
+    }
+    &:after {
+      content: "\00A0\003E";
+    }
+  }
+  details .item-list {
+    padding-left: 2em; /* LTR */
+
+    [dir="rtl"] & {
+      padding-left: 0;
+      padding-right: 2em;
+    }
+  }
+}
+.views-ui-rearrange-filter-form {
+  table {
+    border-collapse: collapse;
+  }
+  tr td[rowspan] {
+    border-color: $form-border;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+  }
+  tr[id^="views-row"] {
+    border-right: 1px solid $form-border; /* LTR */
+
+    [dir="rtl"] & {
+      border-left: 1px solid $form-border;
+      border-right: 0;
+    }
+  }
+  .even td {
+    background-color: $bg-light;
+  }
+  .views-group-title {
+    border-top: 1px solid $form-border;
+  }
+  .group-empty {
+    border-bottom: 1px solid $form-border;
+  }
+}
+.form-item-options-expose-required,
+.form-item-options-expose-label,
+.form-item-options-expose-description {
+  margin-bottom: 6px;
+  margin-left: 18px; /* LTR */
+  margin-top: 6px;
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 18px;
+  }
+}
+
+.views-preview-wrapper {
+}
+.view-preview-form {
+  position: relative;
+
+  .form-item-live-preview {
+    color: #fff;
+    position: absolute;
+    right: 12px;
+    top: 3px;
+    margin-top: 2px;
+    margin-left: 2px; /* LTR */
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 12px;
+      margin-left: 0;
+      margin-right: 2px;
+    }
+  }
+}
+.view-preview-form__title {
+  background-color: $bg-secondary;
+  color: #fff;
+  margin-top: 0;
+  padding: 8px 12px;
+}
+
+.views-live-preview {
+  border-radius: $border-radius;
+  @include paper-box-shadow($form-border);
+
+  .views-query-info {
+    overflow: auto;
+  }
+  .section-title {
+    color: #818181;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.6154;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .view > * {
+    margin-top: 18px;
+  }
+  .preview-section {
+    border: 1px dashed #dedede;
+    margin: 0 -5px;
+    padding: 3px 5px;
+  }
+  li.views-row + li.views-row {
+    margin-top: 18px;
+  }
+
+  /* The div.views-row is intentional and excludes li.views-row, for example */
+  div.views-row + div.views-row {
+    margin-top: 36px;
+  }
+}
+
+.views-query-info {
+  table {
+    border-collapse: separate;
+    border-color: $form-border;
+    border-spacing: 0;
+    margin: 10px 0;
+
+    tr {
+      background-color: $bg-light;
+    }
+    th,
+    td {
+      color: #666;
+      padding: 4px 10px;
+    }
+  }
+}
+.messages {
+  margin-bottom: 18px;
+  line-height: 1.4555;
+}
+
+.dropbutton-multiple {
+  position: absolute;
+}
+.dropbutton-widget {
+  position: relative;
+}
+.js .views-edit-view .dropbutton-wrapper .dropbutton .dropbutton-action > * {
+  font-size: 10px;
+  padding: 4px 1em;
+}
+.js .dropbutton-wrapper .dropbutton .dropbutton-action > .ajax-progress-throbber {
+  position: absolute;
+  right: -5px; /* LTR */
+  top: -1px;
+  z-index: 2;
+
+  [dir="rtl"] & {
+    left: -5px;
+    right: auto;
+  }
+}
+.js .dropbutton-wrapper.dropbutton-multiple.open .dropbutton-action:first-child a {
+  border-radius: 1.1em 0 0 0; /* LTR */
+
+  [dir="rtl"] & {
+    border-radius: 0 1.1em 0 0;
+  }
+}
+.js .dropbutton-wrapper.dropbutton-multiple.open .dropbutton-action:last-child a {
+  border-radius: 0 0 0 1.1em; /* LTR */
+
+  [dir="rtl"] & {
+    border-radius: 0 0 1.1em 0;
+  }
+}
+.views-display-top {
+  .dropbutton-wrapper {
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+      right: 5px; /* LTR */
+      top: 7px;
+    }
+
+    [dir="rtl"] & {
+      @include media-breakpoint-up(lg) {
+        left: 5px;
+        right: auto;
+      }
+    }
+    .dropbutton-widget .dropbutton-action a {
+      width: auto;
+    }
+  }
+}
+
+.views-ui-display-tab-bucket .dropbutton-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .dropbutton-widget .dropbutton-action a {
+    width: auto;
+  }
+}
+.views-ui-display-tab-actions .dropbutton-wrapper {
+  li a,
+  input {
+    background: none;
+    border: medium;
+    font-family: inherit;
+    font-size: 12px;
+    padding-left: 12px; /* LTR */
+    margin-bottom: 0;
+
+    [dir="rtl"] & {
+      padding-left: 0.5em;
+      padding-right: 12px;
+    }
+  }
+  input:hover {
+    background: none;
+    border: none;
+  }
+}
+.views-list-section {
+  margin-bottom: 2em;
+}
+.form-textarea-wrapper,
+.form-item-options-content {
+  width: 100%;
+}

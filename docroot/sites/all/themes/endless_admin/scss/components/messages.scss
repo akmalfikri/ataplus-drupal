@@ -1,0 +1,41 @@
+/**
+ * Messages.
+ */
+
+@import "../variables";
+
+.messages {
+  @include paper-box-shadow-raised($gray-600);
+  border: none;
+  border-left: $tab-border-l solid transparent;
+  border-radius: $border-radius;
+  margin: 1em 0;
+
+  pre {
+    margin: 0;
+  }
+  h1, .heading-a,
+  h2, .heading-b,
+  h3, .heading-c,
+  h4, .heading-d,
+  h5, .heading-e,
+  h6, .heading-f {
+    margin-top: 0;
+  }
+
+  &--status {
+    background-color: $color-status;
+    border-color: $color-status-border;
+    color: $color-status-fg;
+  }
+  &--warning {
+    background-color: $color-warning;
+    border-color: $color-warning-border;
+    color: $color-warning-fg;
+  }
+  &--error {
+    background-color: $color-error;
+    border-color: $color-error-border;
+    color: $color-error-fg;
+  }
+}
