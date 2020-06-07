@@ -2,9 +2,17 @@
 
 namespace Drupal\smtp\Form;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use PHPMailer\PHPMailer\PHPMailer;
+use Drupal\Component\Utility\EmailValidatorInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\smtp\Plugin\Mail\SMTPMailSystem;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Core\Messenger\Messenger;
+use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Implements the SMTP admin settings form.
@@ -12,179 +20,300 @@ use Drupal\smtp\Plugin\Mail\SMTPMailSystem;
 class SMTPConfigForm extends ConfigFormBase {
 
   /**
-   * {@inheritdoc}.
+   * Drupal messenger service.
+   *
+   * @var \Drupal\Core\Messenger\Messenger
    */
-  public function getFormID() {
+  protected $messenger;
+
+  /**
+   * Email Validator service.
+   *
+   * @var \Drupal\Component\Utility\EmailValidatorInterface
+   */
+  protected $emailValidator;
+
+  /**
+   * The current active user.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $currentUser;
+
+  /**
+   * The mail manager service.
+   *
+   * @var \Drupal\Core\Mail\MailManagerInterface
+   */
+  protected $mailManager;
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Constructs $messenger and $config_factory objects.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   * @param \Drupal\Core\Messenger\Messenger $messenger
+   *   The D8 messenger object.
+   * @param \Drupal\Component\Utility\EmailValidatorInterface $email_validator
+   *   The Email Validator Service.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, Messenger $messenger, EmailValidatorInterface $email_validator, AccountProxyInterface $current_user, MailManagerInterface $mail_manager, ModuleHandlerInterface $module_handler) {
+    $this->messenger = $messenger;
+    $this->emailValidator = $email_validator;
+    $this->currentUser = $current_user;
+    $this->mailManager = $mail_manager;
+    $this->moduleHandler = $module_handler;
+    parent::__construct($config_factory);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('messenger'),
+      $container->get('email.validator'),
+      $container->get('current_user'),
+      $container->get('plugin.manager.mail'),
+      $container->get('module_handler')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
     return 'smtp_admin_settings';
   }
 
   /**
-   * {@inheritdoc}.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->configFactory->get('smtp.settings');
 
+    // Don't overwrite the default if MailSystem module is enabled.
+    $mailsystem_enabled = $this->moduleHandler->moduleExists('mailsystem');
+
     if ($config->get('smtp_on')) {
-      drupal_set_message(t('SMTP module is active.'));
+      $this->messenger->addMessage($this->t('SMTP module is active.'));
+      if ($mailsystem_enabled) {
+        $this->messenger->addWarning($this->t('SMTP module will use the mailsystem module upon config save.'));
+      }
+    }
+    elseif ($mailsystem_enabled) {
+      $this->messenger->addMessage($this->t('SMTP module is managed by <a href=":mailsystem">the mail system module</a>', [':mailsystem' => Url::fromRoute('mailsystem.settings')->toString()]));
     }
     else {
-      drupal_set_message(t('SMTP module is INACTIVE.'));
+      $this->messenger->addMessage($this->t('SMTP module is INACTIVE.'));
     }
-    drupal_set_message(t('Disabled fields are overridden in site-specific configuration file.'), 'warning');
 
-    $form['onoff'] = array(
+    $this->messenger->addMessage($this->t('Disabled fields are overridden in site-specific configuration file.'), 'warning');
+
+    if ($mailsystem_enabled) {
+      $form['onoff']['smtp_on']['#type'] = 'value';
+      $form['onoff']['smtp_on']['#value'] = 'mailsystem';
+    }
+    else {
+      $form['onoff'] = [
+        '#type'  => 'details',
+        '#title' => $this->t('Install options'),
+        '#open' => TRUE,
+      ];
+      $form['onoff']['smtp_on'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Set SMTP as the default mailsystem'),
+        '#default_value' => $config->get('smtp_on') ? 'on' : 'off',
+        '#options' => ['on' => $this->t('On'), 'off' => $this->t('Off')],
+        '#description' => $this->t('When on, all mail is passed through the SMTP module.'),
+        '#disabled' => $this->isOverridden('smtp_on'),
+      ];
+
+      // Force Disabling if PHPmailer doesn't exist.
+      if (!class_exists(PHPMailer::class)) {
+        $form['onoff']['smtp_on']['#disabled'] = TRUE;
+        $form['onoff']['smtp_on']['#default_value'] = 'off';
+        $form['onoff']['smtp_on']['#description'] = $this->t('<strong>SMTP cannot be enabled because the PHPMailer library is missing.</strong>');
+      }
+    }
+
+    $form['server'] = [
       '#type'  => 'details',
-      '#title' => t('Install options'),
+      '#title' => $this->t('SMTP server settings'),
       '#open' => TRUE,
-    );
-    $form['onoff']['smtp_on'] = array(
-      '#type' => 'radios',
-      '#title' => t('Turn this module on or off'),
-      '#default_value' => $config->get('smtp_on') ? 'on' : 'off',
-      '#options' => array('on' => t('On'), 'off' => t('Off')),
-      '#description' => t('To uninstall this module you must turn it off here first.'),
-      '#disabled' => $this->isOverridden('smtp_on'),
-    );
-    $form['server'] = array(
-      '#type'  => 'details',
-      '#title' => t('SMTP server settings'),
-      '#open' => TRUE,
-    );
-    $form['server']['smtp_host'] = array(
+    ];
+    $form['server']['smtp_host'] = [
       '#type' => 'textfield',
-      '#title' => t('SMTP server'),
+      '#title' => $this->t('SMTP server'),
       '#default_value' => $config->get('smtp_host'),
-      '#description' => t('The address of your outgoing SMTP server.'),
+      '#description' => $this->t('The address of your outgoing SMTP server.'),
       '#disabled' => $this->isOverridden('smtp_host'),
-    );
-    $form['server']['smtp_hostbackup'] = array(
+    ];
+    $form['server']['smtp_hostbackup'] = [
       '#type' => 'textfield',
-      '#title' => t('SMTP backup server'),
+      '#title' => $this->t('SMTP backup server'),
       '#default_value' => $config->get('smtp_hostbackup'),
-      '#description' => t('The address of your outgoing SMTP backup server. If the primary server can\'t be found this one will be tried. This is optional.'),
+      '#description' => $this->t("The address of your outgoing SMTP backup server. If the primary server can\'t be found this one will be tried. This is optional."),
       '#disabled' => $this->isOverridden('smtp_hostbackup'),
-    );
-    $form['server']['smtp_port'] = array(
+    ];
+    $form['server']['smtp_port'] = [
       '#type' => 'number',
-      '#title' => t('SMTP port'),
+      '#title' => $this->t('SMTP port'),
       '#size' => 6,
       '#maxlength' => 6,
       '#default_value' => $config->get('smtp_port'),
-      '#description' => t('The default SMTP port is 25, if that is being blocked try 80. Gmail uses 465. See :url for more information on configuring for use with Gmail.', array(':url' => 'http://gmail.google.com/support/bin/answer.py?answer=13287')),
+      '#description' => $this->t('The default SMTP port is 25, if that is being blocked try 80. Gmail uses 465. See :url for more information on configuring for use with Gmail.',
+        [':url' => 'http://gmail.google.com/support/bin/answer.py?answer=13287']),
       '#disabled' => $this->isOverridden('smtp_port'),
-    );
+    ];
+
     // Only display the option if openssl is installed.
     if (function_exists('openssl_open')) {
-      $encryption_options = array(
-        'standard' => t('No'),
-        'ssl' => t('Use SSL'),
-        'tls' => t('Use TLS'),
-      );
-      $encryption_description = t('This allows connection to an SMTP server that requires SSL encryption such as Gmail.');
+      $encryption_options = [
+        'standard' => $this->t('No'),
+        'ssl' => $this->t('Use SSL'),
+        'tls' => $this->t('Use TLS'),
+      ];
+      $encryption_description = $this->t('This allows connection to an SMTP server that requires SSL encryption such as Gmail.');
     }
     // If openssl is not installed, use normal protocol.
     else {
       $config->set('smtp_protocol', 'standard');
-      $encryption_options = array('standard' => t('No'));
-      $encryption_description = t('Your PHP installation does not have SSL enabled. See the :url page on php.net for more information. Gmail requires SSL.', array(':url' => 'http://php.net/openssl'));
+      $encryption_options = ['standard' => $this->t('No')];
+      $encryption_description = $this->t('Your PHP installation does not have SSL enabled. See the :url page on php.net for more information. Gmail requires SSL.',
+        [':url' => 'http://php.net/openssl']);
     }
-    $form['server']['smtp_protocol'] = array(
+
+    $form['server']['smtp_protocol'] = [
       '#type' => 'select',
-      '#title' => t('Use encrypted protocol'),
+      '#title' => $this->t('Use encrypted protocol'),
       '#default_value' => $config->get('smtp_protocol'),
       '#options' => $encryption_options,
       '#description' => $encryption_description,
       '#disabled' => $this->isOverridden('smtp_protocol'),
-    );
+    ];
 
-    $form['auth'] = array(
+    $form['server']['smtp_autotls'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Enable TLS encryption automatically'),
+      '#default_value' => $config->get('smtp_autotls') ? 'on' : 'off',
+      '#options' => ['on' => $this->t('On'), 'off' => $this->t('Off')],
+      '#description' => $this->t('Whether to enable TLS encryption automatically if a server supports it, even if the protocol is not set to "tls".'),
+      '#disabled' => $this->isOverridden('smtp_autotls'),
+    ];
+
+    $form['server']['smtp_timeout'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Timeout'),
+      '#default_value' => $config->get('smtp_timeout'),
+      '#description' => $this->t('Amount of seconds for the SMTP commands to timeout.'),
+      '#disabled' => $this->isOverridden('smtp_timeout'),
+    ];
+
+    $form['auth'] = [
       '#type' => 'details',
-      '#title' => t('SMTP Authentication'),
-      '#description' => t('Leave blank if your SMTP server does not require authentication.'),
+      '#title' => $this->t('SMTP Authentication'),
+      '#description' => $this->t('Leave blank if your SMTP server does not require authentication.'),
       '#open' => TRUE,
-    );
-    $form['auth']['smtp_username'] = array(
+    ];
+    $form['auth']['smtp_username'] = [
       '#type' => 'textfield',
-      '#title' => t('Username'),
+      '#title' => $this->t('Username'),
       '#default_value' => $config->get('smtp_username'),
-      '#description' => t('SMTP Username.'),
+      '#description' => $this->t('SMTP Username.'),
       '#disabled' => $this->isOverridden('smtp_username'),
-    );
-    $form['auth']['smtp_password'] = array(
+    ];
+    $form['auth']['smtp_password'] = [
       '#type' => 'password',
-      '#title' => t('Password'),
+      '#title' => $this->t('Password'),
       '#default_value' => $config->get('smtp_password'),
-      '#description' => t('SMTP password. If you have already entered your password before, you should leave this field blank, unless you want to change the stored password. Please note that this password will be stored as plain-text inside Drupal\'s core configuration variables.'),
+      '#description' => $this->t("SMTP password. If you have already entered your password before, you should leave this field blank, unless you want to change the stored password. Please note that this password will be stored as plain-text inside Drupal\'s core configuration variables."),
       '#disabled' => $this->isOverridden('smtp_password'),
-    );
+    ];
 
-    $form['email_options'] = array(
+    $form['email_options'] = [
       '#type'  => 'details',
-      '#title' => t('E-mail options'),
+      '#title' => $this->t('E-mail options'),
       '#open' => TRUE,
-    );
-    $form['email_options']['smtp_from'] = array(
+    ];
+    $form['email_options']['smtp_from'] = [
       '#type' => 'textfield',
-      '#title' => t('E-mail from address'),
+      '#title' => $this->t('E-mail from address'),
       '#default_value' => $config->get('smtp_from'),
-      '#description' => t('The e-mail address that all e-mails will be from.'),
+      '#description' => $this->t('The e-mail address that all e-mails will be from.'),
       '#disabled' => $this->isOverridden('smtp_from'),
-    );
-    $form['email_options']['smtp_fromname'] = array(
+    ];
+    $form['email_options']['smtp_fromname'] = [
       '#type' => 'textfield',
-      '#title' => t('E-mail from name'),
+      '#title' => $this->t('E-mail from name'),
       '#default_value' => $config->get('smtp_fromname'),
-      '#description' => t('The name that all e-mails will be from. If left blank will use a default of: @name',
+      '#description' => $this->t('The name that all e-mails will be from. If left blank will use a default of: @name . Some providers (such as Office365) may ignore this field. For more information, please check SMTP module documentation and your email provider documentation.',
           ['@name' => $this->configFactory->get('system.site')->get('name')]),
       '#disabled' => $this->isOverridden('smtp_fromname'),
-    );
-    $form['email_options']['smtp_allowhtml'] = array(
+    ];
+    $form['email_options']['smtp_allowhtml'] = [
       '#type' => 'checkbox',
-      '#title' => t('Allow to send e-mails formatted as HTML'),
+      '#title' => $this->t('Allow to send e-mails formatted as HTML'),
       '#default_value' => $config->get('smtp_allowhtml'),
-      '#description' => t('Checking this box will allow HTML formatted e-mails to be sent with the SMTP protocol.'),
+      '#description' => $this->t('Checking this box will allow HTML formatted e-mails to be sent with the SMTP protocol.'),
       '#disabled' => $this->isOverridden('smtp_allowhtml'),
-    );
+    ];
 
-    $form['client'] = array(
+    $form['client'] = [
       '#type'  => 'details',
-      '#title' => t('SMTP client settings'),
+      '#title' => $this->t('SMTP client settings'),
       '#open' => TRUE,
-    );
-    $form['client']['smtp_client_hostname'] = array(
+    ];
+    $form['client']['smtp_client_hostname'] = [
       '#type' => 'textfield',
-      '#title' => t('Hostname'),
+      '#title' => $this->t('Hostname'),
       '#default_value' => $config->get('smtp_client_hostname'),
-      '#description' => t('The hostname to use in the Message-Id and Received headers, and as the default HELO string. Leave blank for using %server_name.', array('%server_name' => isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost.localdomain')),
+      '#description' => $this->t('The hostname to use in the Message-Id and Received headers, and as the default HELO string. Leave blank for using %server_name.',
+        ['%server_name' => isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost.localdomain']),
       '#disabled' => $this->isOverridden('smtp_client_hostname'),
-    );
-    $form['client']['smtp_client_helo'] = array(
+    ];
+    $form['client']['smtp_client_helo'] = [
       '#type' => 'textfield',
-      '#title' => t('HELO'),
+      '#title' => $this->t('HELO'),
       '#default_value' => $config->get('smtp_client_helo'),
-      '#description' => t('The SMTP HELO/EHLO of the message. Defaults to hostname (see above).'),
+      '#description' => $this->t('The SMTP HELO/EHLO of the message. Defaults to hostname (see above).'),
       '#disabled' => $this->isOverridden('smtp_client_helo'),
-    );
+    ];
 
-    $form['email_test'] = array(
+    $form['email_test'] = [
       '#type' => 'details',
-      '#title' => t('Send test e-mail'),
+      '#title' => $this->t('Send test e-mail'),
       '#open' => TRUE,
-    );
-    $form['email_test']['smtp_test_address'] = array(
+    ];
+    $form['email_test']['smtp_test_address'] = [
       '#type' => 'textfield',
-      '#title' => t('E-mail address to send a test e-mail to'),
+      '#title' => $this->t('E-mail address to send a test e-mail to'),
       '#default_value' => '',
-      '#description' => t('Type in an address to have a test e-mail sent there.'),
-    );
+      '#description' => $this->t('Type in an address to have a test e-mail sent there.'),
+    ];
 
-    $form['smtp_debugging'] = array(
+    $form['smtp_debugging'] = [
       '#type' => 'checkbox',
-      '#title' => t('Enable debugging'),
+      '#title' => $this->t('Enable debugging'),
       '#default_value' => $config->get('smtp_debugging'),
-      '#description' => t('Checking this box will print SMTP messages from the server for every e-mail that is sent.'),
+      '#description' => $this->t('Checking this box will print SMTP messages from the server for every e-mail that is sent.'),
       '#disabled' => $this->isOverridden('smtp_debugging'),
-    );
+    ];
+
+    $form['server']['smtp_keepalive'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Turn on the SMTP keep alive feature'),
+      '#default_value' => $config->get('smtp_keepalive'),
+      '#description' => $this->t('Enabling this option will keep the SMTP connection open instead of it being openned and then closed for each mail'),
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -193,9 +322,10 @@ class SMTPConfigForm extends ConfigFormBase {
    * Check if config variable is overridden by the settings.php.
    *
    * @param string $name
-   *  STMP settings key.
+   *   SMTP settings key.
    *
    * @return bool
+   *   Boolean.
    */
   protected function isOverridden($name) {
     $original = $this->configFactory->getEditable('smtp.settings')->get($name);
@@ -209,28 +339,32 @@ class SMTPConfigForm extends ConfigFormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
-    if ($values['smtp_on'] == 'on' && $values['smtp_host'] == '') {
+    if ($values['smtp_on'] !== 'off' && $values['smtp_host'] == '') {
       $form_state->setErrorByName('smtp_host', $this->t('You must enter an SMTP server address.'));
     }
 
-    if ($values['smtp_on'] == 'on' && $values['smtp_port'] == '') {
+    if ($values['smtp_on'] !== 'off' && $values['smtp_port'] == '') {
       $form_state->setErrorByName('smtp_port', $this->t('You must enter an SMTP port number.'));
     }
 
-    if ($values['smtp_from'] && !\Drupal::service('email.validator')->isValid($values['smtp_from'])) {
+    if ($values['smtp_from'] && !$this->emailValidator->isValid($values['smtp_from'])) {
       $form_state->setErrorByName('smtp_from', $this->t('The provided from e-mail address is not valid.'));
     }
 
-    if ($values['smtp_test_address'] && !\Drupal::service('email.validator')->isValid($values['smtp_test_address'])) {
+    if ($values['smtp_test_address'] && !$this->emailValidator->isValid($values['smtp_test_address'])) {
       $form_state->setErrorByName('smtp_test_address', $this->t('The provided test e-mail address is not valid.'));
     }
 
-    // If username is set empty, we must set both username/password empty as well.
+    // If username is set empty, we must set both
+    // username/password empty as well.
     if (empty($values['smtp_username'])) {
       $values['smtp_password'] = '';
     }
-    // A little hack. When form is presented, the password is not shown (Drupal way of doing).
-    // So, if user submits the form without changing the password, we must prevent it from being reset.
+
+    // A little hack. When form is presented,
+    // the password is not shown (Drupal way of doing).
+    // So, if user submits the form without changing the password,
+    // we must prevent it from being reset.
     elseif (empty($values['smtp_password'])) {
       $form_state->unsetValue('smtp_password');
     }
@@ -252,11 +386,15 @@ class SMTPConfigForm extends ConfigFormBase {
     if (!$this->isOverridden('smtp_on')) {
       $config->set('smtp_on', $values['smtp_on'] == 'on')->save();
     }
+    if (!$this->isOverridden('smtp_autotls')) {
+      $config->set('smtp_autotls', $values['smtp_autotls'] == 'on')->save();
+    }
     $config_keys = [
       'smtp_host',
       'smtp_hostbackup',
       'smtp_port',
       'smtp_protocol',
+      'smtp_timeout',
       'smtp_username',
       'smtp_from',
       'smtp_fromname',
@@ -264,6 +402,7 @@ class SMTPConfigForm extends ConfigFormBase {
       'smtp_client_helo',
       'smtp_allowhtml',
       'smtp_debugging',
+      'smtp_keepalive',
     ];
     foreach ($config_keys as $name) {
       if (!$this->isOverridden($name)) {
@@ -272,7 +411,8 @@ class SMTPConfigForm extends ConfigFormBase {
     }
 
     // Set as default mail system if module is enabled.
-    if ($config->get('smtp_on')) {
+    if ($config->get('smtp_on') ||
+        ($this->isOverridden('smtp_on') && $values['smtp_on'] == 'on')) {
       if ($mail_system != 'SMTPMailSystem') {
         $config->set('prev_mail_system', $mail_system);
       }
@@ -282,27 +422,30 @@ class SMTPConfigForm extends ConfigFormBase {
     else {
       $default_system_mail = 'php_mail';
       $mail_config = $this->configFactory->getEditable('system.mail');
-      $default_interface = ($mail_config->get('prev_mail_system')) ? $mail_config->get('prev_mail_system') : $default_system_mail;
-      $mail_config->set('interface.default', $default_interface)
-        ->save();
+      $default_interface = $mail_config->get('prev_mail_system') ? $mail_config->get('prev_mail_system') : $default_system_mail;
+      $mail_config->set('interface.default', $default_interface)->save();
     }
 
     // If an address was given, send a test e-mail message.
     if ($test_address = $values['smtp_test_address']) {
-      $params['subject'] = t('Drupal SMTP test e-mail');
-      $params['body'] = array(t('If you receive this message it means your site is capable of using SMTP to send e-mail.'));
-      $account = \Drupal::currentUser();
-      // If module is off, send the test message with SMTP by temporarily overriding.
+      $params['subject'] = $this->t('Drupal SMTP test e-mail');
+      $params['body'] = [$this->t('If you receive this message it means your site is capable of using SMTP to send e-mail.')];
+
+      // If module is off, send the test message
+      // with SMTP by temporarily overriding.
       if (!$config->get('smtp_on')) {
         $original = $mail_config->get('interface');
         $mail_system = 'SMTPMailSystem';
         $mail_config->set('interface.default', $mail_system)->save();
       }
-      \Drupal::service('plugin.manager.mail')->mail('smtp', 'smtp-test', $test_address, $account->getPreferredLangcode(), $params);
+
+      if ($this->mailManager->mail('smtp', 'smtp-test', $test_address, $this->currentUser->getPreferredLangcode(), $params)) {
+        $this->messenger->addMessage($this->t('A test e-mail has been sent to @email via SMTP. You may want to check the log for any error messages.', ['@email' => $test_address]));
+      }
       if (!$config->get('smtp_on')) {
         $mail_config->set('interface', $original)->save();
       }
-      drupal_set_message(t('A test e-mail has been sent to @email via SMTP. You may want to check the log for any error messages.', ['@email' => $test_address]));
+
     }
 
     parent::submitForm($form, $form_state);
@@ -310,9 +453,11 @@ class SMTPConfigForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
-   *
-   * @todo - Flesh this out.
    */
-  public function getEditableConfigNames() {}
+  protected function getEditableConfigNames() {
+    return [
+      'smtp.settings',
+    ];
+  }
 
 }
