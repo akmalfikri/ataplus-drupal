@@ -392,6 +392,14 @@
            <dl><dt>Investor Eligibility </dt><dd>{{content.field_investor_eligibility.0}}</dd></dl>
           {% endif %}
 
+          {% if content.field_pre_emptive_rights %}
+           <dl><dt>Pre Emptive Rights </dt><dd>{{content.field_pre_emptive_rights.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_type_of_shares %}
+           <dl><dt>Type of Shares</dt><dd>{{content.field_type_of_shares.0}}</dd></dl>
+          {% endif %}
+
           {% if content.field_information %}
            <dl><dt>Information </dt><dd>{{content.field_information.0}}</dd></dl>
           {% endif %}
@@ -529,6 +537,20 @@
           <tr>
           <td class="bg-dark-purple white">Investor Eligibility</td>
           <td class="bg-grey">{{content.field_investor_eligibility.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_pre_emptive_rights|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Pre Emptive Rights</td>
+          <td class="bg-grey">{{content.field_pre_emptive_rights.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_type_of_shares|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Type of Shares</td>
+          <td class="bg-grey">{{content.field_type_of_shares.0}}</td>
           </tr>
           {% endif %}
 
