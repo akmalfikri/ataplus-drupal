@@ -36,6 +36,7 @@ Allow: /profiles/*.svg
 # Directories
 Disallow: /core/
 Disallow: /profiles/
+Disallow: /sites/default/files/
 # Files
 Disallow: /README.txt
 Disallow: /web.config
