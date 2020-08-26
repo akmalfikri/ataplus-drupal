@@ -1693,3 +1693,7 @@ width: 100% !important;
 .upcomingdeals .boxes3 img {
     width: 121.7%;
 }
+
+table caption {
+font-size: 2rem;
+}
