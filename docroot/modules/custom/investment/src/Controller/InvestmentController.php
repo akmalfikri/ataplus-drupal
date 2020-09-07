@@ -209,6 +209,7 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
             $query = \Drupal::entityQuery('node')
                         ->condition('type', 'transaction')
                         ->condition('title', $orderId)
+                        ->accessCheck(FALSE)
                         ->execute();
 
             $transactionId  = array_values($query)[0];
@@ -246,6 +247,7 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
                                 ->condition('type', 'investments')
                                 ->condition('title', $investmentId)
                                 ->condition('field_transaction_id', $tranId, '=')
+                                ->accessCheck(FALSE)
                                 ->execute();
 
                     if (count(array_values($query)) == 0) {
@@ -345,8 +347,6 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
                         ->accessCheck(FALSE)
                         ->execute();
 
-            \Drupal::logger('transaction')->info(sprintf('Query error with below values : <pre><code>' . print_r($query, TRUE) . '</code></pre>'));
-
 
             $transactionId  = array_values($query)[0];
             $transaction    = Node::load($transactionId);
@@ -383,6 +383,7 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
                                 ->condition('type', 'investments')
                                 ->condition('title', $investmentId)
                                 ->condition('field_transaction_id', $tranId, '=')
+                                ->accessCheck(FALSE)
                                 ->execute();
 
                     if (count(array_values($query)) == 0) {
