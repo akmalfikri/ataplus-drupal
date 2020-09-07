@@ -344,6 +344,9 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
                         ->condition('title', $orderId)
                         ->execute();
 
+            \Drupal::logger('transaction')->info(sprintf('Query error with below values : %s ', $query));
+
+
             $transactionId  = array_values($query)[0];
             $transaction    = Node::load($transactionId);
             $dealId         = $transaction->get('field_deal_name')->target_id;
