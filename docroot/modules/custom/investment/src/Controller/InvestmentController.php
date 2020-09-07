@@ -342,6 +342,7 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
             $query = \Drupal::entityQuery('node')
                         ->condition('type', 'transaction')
                         ->condition('title', $orderId)
+                        ->accessCheck(FALSE)
                         ->execute();
 
             \Drupal::logger('transaction')->info(sprintf('Query error with below values : <pre><code>' . print_r($query, TRUE) . '</code></pre>'));
