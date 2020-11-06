@@ -1,0 +1,764 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ */
+#}
+<!-- Header -->
+<div class="image-video-holder  paddbottom40">
+      {% if content.field_video|render is not empty %}
+
+      <div class="bg-dark-blue">
+        <div class="container white">
+
+      {{ content.field_video }}
+
+        </div>
+
+      </div>
+
+      {% elseif content.field_header_image|render is not empty %}
+
+      <img src="{{ file_url(node.field_header_image.entity.fileuri) }}" width="100%">
+
+      {% else %}
+
+      <h2>Place image here</h2>
+
+      {% endif %}
+
+</div>
+
+<!-- Top Section -->
+<div class="deal-page" style="padding:0 40px">
+<div class="deal-listings  container nopadding  ">
+
+    <div class="col-sm-9 nomargin nopadding bg-grey">
+      <div class="deal-left-column col-sm-2 nopadding">
+          {{content.flag_follow}}
+         <!--<a data-toggle="modal" class="follow-link blocked" href="#announcement">Follow</a>-->
+         <img src="{{ file_url(node.field_avatar.entity.fileuri) }}" width="100%">
+         <a class="contact-link blocked" href="mailto:{{ node.field_contact_email.value }}?Subject=ATA Plus-{{ node.label }}" target="_top">Contact</a>
+
+      </div>
+      <div class="deal-right-column col-sm-10 padd20">
+         <h3 class="fontmedium2 dark-blue font28">{{ label }}</h3>
+         <p class="deal-desc dark-blue">{{ content.body }}</p>
+
+         <p class="dark-grey share-text">Share</p>
+         <div class="share social-media-link">
+         <a href="http://www.facebook.com/sharer.php?u={{ url('<current>') }}" class="fb" target="_blank">fb</a>
+         <a href="https://twitter.com/share?url={{ url('<current>') }}&amp;text={{ node.label }}" target="_blank" class="twt">twt</a>
+         <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ url('<current>') }}" target="_blank" class="in">in</a>
+         </div>
+      </div>
+      </div>
+
+    <div class="col-sm-3 nomargin nopadding bg-white">
+
+      <div class="amount-raised text-center margintop20">
+        {% if node.field_deals_status.value == "Closed" %}
+
+      <span class="fontmedium2 dark-grey font28 blocked">Campaign Closed</span>
+
+      {% endif %}
+
+      <span class="fontmedium2 dark-blue font28 blocked">
+
+      RM {{ amount }} <!-- TODO : Change this once the value raised can be calculated --></span>
+
+      <span class="dark-grey">raised</span>
+
+      </div>
+      <div class="amount-progress">
+        <div class="progress">
+
+        <!-- TODO : Change aria-valuenow to the value of percentage received -->
+          <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="{{ percentage_raised }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ percentage_raised }}%">
+          <span class="sr-only">{{ percentage_raised }}% Complete</span>
+
+        </div>
+        </div>
+      </div>
+
+      <div class="deal-details">
+        <table class="table" id="deal-details">
+        <tr><th>{{ percentage_raised }}% of target</th>
+          <td>{% if days_left >= 0 %} {{content.field_end_date_time.0}}
+              {% else %} 0 days left
+              {% endif %}</td>
+        </tr>
+        <tr><th>Investors</th><td class="dark-blue fontreg">{{ content.field_no_of_investors.0 }}</td></tr>
+        <tr><th>Min Target</th><td class="dark-blue fontreg">
+
+        <!--TODO: Change this value into calculated value -->
+        {{ content.field_minimum_offering_size.0 }}
+        </td></tr>
+        <tr><th>Max Target</th><td class="dark-blue fontreg">{{ content.field_maximum_offering_size.0 }}</td></tr>
+        </table>
+      </div>
+
+
+      {% if node.field_deals_status.value == "Active" %}
+      {% if node.field_investment_.value == "Investment" %}
+        {% if logged_in %}
+          {% if age > 17 %}
+          <a href="#modal-invest-1" data-toggle="modal" style="width:70%" id="investbutton_{{machine}}" class="btn ghost-btn-pink centered blocked font18">Invest</a>
+          {% else %}
+            <a href="#modal-invest-3" data-toggle="modal" style="width:70%" id="investbutton_{{machine}}" class="btn ghost-btn-pink centered blocked font18">Invest</a>
+          {% endif %}
+        {% else %}
+          <a href="/user/login?destination={{url}}" id="logininvestbutton_{{machine}}" style="width:70%" class="btn ghost-btn-pink centered blocked font18">Log In to Invest</a><br /><br />
+        {% endif %}
+      {% else %}
+      <a href="/donate/deal/{{node.id}}" style="width:70%" class="btn ghost-btn-pink centered blocked font18">Donate</a>
+      {% endif %}
+      {% endif %}
+    </div>
+</div>
+
+<!-- End Top -->
+
+<!-- Tabs -->
+
+<ul class="nav nav-tabs container" id="deal-page">
+        <li class="active"><a class="blue" data-toggle="tab" href="#overview">Overview</a></li>
+        {% if node.field_investment_.value == "Investment" %}
+        <li><a class="blue" data-toggle="tab" href="#termsheet">Term Sheet</a></li>
+        {% endif %}
+
+          {% if logged_in and node.field_deals_status.value == "Active" %}
+          <li><a class="blue"  data-toggle="tab" href="#discussion">Discussion</a></li>
+          {% else %}
+          <li><a class="blue"  data-toggle="tab" href="#discussion_out">Discussion</a></li>
+          {% endif %}
+
+        {% if logged_in %}
+        <li><a class="blue" data-toggle="tab" href="#downloads">Downloads</a></li>
+        {% else %}
+        <li><a class="blue" data-toggle="tab" href="#downloads_out">Downloads</a></li>
+        {% endif %}
+        {% if logged_in %}
+        <li><a class="blue" data-toggle="tab" href="#updates">Updates</a></li>
+        {% else %}
+        <li><a class="blue" data-toggle="tab" href="#updates_out">Updates</a></li>
+        {% endif %}
+        {% if content.flag_invested %}
+          <li><a class="blue" data-toggle="tab" href="#investments">Investments</a></li>
+        {% endif %}
+</ul>
+
+<!-- End Tabs Menu -->
+
+
+<!-- Start Tab content -->
+
+<div class="tab-content container marginbottom60" id="deal-page-content" >
+
+<!-- Start tab Overview -->
+    <div id="overview" class="tab-pane fade in active paddbottom40">
+        <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+        <div class="paddtop20 introduction">
+        {% if content.field_highlights %}
+           {{content.field_highlights.0}}
+        {% endif %}
+        <h3 class="purple">Introduction</h3>
+        {{content.field_introduction.0}}
+
+        </div>
+
+        <hr>
+
+        <div class="paddtop20 introduction">
+        <h3 class="purple">What We Do</h3>
+        <h4 class="margintop20">The Challenge</h4>
+        {{content.field_the_problem.0}}
+
+        <h4 class="margintop20">Our Solution</h4>
+        {{content.field_our_solution.0}}
+
+        </div>
+
+        <hr>
+
+        <div class="paddtop20 introduction">
+        <h3 class="purple">Why Are We Different</h3>
+        {{content.field_why_are_we_different.0}}
+
+        </div>
+
+        <hr>
+
+        {% if content.field_our_revenue_model|render|trim is not empty %}
+        <div class="paddtop20 introduction">
+
+        <h3 class="purple">Our Revenue Model</h3>
+
+
+        {{content.field_our_revenue_model.0}}
+
+        </div>
+
+        <hr>
+        {% endif %}
+
+        <div class="paddtop20 introduction">
+        <h3 class="purple">Our Market Opportunity</h3>
+        {{content.field_our_market_opportunity.0}}
+
+        </div>
+
+        <hr>
+
+        <div class="paddtop20 introduction">
+        <h3 class="purple">Our Strategy</h3>
+        {{content.field_our_strategy.0}}
+
+        </div>
+
+        <hr>
+
+        {% if content.field_our_achievements|render is not empty %}
+        <div class="paddtop20 introduction">
+        <h3 class="purple">{{ progress_title }}</h3>
+        {{content.field_our_achievements.0}}
+
+        </div>
+
+        <hr>
+        {% endif %}
+
+        <div class="paddtop20 introduction">
+        <h3 class="purple">Indicative Usage of Funds</h3>
+        {{content.field_usage_of_funds.0}}
+
+        </div>
+
+        <hr>
+
+        <div class="the-team marginbottom40">
+        <!--<h3 class="purple">The Team</h3>-->
+
+            {{content.field_team}}
+
+        {% if content.field_team_notes|render is not empty %}
+
+          <div class="well">{{content.field_team_notes.0}}</div>
+
+        {% endif %}
+
+        </div>
+
+      </div>
+    </div>
+
+<!-- End Overview -->
+
+<!-- Start tab Term sheet -->
+
+ {% if node.field_investment_.value == "Investment" %}
+
+      <div id="termsheet" class="tab-pane fade">
+
+        <div class="term-sheet">
+        <h3 class="purple">Term Sheet</h3>
+        <!--<h4 class="purple marginbottom40">Excerpt One Liner</h4>-->
+
+        <div class="table-responsive">
+
+          <div class="hidden-sm hidden-md hidden-lg termsheet-mobile">
+          {% if content.field_issuer %}
+           <dl><dt>Issuer </dt><dd>{{content.field_issuer.0}}, a private limited company incorporated in Malaysia</dd></dl>
+          {% endif %}
+
+          {% if content.field_type_of %}
+           <dl><dt>Type of Equity </dt><dd>{{content.field_type_of.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_post_money_valuation %}
+           <dl><dt>Valuation </dt><dd>{{content.field_post_money_valuation.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_minimum_offering_size %}
+           <dl><dt>Minimum Fundraising Target </dt><dd>{{content.field_minimum_offering_size.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_maximum_offering_size %}
+           <dl><dt>Maximum Offering Size </dt><dd>{{content.field_maximum_offering_size.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_price_per_share %}
+           <dl><dt>Price per Shares </dt><dd>{{content.field_price_per_share.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_minimum_equity_offered %}
+           <dl><dt>Minimum Equity Offered </dt><dd>{{content.field_minimum_equity_offered.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_maximum_equity_offered %}
+           <dl><dt>Maximum Equity Offered </dt><dd>{{ content.field_maximum_equity_offered.0 }}</dd></dl>
+          {% endif %}
+
+          {% if content.field_total_shares_issued_in_off %}
+           <dl><dt>Minimum Shares Offered </dt><dd>{{content.field_total_shares_issued_in_off.0 }}</dd></dl>
+          {% endif %}
+
+          {% if content.field_maximum_shares_offered %}
+           <dl><dt>Maximum Shares Offered </dt><dd>{{content.field_maximum_shares_offered.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_number_of_shares_per_block %}
+           <dl><dt>Number of shares per block </dt><dd>{{content.field_number_of_shares_per_block.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_minimum_block_per_investme %}
+           <dl><dt>Minimum block per Investment </dt><dd>{{content.field_minimum_block_per_investme.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_minimum_investment_amount %}
+           <dl><dt>Minimum Investment Amount </dt><dd>{{content.field_minimum_investment_amount.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_rewards %}
+           <dl><dt>Rewards </dt><dd>{{content.field_rewards}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_previous_terms %}
+           <dl><dt>Impact on Shareholding Structure Upon Completion of the Offering </dt><dd>{{content.field_previous_terms}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_investor_eligibility %}
+           <dl><dt>Investor Eligibility </dt><dd>{{content.field_investor_eligibility.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_pre_emptive_rights %}
+           <dl><dt>Pre Emptive Rights </dt><dd>{{content.field_pre_emptive_rights.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_type_of_shares %}
+           <dl><dt>Type of Shares</dt><dd>{{content.field_type_of_shares.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_information %}
+           <dl><dt>Information </dt><dd>{{content.field_information.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_fund_raising_perio %}
+           <dl><dt>Fund Raising Period </dt><dd>A period of {{content.field_fund_raising_perio.0}}, commencing from the date of online listing on the ECF Platform.</dd></dl>
+          {% endif %}
+
+          {% if content.field_closing_period %}
+           <dl><dt>Closing Period </dt><dd>{{content.field_closing_period.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_use_of_proee %}
+           <dl><dt>Use of Proceeds </dt><dd>{{content.field_use_of_proee.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_procedure %}
+           <dl><dt>Subscription Procedure </dt><dd>{{content.field_procedure.0}}</dd></dl>
+          {% endif %}
+
+          {% if content.field_disclaimer %}
+           <dl><dt>Disclaimer </dt><dd>{{content.field_disclaimer.0}}</dd></dl>
+          {% endif %}
+
+          </div>
+
+          <table class="table termsheet-table hidden-xs" border="0">
+          {% if content.field_issuer|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Issuer</td>
+          <td class="bg-grey">{{content.field_issuer.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_type_of|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Type of Equity</td>
+          <td class="bg-grey">{{content.field_type_of.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_post_money_valuation|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Valuation</td>
+          <td class="bg-grey">{{content.field_post_money_valuation.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_minimum_offering_size|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Minimum Fundraising Target</td>
+          <td class="bg-grey">{{content.field_minimum_offering_size.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_maximum_offering_size|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Maximum Offering Size</td>
+          <td class="bg-grey">{{content.field_maximum_offering_size.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_price_per_share|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Price per Shares</td>
+          <td class="bg-grey">{{content.field_price_per_share.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_minimum_equity_offered|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Minimum Equity Offered</td>
+          <td class="bg-grey">{{content.field_minimum_equity_offered.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_maximum_equity_offered|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Maximum Equity Offered</td>
+          <td class="bg-grey">{{ content.field_maximum_equity_offered.0 }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_total_shares_issued_in_off|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Minimum Shares Offered</td>
+          <td class="bg-grey">{{content.field_total_shares_issued_in_off.0 }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_maximum_shares_offered|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Maximum Shares Offered</td>
+          <td class="bg-grey">{{content.field_maximum_shares_offered.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_number_of_shares_per_block|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Number of shares per block</td>
+          <td class="bg-grey">{{content.field_number_of_shares_per_block.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_minimum_block_per_investme|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Minimum block per Investment</td>
+          <td class="bg-grey">{{content.field_minimum_block_per_investme.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_minimum_investment_amount|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Minimum Investment Amount</td>
+          <td class="bg-grey">{{content.field_minimum_investment_amount.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_rewards|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Rewards</td>
+          <td class="bg-grey">{{content.field_rewards}}</td>
+          </tr>
+          {% endif %}
+
+          <!--{% if content.field_previous_terms %}
+          <tr>
+          <td class="bg-dark-purple white">Impact on Shareholding Structure Upon Completion of the Offering</td>
+          <td class="bg-grey">{{content.field_previous_terms}}</td>
+          </tr>
+          {% endif %}-->
+
+          {% if not (node.field_investor_eligibility.isEmpty == true) and content.field_investor_eligibility is defined %}
+
+          <tr>
+          <td class="bg-dark-purple white">Investor Eligibility</td>
+          <td class="bg-grey">{{content.field_investor_eligibility.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_pre_emptive_rights|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Pre Emptive Rights</td>
+          <td class="bg-grey">{{content.field_pre_emptive_rights.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_type_of_shares|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Type of Shares</td>
+          <td class="bg-grey">{{content.field_type_of_shares.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_information|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Information</td>
+          <td class="bg-grey">{{content.field_information.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_information_2|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Information</td>
+          <td class="bg-grey">{{content.field_information_2.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_fund_raising_perio|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Fund Raising Period</td>
+          <td class="bg-grey">A period of {{content.field_fund_raising_perio.0}}, commencing from the date of online listing on the ECF Platform.</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_closing_period|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Closing Period</td>
+          <td class="bg-grey">{{content.field_closing_period.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_use_of_proee|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Use of Proceeds</td>
+          <td class="bg-grey">{{content.field_use_of_proee.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_procedure|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Subscription Procedure</td>
+          <td class="bg-grey">{{content.field_procedure.0}}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_disclaimer|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Disclaimer</td>
+          <td class="bg-grey">{{content.field_disclaimer.0}}</td>
+          </tr>
+          {% endif %}
+
+          </table>
+
+        </div>
+
+
+        </div>
+        </div>
+        {% endif %}
+
+<!-- End Term sheet -->
+
+<!-- Start tab Discussion -->
+{% if logged_in %}
+    <div id="discussion" class="tab-pane fade   ">
+        <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+          {{content.field_discussion.0}}
+        </div>
+    </div>
+{% else %}
+    <div id="discussion_out" class="tab-pane fade   ">
+        <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+          <a href="/user/login" class="btn ghost-btn-purple blocked font18">Log In to View</a>
+        </div>
+    </div>
+{% endif %}
+<!-- End Discussion -->
+
+<!-- Start tab Downloads -->
+{% if logged_in %}
+    {% if logged_in %}
+      <div id="downloads" class="tab-pane fade  ">
+          <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+            {{ content.field_downloads }}
+          </div>
+        {% if total_invested  %}
+            <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+              {{ content.field_post_campaign_ }}
+            </div>
+
+            <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+              <a href="{{ node.field_investment_agreement_url.0.url }}" target="_blank" class="btn ghost-btn-purple blocked font18">Investment Agreement</a>
+            </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% else %}
+
+      <div id="downloads_out" class="tab-pane fade  ">
+          <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+            <a href="/user/login" class="btn ghost-btn-purple blocked font18">Log In to View</a>
+          </div>
+      </div>
+
+{% endif %}
+<!-- End Downloads -->
+
+<!-- Start tab Investments -->
+  {% if content.flag_invested %}
+    <div id="investments" class="tab-pane fade  ">
+
+      {{ drupal_view('commitment', 'block_1') }}
+
+    </div>
+  {% endif %}
+<!-- End investments -->
+
+<!-- Start tab Updates -->
+{% if logged_in %}
+    <div id="updates" class="tab-pane fade  ">
+      {% if is_author %}
+        <a href="/node/add/deals_update?deal={{nid}}" class="btn ghost-btn-purple blocked font18">Add update</a>
+      {% endif %}
+      {% if user.hasPermission('administer nodes') %}
+        <a href="/node/add/deals_update?deal={{nid}}" class="btn ghost-btn-purple blocked font18">Add update</a>
+      {% endif %}
+      {{ drupal_view('updates', 'block_1') }}
+    </div>
+{% else %}
+  <div id="updates_out" class="tab-pane fade  ">
+    <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
+      <a href="/user/login" class="btn ghost-btn-purple blocked font18">Log In to View</a>
+    </div>
+  </div>
+{% endif %}
+<!-- End updates -->
+
+</div>
+
+<!-- End Contents -->
+
+</div>
+
+<!-- Start Disclaimer -->
+<div class="padd60 white risk-disclaimer">
+  <div class="container">
+    <h1 class="banner-title text-center">Risk Disclaimer</h1>
+    <p>Investing in equity crowdfunding involves certain risks that include uncertainty of returns, lack of liquidity, dilution, material events and lack of control. Investments should be done as part of a diversiﬁed portfolio. ATA PLUS offers investment opportunities to investors who understands these risks in making their own investment decisions.</p>
+    <p><strong>PLEASE READ THE FULL RISK WARNING BEFORE DECIDING TO INVEST.</strong></p>
+    <p>This page is approved as a ﬁnancial promotion by ATA PLUS Sdn. Bhd., which is authorized and regulated by the Security Commission of Malaysia. Deals that are up for investment are only offered to members of ata-plus.com on the basis of information provided by the companies concerned. ATA PLUS takes no responsibility for this information or for any recommendations or opinions made by the companies. For further information on this, please read our Term of Use.</p>
+
+  </div>
+</div>
+
+<!-- End Disclaimer -->
+
+<!-- Start Modal -->
+
+<div class="modal fade" id="modal-invest-1">
+  <div class="modal-dialog bg-white" style="padding:10px">
+    <div style="padding:10px" class="header"><h1 class="banner-title dark-blue text-center" style="margin:10px 0">Investor Details</h1></div>
+
+    <div class="body bg-dark-blue white padd20">
+      <p>In order for you to proceed with this investment, please ensure that you complete the following in your profile:</p>
+      <p>FULL NAME<br>NRIC/ PASSPORT NO<br>SCANNED NRIC/ PASSPORT<br>ADDRESS<br>CONTACT NUMBER<br>INVESTOR DECLARATION</P>
+      <a class="margintop40 centered btn ghost-btn-white blocked" id="editprofilebutton_{{machine}}" href="/user/{{ uid }}/edit">Edit Profile</a>
+    </div>
+
+    <div style="padding:10px" class="header"><h1 class="banner-title dark-blue text-center" style="margin:10px 0">Investor Agreement </h1></div>
+      <div class="body bg-dark-blue white padd20">
+        <a class="margintop20 marginbottom30 centered btn ghost-btn-white blocked" href="{{ node.field_investment_agreement_url.0.url }}" id="readagreementbutton_{{machine}}" target="_blank">Read Before Proceeding</a>
+        <p>I have read and agreed to the terms of Investment Agreement and the accompanying Annexure Partnership Agreement</p>
+        <p>By clicking 'I Accept', Users (as an individual and on behalf of any entity represented by them) agree to be bound by the terms of this Investment Agreement as of the date the Users take such action, acknowledge that the Users have read the</p>
+
+        <!--<div class="form-inline">
+          <div class="radio" style="margin-right:15px"><input type="radio" name="investment"><label style="padding-left:10px">Yes</label></div>
+          <div class="radio"><input type="radio" name="investment"><label style="padding-left:10px">No</label></div>
+        </div>-->
+
+        <a class="margintop40 centered btn ghost-btn-white blocked" href="#" id="show-modal-2">I Accept</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-invest-2">
+  <div class="modal-dialog bg-white" style="padding:10px">
+    <div style="padding:10px" class="header"><h1 class="banner-title dark-blue text-center" style="margin:10px 0">Schedule 1</h1></div>
+    <div class="body bg-dark-blue white padd20">
+      {{ form_invest }}
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-invest-3">
+  <div class="modal-dialog bg-white" style="padding:10px">
+    <div style="padding:10px" class="header"><h1 class="banner-title dark-blue text-center" style="margin:10px 0"> Hi {{ username }}</h1></div>
+    <div class="body bg-dark-blue white padd20">
+        <p>Thank you for your interest in the campaign. </p><br />
+
+        <p>Unfortunately, we are unable to process your investment due to age restrictions by law, which requires you to be at least 18 years old and above.</p>
+
+        <p>Should you require any clarification on the above, please email us at <a href="mailto:enquiry@ata-plus.com">enquiry@ata-plus.com</a></p><br /><br />
+      <button type="button" class="margintop40 centered btn ghost-btn-white blocked" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- End Modal -->
