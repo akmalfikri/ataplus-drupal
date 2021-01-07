@@ -145,7 +145,9 @@
       <div class="deal-details">
         <table class="table" id="deal-details">
         <tr><th>{{ percentage_raised }}% of target</th>
-          <td>{% if days_left >= 0 %} {{content.field_end_date_time.0}}
+          <td>{% if days_left >= 0 %} 
+              {{ date() }}
+              {{content.field_end_date_time.0}}
               {% else %} 0 days left
               {% endif %}</td>
         </tr>
