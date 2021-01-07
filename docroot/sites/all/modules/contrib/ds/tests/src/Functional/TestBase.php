@@ -1,21 +1,21 @@
 <?php
 
-namespace Drupal\ds\Tests;
+namespace Drupal\Tests\ds\Functional;
 
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\field\Tests\EntityReference\EntityReferenceTestTrait;
-use Drupal\field_ui\Tests\FieldUiTestTrait;
-use Drupal\simpletest\WebTestBase;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
-use Drupal\taxonomy\Tests\TaxonomyTestTrait;
+use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\field\Traits\EntityReferenceTestTrait;
+use Drupal\Tests\field_ui\Traits\FieldUiTestTrait;
+use \Drupal\Tests\taxonomy\Traits\TaxonomyTestTrait;
 
 /**
  * Base test for Display Suite.
  *
  * @group ds
  */
-abstract class FastTestBase extends WebTestBase {
+abstract class TestBase extends BrowserTestBase {
 
   use DsTestTrait;
   use EntityReferenceTestTrait;
@@ -90,6 +90,7 @@ abstract class FastTestBase extends WebTestBase {
     $this->adminUser = $this->drupalCreateUser([
       'access content',
       'access in-place editing',
+      'access user profiles',
       'admin classes',
       'admin display suite',
       'admin fields',
@@ -162,19 +163,29 @@ abstract class FastTestBase extends WebTestBase {
     ];
     $this->createEntityReferenceField('node', 'article', 'field_' . $this->vocabulary->id(), 'Tags', 'taxonomy_term', 'default', $handler_settings, 10);
 
-    entity_get_form_display('node', 'article', 'default')
-      ->setComponent('field_' . $this->vocabulary->id())
-      ->save();
+    /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $display */
+    $display = \Drupal::entityTypeManager()
+        ->getStorage('entity_form_display')
+         ->load('node.article.default');
+
+    $display->setComponent('field_' . $this->vocabulary->id())->save();
   }
 
   /**
    * Check to see if two trimmed values are equal.
+   *
+   * @param $first
+   *   First element to compare
+   * @param $second
+   *   Second element to compare
+   * @param string $message
+   *   The message
    */
-  protected function assertTrimEqual($first, $second, $message = '', $group = 'Other') {
+  protected function assertTrimEqual($first, $second, $message = '') {
     $first = (string) $first;
     $second = (string) $second;
 
-    return $this->assertEqual(trim($first), trim($second), $message, $group);
+    $this->assertEquals(trim($first), trim($second), $message);
   }
 
 }
