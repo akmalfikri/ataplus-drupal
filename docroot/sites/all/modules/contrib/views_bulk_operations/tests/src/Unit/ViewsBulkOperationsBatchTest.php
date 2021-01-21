@@ -13,6 +13,13 @@ use Drupal\views\Entity\View;
 class ViewsBulkOperationsBatchTest extends UnitTestCase {
 
   /**
+   * Modules to install.
+   *
+   * @var array
+   */
+  public static $modules = ['node'];
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {
@@ -28,19 +35,20 @@ class ViewsBulkOperationsBatchTest extends UnitTestCase {
    * @return \Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionProcessor
    *   A mocked action processor.
    */
-  public function getViewsBulkOperationsActionProcessorStub() {
+  public function getViewsBulkOperationsActionProcessorStub($entities_count) {
     $actionProcessor = $this->getMockBuilder('Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionProcessor')
       ->disableOriginalConstructor()
       ->getMock();
+
     $actionProcessor->expects($this->any())
-      ->method('getEntity')
-      ->will($this->returnValue(new \stdClass()));
+      ->method('populateQueue')
+      ->will($this->returnValue($entities_count));
 
     $actionProcessor->expects($this->any())
       ->method('process')
-      ->will($this->returnCallback(function ($entities) {
+      ->will($this->returnCallback(function () use ($entities_count) {
         $return = [];
-        for ($i = 0; $i < count($entities); $i++) {
+        for ($i = 0; $i < $entities_count; $i++) {
           $return[] = 'Some action';
         }
         return $return;
@@ -56,7 +64,7 @@ class ViewsBulkOperationsBatchTest extends UnitTestCase {
    */
   public function testGetBatch() {
     $data = [
-      'list' => [],
+      'list' => [[0, 'en', 'node', 1]],
       'some_data' => [],
       'action_label' => '',
     ];
@@ -64,7 +72,6 @@ class ViewsBulkOperationsBatchTest extends UnitTestCase {
     $this->assertArrayHasKey('title', $batch);
     $this->assertArrayHasKey('operations', $batch);
     $this->assertArrayHasKey('finished', $batch);
-    $this->assertEquals($batch['operations'][0][0], ['\Drupal\views_bulk_operations\ViewsBulkOperationsBatch', 'operation']);
   }
 
   /**
@@ -76,7 +83,7 @@ class ViewsBulkOperationsBatchTest extends UnitTestCase {
     $batch_size = 2;
     $entities_count = 10;
 
-    $this->container->set('views_bulk_operations.processor', $this->getViewsBulkOperationsActionProcessorStub());
+    $this->container->set('views_bulk_operations.processor', $this->getViewsBulkOperationsActionProcessorStub($batch_size));
 
     $view = new View(['id' => 'test_view'], 'view');
     $view_storage = $this->getMockBuilder('Drupal\Core\Config\Entity\ConfigEntityStorage')
@@ -120,19 +127,18 @@ class ViewsBulkOperationsBatchTest extends UnitTestCase {
       'view_id' => 'test_view',
       'display_id' => 'test_display',
       'batch_size' => $batch_size,
-
+      'list' => [],
     ];
     $context = [
       'sandbox' => [
         'processed' => 0,
         'total' => $entities_count,
-        'results' => [],
       ],
     ];
 
-    TestViewsBulkOperationsBatch::operation([], $data, $context);
+    TestViewsBulkOperationsBatch::operation($data, $context);
 
-    $this->assertEquals(count($context['results']), $batch_size);
+    $this->assertEquals(count($context['results']['operations']), $batch_size);
     $this->assertEquals($context['finished'], ($batch_size / $entities_count));
   }
 
@@ -142,11 +148,13 @@ class ViewsBulkOperationsBatchTest extends UnitTestCase {
    * @covers ::finished
    */
   public function testFinished() {
-    TestViewsBulkOperationsBatch::finished(TRUE, ['Some operation', 'Some operation'], []);
-    $this->assertEquals(TestViewsBulkOperationsBatch::message(), 'Some operation operation performed on 2 results.');
+    $results = ['operations' => ['Some operation', 'Some operation']];
+    TestViewsBulkOperationsBatch::finished(TRUE, $results, []);
+    $this->assertEquals(TestViewsBulkOperationsBatch::message(), 'Action processing results: Some operation (2).');
 
-    TestViewsBulkOperationsBatch::finished(TRUE, ['Some operation1', 'Some operation2'], []);
-    $this->assertEquals(TestViewsBulkOperationsBatch::message(), 'Operations performed: Some operation1: 1, Some operation2: 1.');
+    $results = ['operations' => ['Some operation1', 'Some operation2']];
+    TestViewsBulkOperationsBatch::finished(TRUE, $results, []);
+    $this->assertEquals(TestViewsBulkOperationsBatch::message(), 'Action processing results: Some operation1 (1), Some operation2 (1).');
   }
 
 }

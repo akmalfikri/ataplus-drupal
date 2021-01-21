@@ -3,7 +3,7 @@
 namespace Drupal\views_bulk_operations\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\views_bulk_operations\Service\ViewsbulkOperationsViewData;
+use Drupal\views_bulk_operations\Service\ViewsBulkOperationsViewDataInterface;
 use Drupal\views_bulk_operations\ViewsBulkOperationsEvent;
 
 /**
@@ -20,17 +20,17 @@ class ViewsBulkOperationsEventSubscriber implements EventSubscriberInterface {
   /**
    * Object that gets the current view data.
    *
-   * @var \Drupal\views_bulk_operations\ViewsbulkOperationsViewData
+   * @var \Drupal\views_bulk_operations\ViewsBulkOperationsViewDataInterface
    */
   protected $viewData;
 
   /**
    * Object constructor.
    *
-   * @param \Drupal\views_bulk_operations\Service\ViewsbulkOperationsViewData $viewData
+   * @param \Drupal\views_bulk_operations\Service\ViewsBulkOperationsViewDataInterface $viewData
    *   The VBO View Data provider service.
    */
-  public function __construct(ViewsbulkOperationsViewData $viewData) {
+  public function __construct(ViewsBulkOperationsViewDataInterface $viewData) {
     $this->viewData = $viewData;
   }
 
@@ -50,8 +50,8 @@ class ViewsBulkOperationsEventSubscriber implements EventSubscriberInterface {
    */
   public function provideViewData(ViewsBulkOperationsEvent $event) {
     $view_data = $event->getViewData();
-    if ($entity_type = $view_data['table']['entity type']) {
-      $event->setEntityTypeIds([$entity_type]);
+    if (!empty($view_data['table']['entity type'])) {
+      $event->setEntityTypeIds([$view_data['table']['entity type']]);
       $event->setEntityGetter([
         'callable' => [$this->viewData, 'getEntityDefault'],
       ]);

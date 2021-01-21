@@ -2,18 +2,18 @@
 
 namespace Drupal\views_bulk_operations\Service;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Views;
 use Drupal\views\ResultRow;
 use Drupal\Core\TypedData\TranslatableInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\views_bulk_operations\ViewsBulkOperationsEvent;
 
 /**
  * Gets Views data needed by VBO.
  */
-class ViewsbulkOperationsViewData {
+class ViewsBulkOperationsViewData implements ViewsBulkOperationsViewDataInterface {
 
   /**
    * Event dispatcher service.
@@ -68,12 +68,7 @@ class ViewsbulkOperationsViewData {
   }
 
   /**
-   * Initialize additional variables.
-   *
-   * @param \Drupal\views\ViewExecutable $view
-   *   The view object.
-   * @param string $relationship
-   *   Relationship ID.
+   * {@inheritdoc}
    */
   public function init(ViewExecutable $view, DisplayPluginBase $display, $relationship) {
     $this->view = $view;
@@ -88,10 +83,7 @@ class ViewsbulkOperationsViewData {
   }
 
   /**
-   * Get entity type IDs.
-   *
-   * @return array
-   *   Array of entity type IDs.
+   * {@inheritdoc}
    */
   public function getEntityTypeIds() {
     return $this->entityTypeIds;
@@ -119,24 +111,7 @@ class ViewsbulkOperationsViewData {
   }
 
   /**
-   * Get ID of the entity type associated with the view.
-   *
-   * @return string
-   *   Entity type ID.
-   */
-  public function getEntityTypeId() {
-    $views_data = $this->getData();
-    if (isset($views_data['table']['entity type'])) {
-      return $views_data['table']['entity type'];
-    }
-    return FALSE;
-  }
-
-  /**
-   * Get view provider.
-   *
-   * @return string
-   *   View provider ID.
+   * {@inheritdoc}
    */
   public function getViewProvider() {
     $views_data = $this->getData();
@@ -147,13 +122,18 @@ class ViewsbulkOperationsViewData {
   }
 
   /**
-   * Get entity from views row.
-   *
-   * @param \Drupal\views\ResultRow $row
-   *   Views row object.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   An entity object.
+   * {@inheritdoc}
+   */
+  public function getViewBaseField() {
+    $views_data = $this->getData();
+    if (isset($views_data['table']['base']['field'])) {
+      return $views_data['table']['base']['field'];
+    }
+    throw new \Exception('Unable to get base field for the view.');
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function getEntity(ResultRow $row) {
     if (!empty($this->entityGetter['file'])) {
@@ -186,13 +166,11 @@ class ViewsbulkOperationsViewData {
    *   The total number of results this view displays.
    */
   public function getTotalResults() {
-    // This number is not correct in $this->view->total_rows for
-    // standard entity views, so we build a custom query in such a case.
-    $query = $this->view->query->query();
-    if (!empty($query)) {
-      $total_results = $query->countQuery()->execute()->fetchField();
+    $total_results = NULL;
+    if (!empty($this->view->pager->total_items)) {
+      $total_results = $this->view->pager->total_items;
     }
-    else {
+    elseif (!empty($this->view->total_rows)) {
       $total_results = $this->view->total_rows;
     }
 
@@ -200,19 +178,7 @@ class ViewsbulkOperationsViewData {
   }
 
   /**
-   * The default entity getter function.
-   *
-   * Works well with standard core entity views.
-   *
-   * @param \Drupal\views\ResultRow $row
-   *   Views result row.
-   * @param string $relationship_id
-   *   Id of the view relationship.
-   * @param \Drupal\views\ViewExecutable $view
-   *   The current view object.
-   *
-   * @return \Drupal\Core\Entity\FieldableEntityInterface
-   *   The translated entity.
+   * {@inheritdoc}
    */
   public function getEntityDefault(ResultRow $row, $relationship_id, ViewExecutable $view) {
     if ($relationship_id == 'none') {
@@ -227,10 +193,30 @@ class ViewsbulkOperationsViewData {
       throw new \Exception('Unexpected view result row structure.');
     }
 
-    if ($entity->isTranslatable()) {
-      // May not always be reliable.
-      $language_field = $entity->getEntityTypeId() . '_field_data_langcode';
-      if ($entity instanceof TranslatableInterface && isset($row->{$language_field})) {
+    if ($entity instanceof TranslatableInterface && $entity->isTranslatable()) {
+
+      // Try to find a field alias for the langcode.
+      // Assumption: translatable entities always
+      // have a langcode key.
+      $language_field = '';
+      $langcode_key = $entity->getEntityType()->getKey('langcode');
+      $base_table = $view->storage->get('base_table');
+      foreach ($view->query->fields as $field) {
+        if (
+          $field['field'] === $langcode_key && (
+            empty($field['base_table']) ||
+            $field['base_table'] === $base_table
+          )
+        ) {
+          $language_field = $field['alias'];
+          break;
+        }
+      }
+      if (!$language_field) {
+        $language_field = $langcode_key;
+      }
+
+      if (isset($row->{$language_field})) {
         return $entity->getTranslation($row->{$language_field});
       }
     }

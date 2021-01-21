@@ -5,23 +5,56 @@ namespace Drupal\views_bulk_operations\Form;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\user\PrivateTempStoreFactory;
-use Drupal\Core\Action\ActionManager;
-use Drupal\views_bulk_operations\ViewsBulkOperationsBatch;
-use Drupal\views\Views;
-use Drupal\Core\Url;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
+use Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionManager;
+use Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionProcessorInterface;
 
 /**
- * Action configuration form.
+ * Default action execution confirmation form.
  */
 class ConfirmAction extends FormBase {
 
+  use ViewsBulkOperationsFormTrait;
+
+  /**
+   * User private temporary storage factory.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
+   */
+  protected $tempStoreFactory;
+
+  /**
+   * Views Bulk Operations action manager.
+   *
+   * @var \Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionManager
+   */
+  protected $actionManager;
+
+  /**
+   * Views Bulk Operations action processor.
+   *
+   * @var \Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionProcessorInterface
+   */
+  protected $actionProcessor;
+
   /**
    * Constructor.
+   *
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $tempStoreFactory
+   *   User private temporary storage factory.
+   * @param \Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionManager $actionManager
+   *   Extended action manager object.
+   * @param \Drupal\views_bulk_operations\Service\ViewsBulkOperationsActionProcessorInterface $actionProcessor
+   *   Views Bulk Operations action processor.
    */
-  public function __construct(PrivateTempStoreFactory $tempStoreFactory, ActionManager $actionManager) {
+  public function __construct(
+    PrivateTempStoreFactory $tempStoreFactory,
+    ViewsBulkOperationsActionManager $actionManager,
+    ViewsBulkOperationsActionProcessorInterface $actionProcessor
+  ) {
     $this->tempStoreFactory = $tempStoreFactory;
     $this->actionManager = $actionManager;
+    $this->actionProcessor = $actionProcessor;
   }
 
   /**
@@ -29,8 +62,9 @@ class ConfirmAction extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('user.private_tempstore'),
-      $container->get('plugin.manager.views_bulk_operations_action')
+      $container->get('tempstore.private'),
+      $container->get('plugin.manager.views_bulk_operations_action'),
+      $container->get('views_bulk_operations.processor')
     );
   }
 
@@ -38,56 +72,37 @@ class ConfirmAction extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return __CLASS__;
+    return 'views_bulk_operations_confirm_action';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $view_id = NULL, $display_id = NULL) {
-    $tempstore_name = 'views_bulk_operations_' . $view_id . '_' . $display_id;
-    $tempstore = $this->tempStoreFactory->get($tempstore_name);
-    $view_data = $tempstore->get($this->currentUser()->id());
-    $view_data['tempstore_name'] = $tempstore_name;
+
+    $form_data = $this->getFormData($view_id, $display_id);
 
     // TODO: display an error msg, redirect back.
-    if (!isset($view_data['action_id'])) {
+    if (!isset($form_data['action_id'])) {
       return;
     }
 
-    $form_state->setStorage($view_data);
-
-    $definition = $this->actionManager->getDefinition($view_data['action_id']);
-
-    // Get count of entities to be processed.
-    if (!empty($view_data['list'])) {
-      $count = count($view_data['list']);
-    }
-    else {
-      $view = Views::getView($view_data['view_id']);
-      $view->setDisplay($view_data['display_id']);
-      $view->get_total_rows = TRUE;
-      if (!empty($view_data['arguments'])) {
-        $view->setArguments($view_data['arguments']);
-      }
-      if (!empty($view_data['exposed_input'])) {
-        $view->setExposedInput($view_data['exposed_input']);
-      }
-      $view->build();
-      $query = $view->query->query();
-      if (!empty($query)) {
-        $count = $query->countQuery()->execute()->fetchField();
-      }
-      else {
-        $view->execute();
-        $count = $view->total_rows;
-      }
+    if (!empty($form_data['entity_labels'])) {
+      $form['list'] = [
+        '#theme' => 'item_list',
+        '#items' => $form_data['entity_labels'],
+      ];
     }
 
-    $form['#title'] = $this->t('Are you sure you wish to perform "%action" action on %count entities?', [
-      '%action' => $view_data['action_label'],
-      '%count' => $count,
-    ]);
+    $form['#title'] = $this->formatPlural(
+      $form_data['selected_count'],
+      'Are you sure you wish to perform "%action" action on 1 entity?',
+      'Are you sure you wish to perform "%action" action on %count entities?',
+      [
+        '%action' => $form_data['action_label'],
+        '%count' => $form_data['selected_count'],
+      ]
+    );
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -96,6 +111,9 @@ class ConfirmAction extends FormBase {
         [$this, 'submitForm'],
       ],
     ];
+    $this->addCancelButton($form);
+
+    $form_state->set('views_bulk_operations', $form_data);
 
     return $form;
   }
@@ -104,15 +122,10 @@ class ConfirmAction extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $view_data = $form_state->getStorage();
-
-    $form_state->setRedirectUrl(Url::fromUserInput($view_data['redirect_uri']['destination']));
-
-    $batch = ViewsBulkOperationsBatch::getBatch($view_data);
-
-    $this->tempStoreFactory->get($view_data['tempstore_name'])->delete($this->currentUser()->id());
-
-    batch_set($batch);
+    $form_data = $form_state->get('views_bulk_operations');
+    $this->deleteTempstoreData($form_data['view_id'], $form_data['display_id']);
+    $this->actionProcessor->executeProcessing($form_data);
+    $form_state->setRedirectUrl($form_data['redirect_url']);
   }
 
 }

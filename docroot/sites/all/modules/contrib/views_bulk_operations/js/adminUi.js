@@ -21,9 +21,11 @@
    */
   Drupal.viewsBulkOperationsUi = function () {
     var uiElement = $(this);
-    uiElement.find('.action-state').each(function () {
+
+    // Show / hide actions' preliminary configuration.
+    uiElement.find('.vbo-action-state').each(function () {
       var matches = $(this).attr('name').match(/.*\[.*?\]\[(.*?)\]\[.*?\]/);
-      if (typeof(matches[1]) != 'undefined') {
+      if (typeof (matches[1]) != 'undefined') {
         var preconfigurationElement = uiElement.find('*[data-for="' + matches[1] + '"]');
         $(this).change(function (event) {
           if ($(this).is(':checked')) {
@@ -35,5 +37,22 @@
         });
       }
     });
+
+    // Select / deselect all functionality.
+    var actionsElementWrapper = uiElement.find('details.vbo-actions-widget > .details-wrapper');
+    if (actionsElementWrapper.length) {
+      var checked = false;
+      var allHandle = $('<a href="#" class="vbo-all-switch">' + Drupal.t('Select / deselect all') + '</a>');
+      actionsElementWrapper.prepend(allHandle);
+      allHandle.on('click', function (event) {
+        event.preventDefault();
+        checked = !checked;
+        actionsElementWrapper.find('.vbo-action-state').each(function () {
+          $(this).prop('checked', checked);
+          $(this).trigger('change');
+        });
+        return false;
+      });
+    }
   };
 })(jQuery, Drupal);

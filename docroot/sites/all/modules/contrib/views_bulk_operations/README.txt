@@ -23,10 +23,11 @@ Creating custom actions
 -----------------------
 
 Example that covers different possibilities is available in
-modules/views_bulk_operatios_example/.
+modules/views_bulk_operations_example/.
 
-In a module, create an action plugin (check the example module
-or \core\modules\node\src\Plugin\Action\ for simple implementations).
+In a module, create an action plugin (check the included example module,
+test actions in /tests/views_bulk_operations_test/src/Plugin/Action
+or \core\modules\node\src\Plugin\Action namespace for simple implementations).
 
 Available annotation parameters:
   - id: The action ID (required),
@@ -38,15 +39,15 @@ Available annotation parameters:
   - confirm_form_route_name: Route name of the action confirmation form.
     If left empty and the previous parameter is empty, there will be
     no confirmation step (default: empty string).
-  - pass_context: If set to TRUE, the entire batch context 
-    will be added to the action $context parameter (default: FALSE).
-  - pass_view: If set to TRUE, the entire view with selected
-    results ($view->result) of the current batch will be available
-    in the action $view parameter (default: FALSE).
+  - requirements: an array of requirements an action must meet
+    to be displayed on the action selection form. At the moment
+    only one possible requirement is supported: '_permission', if
+    the current user has that permission, the action execution will
+    be possible.
 
 
 Additional notes
 ----------------
 
-Documentation also available at
+Full documentation with examples is available at
 https://www.drupal.org/docs/8/modules/views-bulk-operations-vbo.

@@ -4,6 +4,7 @@ namespace Drupal\views_bulk_operations_example\Plugin\Action;
 
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsActionBase;
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsPreconfigurationInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 
@@ -18,11 +19,9 @@ use Drupal\Core\Session\AccountInterface;
  *   label = @Translation("VBO example action"),
  *   type = "",
  *   confirm = TRUE,
- *   pass_context = TRUE,
- *   pass_view = TRUE
  * )
  */
-class ViewsBulkOperationExampleAction extends ViewsBulkOperationsActionBase implements ViewsBulkOperationsPreconfigurationInterface {
+class ViewsBulkOperationExampleAction extends ViewsBulkOperationsActionBase implements ViewsBulkOperationsPreconfigurationInterface, PluginFormInterface {
 
   /**
    * {@inheritdoc}
