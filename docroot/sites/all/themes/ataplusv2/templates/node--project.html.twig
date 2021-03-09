@@ -145,7 +145,7 @@
       <div class="deal-details">
         <table class="table" id="deal-details">
         <tr><th>{{ percentage_raised }}% of target</th>
-          <td>{% if days_left >= 0 %} 
+          <td>{% if days_left >= 0 %}
               {{content.field_end_date_time.0}}
               {% else %} 0 days left
               {% endif %}</td>
@@ -379,6 +379,8 @@
 
           {% if content.field_minimum_investment_amount %}
            <dl><dt>Minimum Investment Amount </dt><dd>{{content.field_minimum_investment_amount.0}}</dd></dl>
+            {% else %}
+              <dl><dt>Minimum Investment Amount </dt><dd>{{content.field_minimum_investment_amount_.0}}</dd></dl>
           {% endif %}
 
           {% if content.field_rewards %}
@@ -517,6 +519,11 @@
           <td class="bg-dark-purple white">Minimum Investment Amount</td>
           <td class="bg-grey">{{content.field_minimum_investment_amount.0}}</td>
           </tr>
+            {% else %}
+            <tr>
+              <td class="bg-dark-purple white">Minimum Investment Amount</td>
+              <td class="bg-grey">{{content.field_minimum_investment_amount_.0}}</td>
+            </tr>
           {% endif %}
 
           {% if content.field_rewards|render is not empty %}
