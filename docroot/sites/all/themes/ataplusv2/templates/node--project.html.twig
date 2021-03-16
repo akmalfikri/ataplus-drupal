@@ -340,7 +340,7 @@
           {% if content.field_pre_money_valuation %}
             <dl><dt>Pre Money Valuation </dt><dd>{{content.field_pre_money_valuation.0}}</dd></dl>
             {% elseif content.field_pre_money_valuation_decima %}
-              <dl><dt>Valuation </dt><dd>{{content.field_pre_money_valuation_decima.0}}</dd></dl>
+              <dl><dt>Valuation </dt><dd>RM {{content.field_pre_money_valuation_decima.0}}</dd></dl>
           {% endif %}
 
           {% if content.field_post_money_valuation %}
@@ -458,7 +458,7 @@
             {%  elseif content.field_pre_money_valuation_decima|render is not empty %}
               <tr>
                 <td class="bg-dark-purple white">Pre Money Valuation</td>
-                <td class="bg-grey">{{content.field_pre_money_valuation_decima.0}}</td>
+                <td class="bg-grey">RM {{content.field_pre_money_valuation_decima.0}}</td>
               </tr>
           {% endif %}
 
