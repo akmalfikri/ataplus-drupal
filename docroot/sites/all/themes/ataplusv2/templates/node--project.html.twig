@@ -343,20 +343,20 @@
               <dl><dt>Valuation </dt><dd>RM {{content.field_pre_money_valuation_decima.0}}</dd></dl>
           {% endif %}
 
-          {% if content.field_post_money_valuation %}
+          <!--{% if content.field_post_money_valuation %}
            <dl><dt>Valuation </dt><dd>{{content.field_post_money_valuation.0}}</dd></dl>
-          {% endif %}
+          {% endif %}-->
 
           {% if content.field_minimum_offering_size %}
            <dl><dt>Minimum Fundraising Target </dt><dd>{{content.field_minimum_offering_size.0}}</dd></dl>
           {% endif %}
 
           {% if content.field_maximum_offering_size %}
-           <dl><dt>Maximum Offering Size </dt><dd>{{content.field_maximum_offering_size.0}}</dd></dl>
+           <dl><dt>Maximum Fundraising Target </dt><dd>{{content.field_maximum_offering_size.0}}</dd></dl>
           {% endif %}
 
           {% if content.field_price_per_share %}
-           <dl><dt>Price per Shares </dt><dd>{{content.field_price_per_share.0}}</dd></dl>
+           <dl><dt>Price per Share </dt><dd>{{content.field_price_per_share.0}}</dd></dl>
           {% endif %}
 
           {% if content.field_minimum_equity_offered %}
@@ -375,13 +375,13 @@
            <dl><dt>Maximum Shares Offered </dt><dd>{{content.field_maximum_shares_offered.0}}</dd></dl>
           {% endif %}
 
-          {% if content.field_number_of_shares_per_block %}
+          <!--{% if content.field_number_of_shares_per_block %}
            <dl><dt>Number of shares per block </dt><dd>{{content.field_number_of_shares_per_block.0}}</dd></dl>
-          {% endif %}
+          {% endif %}-->
 
-          {% if content.field_minimum_block_per_investme %}
+          <!--{% if content.field_minimum_block_per_investme %}
            <dl><dt>Minimum block per Investment </dt><dd>{{content.field_minimum_block_per_investme.0}}</dd></dl>
-          {% endif %}
+          {% endif %}-->
 
           {% if content.field_minimum_investment_amount %}
            <dl><dt>Minimum Investment Amount </dt><dd>{{content.field_minimum_investment_amount.0}}</dd></dl>
@@ -462,12 +462,12 @@
               </tr>
           {% endif %}
 
-          {% if content.field_post_money_valuation|render is not empty %}
+          <!--{% if content.field_post_money_valuation|render is not empty %}
           <tr>
           <td class="bg-dark-purple white">Valuation</td>
           <td class="bg-grey">{{content.field_post_money_valuation.0}}</td>
           </tr>
-          {% endif %}
+          {% endif %}-->
 
           {% if content.field_minimum_offering_size|render is not empty %}
           <tr>
@@ -478,14 +478,14 @@
 
           {% if content.field_maximum_offering_size|render is not empty %}
           <tr>
-          <td class="bg-dark-purple white">Maximum Offering Size</td>
+          <td class="bg-dark-purple white">Maximum Fundraising Target</td>
           <td class="bg-grey">{{content.field_maximum_offering_size.0}}</td>
           </tr>
           {% endif %}
 
           {% if content.field_price_per_share|render is not empty %}
           <tr>
-          <td class="bg-dark-purple white">Price per Shares</td>
+          <td class="bg-dark-purple white">Price per Share</td>
           <td class="bg-grey">{{content.field_price_per_share.0}}</td>
           </tr>
           {% endif %}
@@ -518,19 +518,19 @@
           </tr>
           {% endif %}
 
-          {% if content.field_number_of_shares_per_block|render is not empty %}
+          <!--{% if content.field_number_of_shares_per_block|render is not empty %}
           <tr>
           <td class="bg-dark-purple white">Number of shares per block</td>
           <td class="bg-grey">{{content.field_number_of_shares_per_block.0}}</td>
           </tr>
-          {% endif %}
+          {% endif %}-->
 
-          {% if content.field_minimum_block_per_investme|render is not empty %}
+          <!--{% if content.field_minimum_block_per_investme|render is not empty %}
           <tr>
           <td class="bg-dark-purple white">Minimum block per Investment</td>
           <td class="bg-grey">{{content.field_minimum_block_per_investme.0}}</td>
           </tr>
-          {% endif %}
+          {% endif %}-->
 
           {% if content.field_minimum_investment_amount|render is not empty %}
           <tr>
