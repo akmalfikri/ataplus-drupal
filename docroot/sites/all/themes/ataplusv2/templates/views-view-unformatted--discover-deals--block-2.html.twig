@@ -30,6 +30,7 @@
   <div{{ row.attributes.addClass(row_classes) }}>
     {{- row.content -}}
   </div>
+  {{ view.total_rows }}
 {% endfor %}
 {% if view.total_rows == 1 %}
     <div class="boxes3 border-grey text-center">
