@@ -29,7 +29,8 @@
   %}
   <div{{ row.attributes.addClass(row_classes) }}>
     {{- row.content -}}
-    {% if count == 1 %}
+  </div>
+  {% if count == 1 %}
     <div class="col-md-4">
       <div class="boxes3 border-grey text-center">
         <img src="sites/all/themes/ataplusv2/img/coming-soon.png">
@@ -55,5 +56,4 @@
       </div>
     </div>
     {% endif %}
-  </div>
 {% endfor %}
