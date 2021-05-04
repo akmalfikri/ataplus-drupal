@@ -30,7 +30,7 @@
   <div{{ row.attributes.addClass(row_classes) }}>
     {{- row.content -}}
   </div>
-  {% if count == 1 %}
+  {% if count == 2 %}
     <div class="col-md-4">
       <div class="boxes3 border-grey text-center">
         <img src="sites/all/themes/ataplusv2/img/coming-soon.png">
@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-    {% elseif count == 2 %}
+    {% elseif count == 1 %}
     <div class="col-md-4">
       <div class="boxes3 border-grey text-center">
         <img src="sites/all/themes/ataplusv2/img/coming-soon.png">
@@ -57,7 +57,8 @@
                     </div>
             </div>
         </div>
-    </div><div class="col-md-4">
+    </div>
+    <div class="col-md-4">
       <div class="boxes3 border-grey text-center">
         <img src="sites/all/themes/ataplusv2/img/coming-soon.png">
             <div class="insider">
