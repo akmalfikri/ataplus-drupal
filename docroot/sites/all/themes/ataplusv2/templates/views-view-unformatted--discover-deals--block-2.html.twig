@@ -17,7 +17,7 @@
  * @ingroup themeable
  */
 #}
-
+{% set count = rows | length %}
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
@@ -30,9 +30,8 @@
   <div{{ row.attributes.addClass(row_classes) }}>
     {{- row.content -}}
   </div>
-  {{ view.total_rows }}
 {% endfor %}
-{% if view.total_rows == 1 %}
+{% if count == 1 %}
     <div class="boxes3 border-grey text-center">
     <img src="sites/all/themes/ataplusv2/img/coming-soon.png">
         <div class="insider">
@@ -55,7 +54,7 @@
                 </div>
         </div>
     </div>
-{% elseif view.total_rows == 2 %}
+{% elseif count == 2 %}
     <div class="boxes3 border-grey text-center">
     <img src="sites/all/themes/ataplusv2/img/coming-soon.png">
         <div class="insider">
