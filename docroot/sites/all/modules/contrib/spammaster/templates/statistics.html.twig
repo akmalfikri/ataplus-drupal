@@ -1,0 +1,173 @@
+{% if user.hasPermission('administer nodes') %}
+
+<div class="spammaster_fw_footer">
+	<p><a href="/admin/config/system/spammaster/log"><- back to settings</a> - Powered by <a href="https://www.spammaster.org">Spam Master</a></p>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Totals', 'Total Count', { role: 'style' }, { role: 'annotation' }],
+        ['Total Blocks', {{ total_count }}, '#3d3226', {{ total_count }}],
+      ]);
+
+      var options = {
+        title: "Total since beginning of time",
+        bar: {groupWidth: '95%'},
+        chartArea: {
+          width: "82%",
+        },
+        legend: { position: 'none' },
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('total_count'));
+      chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Totals', 'Total Count', { role: 'style' }, { role: 'annotation' }],
+        ['All Logs', {{ total_count_all_logs }}, '#3366cc', {{ total_count_all_logs }}],
+        ['System Logs', {{ total_count_system_logs }}, '#dc3912', {{ total_count_system_logs }}],
+        ['Firewall', {{ total_count_firewall }}, '#ff9900', {{ total_count_firewall }}],
+        ['Registration', {{ total_count_registration }}, '#109618', {{ total_count_registration }}],
+        ['Comment', {{ total_count_comment }}, '#ab47bc', {{ total_count_comment }}],
+        ['Contact', {{ total_count_contact }}, '#00acc1', {{ total_count_contact }}],
+        ['Honeypot', {{ total_count_honeypot }}, '#dd4477', {{ total_count_honeypot }}],
+        ['reCaptcha', {{ total_count_recaptcha }}, '#66aa00', {{ total_count_recaptcha }}]
+      ]);
+
+      var options = {
+        title: 'Max 3 Months Totals',
+        bar: {groupWidth: '95%'},
+        chartArea: {
+          width: "81%",
+        },
+        legend: { position: 'none', maxLines: 3 },
+        logscale: true,
+         axes: {
+            x: {
+              0: { side: 'bottom', label: ''}
+            }
+          },
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('last_3_months_total'));
+      chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'All Logs', 'System Logs', 'Firewall', 'Registration', 'Comment', 'Contact', 'Honeypot', 'reCaptcha'],
+          ['{{ spam_master_month_minus_3 }}', {{ total_month_all_logs_3 }}, {{ total_month_system_logs_3 }}, {{ total_month_firewall_3 }}, {{ total_month_registration_3 }}, {{ total_month_comment_3 }}, {{ total_month_contact_3 }}, {{ total_month_honeypot_3 }}, {{ total_month_recaptcha_3 }}],
+          ['{{ spam_master_month_minus_2 }}', {{ total_month_all_logs_2 }}, {{ total_month_system_logs_2 }}, {{ total_month_firewall_2 }}, {{ total_month_registration_2 }}, {{ total_month_comment_2 }}, {{ total_month_contact_2 }}, {{ total_month_honeypot_2 }}, {{ total_month_recaptcha_2 }}],
+          ['{{ spam_master_month_minus_1 }}', {{ total_month_all_logs_1 }}, {{ total_month_system_logs_1 }}, {{ total_month_firewall_1 }}, {{ total_month_registration_1 }}, {{ total_month_comment_1 }}, {{ total_month_contact_1 }}, {{ total_month_honeypot_1 }}, {{ total_month_recaptcha_1 }}],
+        ]);
+
+        var options = {
+         title: 'Max 3 Months Individual',
+         bar: {groupWidth: '95%'},
+          chartArea: {
+            width: "82%",
+          },
+         legend: { position: 'bottom', maxLines: 3 },
+         logscale: true,
+         axes: {
+            x: {
+              0: { side: 'bottom', label: ''}
+            }
+          },
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('last_3_months'));
+        chart.draw(data, options);
+      }
+</script>
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Day', 'All logs', 'System Logs', 'Firewall', 'Registration', 'Comments', 'Contact', 'Honeypot', 'reCaptcha'],
+          ['{{ spam_master_today_minus_5 }}', {{ totalitems_all_logs_5 }}, {{ totalitems_system_logs_5 }}, {{ totalitems_firewall_blocked_5 }}, {{ totalitems_registration_blocked_5 }}, {{ totalitems_comment_blocked_5 }}, {{ totalitems_contact_blocked_5 }}, {{ totalitems_honeypot_blocked_5 }}, {{ totalitems_recaptcha_blocked_5 }}],
+          ['{{ spam_master_today_minus_4 }}', {{ totalitems_all_logs_4 }}, {{ totalitems_system_logs_4 }}, {{ totalitems_firewall_blocked_4 }}, {{ totalitems_registration_blocked_4 }}, {{ totalitems_comment_blocked_4 }}, {{ totalitems_contact_blocked_4 }}, {{ totalitems_honeypot_blocked_4 }}, {{ totalitems_recaptcha_blocked_4 }}],
+          ['{{ spam_master_today_minus_3 }}', {{ totalitems_all_logs_3 }}, {{ totalitems_system_logs_3 }}, {{ totalitems_firewall_blocked_3 }}, {{ totalitems_registration_blocked_3 }}, {{ totalitems_comment_blocked_3 }}, {{ totalitems_contact_blocked_3 }}, {{ totalitems_honeypot_blocked_3 }}, {{ totalitems_recaptcha_blocked_3 }}],
+          ['{{ spam_master_today_minus_2 }}', {{ totalitems_all_logs_2 }}, {{ totalitems_system_logs_2 }}, {{ totalitems_firewall_blocked_2 }}, {{ totalitems_registration_blocked_2 }}, {{ totalitems_comment_blocked_2 }}, {{ totalitems_contact_blocked_2 }}, {{ totalitems_honeypot_blocked_2 }}, {{ totalitems_recaptcha_blocked_2 }}],
+          ['{{ spam_master_today_minus_1 }}', {{ totalitems_all_logs_1 }}, {{ totalitems_system_logs_1 }}, {{ totalitems_firewall_blocked_1 }}, {{ totalitems_registration_blocked_1 }}, {{ totalitems_comment_blocked_1 }}, {{ totalitems_contact_blocked_1 }}, {{ totalitems_honeypot_blocked_1 }}, {{ totalitems_recaptcha_blocked_1 }}],
+        ]);
+
+        var options = {
+          title: 'Last 5 days',
+          curveType: 'function',
+          legend: { position: 'bottom', maxLines: 3 },
+          chartArea: {
+            width: "90%",
+          },
+          series: {
+			0: { pointSize: '10'},
+			1: { pointSize: '10'},
+			2: { pointSize: '10'},
+			3: { pointSize: '10'},
+			4: { pointSize: '10'},
+			5: { pointSize: '10'},
+			6: { pointSize: '10'},
+			7: { pointSize: '10'},
+			8: { pointSize: '10'},
+		   },
+		   logscale: true,
+        };
+
+var chart = new google.visualization.LineChart(document.getElementById('5_days'));
+
+ chart.draw(data, options);
+}
+</script>
+
+<div id="total_count" style="width: 100%; height: 150px;"></div>
+
+<div class="spammaster_fw_footer">
+</div>
+
+<div id="last_3_months_total" style="width: 100%; height: 350px;"></div>
+
+<div class="spammaster_fw_footer">
+</div>
+
+<div id="last_3_months" style="width: 100%; height: 350px;"></div>
+
+<div class="spammaster_fw_footer">
+</div>
+
+<div id="5_days" style="width: 100%; height: 350px;"></div>
+
+<div class="spammaster_fw_footer">
+	<p><a href="/admin/config/system/spammaster/log"><- back to settings</a></p>
+	<p>Powered by <a href="https://www.spammaster.org">Spam Master</a></p>
+</div>
+
+{% else %}
+
+<p>Sorry, this page is restricted to administrators.</p>
+
+<div class="spammaster_fw_footer">
+	<p>Powered by <a href="https://www.spammaster.org">Spam Master</a></p>
+</div>
+
+{% endif %}

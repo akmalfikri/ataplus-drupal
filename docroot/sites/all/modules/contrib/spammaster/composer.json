@@ -1,0 +1,24 @@
+{
+  "name": "drupal/spammaster",
+  "type": "drupal-module",
+  "description": "The Spam Master Protection module using Real Time anti-spam lists as Saas.",
+  "description": "This module provides a Dacast handler for Video Embed Field.",
+  "keywords": ["Drupal", "Spam Master", "Security"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/spammaster",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Pedro Alves",
+      "homepage": "https://www.drupal.org/u/pedro-alves",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/spammaster",
+    "source": "https://git.drupalcode.org/project/spammaster"
+  },
+  "require": {
+    "drupal/core": "^8 || ^9"
+  }
+}

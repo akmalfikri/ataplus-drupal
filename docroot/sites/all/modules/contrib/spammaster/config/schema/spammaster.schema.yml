@@ -1,0 +1,150 @@
+spammaster.settings:
+  type: config_object
+  mapping:
+    license_key:
+      type: textfield
+      label: ''
+spammaster.settings_protection:
+  type: config_object
+  mapping:
+    block_message:
+      type: textfield
+      label: ''
+    basic_firewall:
+      type: select
+      label: '1'
+    basic_registration:
+      type: select
+      label: '1'
+    basic_comment:
+      type: select
+      label: '1'
+    basic_contact:
+      type: select
+      label: '1'
+    extra_recaptcha:
+      type: select
+      label: '0'
+    extra_recaptcha_api_key:
+      type: textfield
+      label: ''
+    extra_recaptcha_api_secret_key:
+      type: textfield
+      label: ''
+    extra_recaptcha_login:
+      type: select
+      label: '0'
+    extra_recaptcha_registration:
+      type: select
+      label: '0'
+    extra_recaptcha_comment:
+      type: select
+      label: '0'
+    extra_recaptcha_contact:
+      type: select
+      label: '0'
+    extra_honeypot:
+      type: select
+      label: '1'
+    extra_honeypot_login:
+      type: select
+      label: '1'
+    extra_honeypot_registration:
+      type: select
+      label: '1'
+    extra_honeypot_comment:
+      type: select
+      label: '1'
+    extra_honeypot_contact:
+      type: select
+      label: '1'
+    extra_contact_cyrillic:
+      type: select
+      label: '1'
+    extra_contact_asian:
+      type: select
+      label: '1'
+    extra_contact_arabic:
+      type: select
+      label: '1'
+    extra_contact_spam:
+      type: select
+      label: '1'
+    extra_comment_cyrillic:
+      type: select
+      label: '1'
+    extra_comment_asian:
+      type: select
+      label: '1'
+    extra_comment_arabic:
+      type: select
+      label: '1'
+    extra_comment_spam:
+      type: select
+      label: '1'
+    signature_registration:
+      type: select
+      label: '1'
+    signature_login:
+      type: select
+      label: '1'
+    signature_comment:
+      type: select
+      label: '1'
+    signature_contact:
+      type: select
+      label: '1'
+    email_alert_3:
+      type: select
+      label: '1'
+    email_daily_report:
+      type: select
+      label: '0'
+    email_weekly_report:
+      type: select
+      label: '0'
+    email_improve:
+      type: select
+      label: '1'
+    cleanup_firewall:
+      type: number
+      label: ''
+    cleanup_registration:
+      type: number
+      label: ''
+    cleanup_comment:
+      type: number
+      label: ''
+    cleanup_contact:
+      type: number
+      label: ''
+    cleanup_honeypot:
+      type: number
+      label: ''
+    cleanup_recaptcha:
+      type: number
+      label: ''
+    cleanup_whitelist:
+      type: number
+      label: ''
+    cleanup_system:
+      type: number
+      label: ''
+    cleanup_mail:
+      type: number
+      label: ''
+    cleanup_cron:
+      type: number
+      label: ''
+spammaster.settings_buffer:
+  type: config_object
+  mapping:
+spammaster.settings_white:
+  type: config_object
+  mapping:
+    type:
+      type: white_key:
+      label: ''
+spammaster.settings_log:
+  type: config_object
+  mapping:

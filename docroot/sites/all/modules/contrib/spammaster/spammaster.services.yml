@@ -1,0 +1,42 @@
+services:
+  spammaster.event_subscriber:
+    class: Drupal\spammaster\EventSubscriber\SpamMasterFirewallSubscriber
+    arguments: ['@database', '@request_stack', '@current_user', '@messenger', '@state']
+    tags:
+      - {name: event_subscriber}
+  spammaster.cron_service:
+    class: Drupal\spammaster\SpamMasterCronService
+    arguments: ['@database', '@config.factory', '@state', '@spammaster.lic_service', '@spammaster.mail_service', '@spammaster.clean_service']
+  spammaster.lic_service:
+    class: Drupal\spammaster\SpamMasterLicService
+    arguments: ['@database', '@messenger', '@request_stack', '@http_client', '@config.factory', '@state', '@spammaster.mail_service']
+  spammaster.mail_service:
+    class: Drupal\spammaster\SpamMasterMailService
+    arguments: ['@database', '@messenger', '@current_user', '@config.factory', '@state', '@plugin.manager.mail']
+  spammaster.clean_service:
+    class: Drupal\spammaster\SpamMasterCleanUpService
+    arguments: ['@database', '@config.factory', '@state']
+  spammaster.honeypot_service:
+    class: Drupal\spammaster\SpamMasterHoneypotService
+    arguments: ['@database', '@messenger', '@request_stack', '@http_client', '@config.factory', '@state', '@string_translation']
+  spammaster.recaptcha_service:
+    class: Drupal\spammaster\SpamMasterRecaptchaService
+    arguments: ['@database', '@messenger', '@request_stack', '@http_client', '@config.factory', '@state', '@string_translation']
+  spammaster.registration_service:
+    class: Drupal\spammaster\SpamMasterRegistrationService
+    arguments: ['@database', '@messenger', '@request_stack', '@http_client', '@config.factory', '@state', '@string_translation']
+  spammaster.contact_service:
+    class: Drupal\spammaster\SpamMasterContactService
+    arguments: ['@database', '@messenger', '@request_stack', '@http_client', '@config.factory', '@state', '@string_translation']
+  spammaster.comment_service:
+    class: Drupal\spammaster\SpamMasterCommentService
+    arguments: ['@database', '@messenger', '@request_stack', '@http_client', '@config.factory', '@state', '@string_translation']
+  spammaster.block_totalblockcount:
+    class: Drupal\spammaster\Block\SpamMasterTotalCountBlock
+    arguments: ['@state']
+  spammaster.block_statusblock:
+    class: Drupal\spammaster\Block\SpamMasterFirewallStatusBlock
+    arguments: ['@database', '@request_stack']
+  spammaster.block_headsupblock:
+    class: Drupal\spammaster\Block\SpamMasterHeadsUpBlock
+    arguments: ['@state', '@request_stack']

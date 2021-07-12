@@ -1,0 +1,17 @@
+name: 'Spam Master'
+type: module
+description: '<a href="http://www.spammaster.org" target="_blank">Spam Master</a> is a Spam Protection Module that blocks new user registrations, comments, and threads with Real Time anti-spam lists.'
+package: 'TechGasp'
+
+configure: spammaster.settings
+
+libraries:
+  - spammaster/spammaster-styles
+
+core: 8.x
+core_version_requirement: ^8 || ^9
+
+# Information added by Drupal.org packaging script on 2020-12-06
+version: '8.x-1.66'
+project: 'spammaster'
+datestamp: 1607267329

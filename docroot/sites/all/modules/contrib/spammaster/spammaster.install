@@ -1,0 +1,368 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Spam Master module.
+ */
+
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function spammaster_install() {
+  user_role_change_permissions(RoleInterface::ANONYMOUS_ID, [
+    'generate spam master' => TRUE,
+  ]);
+
+  // Store state values.
+  $install_values = [
+    'spammaster.version' => '1.66',
+    'spammaster.extra_cyrillic_char' => 'д,и,ж,Ч,Б',
+    'spammaster.extra_asian_char' => '的,是,一,不,了,人,我,在,有,他,这,为,你,出,就,那,要,自,她,于,木,作,工,程,裝,潢,統,包,室,內,設,計,家,谩,膷,艡,铆,茅,眉,ョ,プ,て,い,ン,が,る,ノ,。,ト,ự,ữ,đ,ắ,ủ,ă,ả,ạ,ơ,ố,ộ,ư,부,스,타,빗',
+    'spammaster.extra_arabic_char' => 'أ,ن,ا,ح,ب,ه,ل,ا,ي,ة,إ,أ,و,هَ,ج',
+    'spammaster.extra_spam_char' => 'ɑ,ɑ,Ь,Ᏼ,ƅ,Ⲥ,Ԁ,ԁ,Ɗ,Ꭰ,ɗ,ｅ,ｅ,Ꮐ,Ꮋ,һ,ߋ,օ,ⲟ,Ⲣ,ⲣ,Ꮲ,Ꭱ,ｒ,Ꮪ,Ⴝ,Ꭲ,Ƭ,ᥙ,ҝ,ⲭ,ｚ,Ꮤ,ѡ,ʏ,ʏ,ү,ү,Ⲩ,қ,ҝ,᧐,…,・',
+  ];
+  \Drupal::state()->setMultiple($install_values);
+
+  // Set spam master version creation data.
+  \Drupal::configFactory()->getEditable('spammaster.settings_protection')
+    ->set('spammaster.block_message', 'Your Email, Domain, or Ip are banned.')
+    ->set('spammaster.basic_firewall', '1')
+    ->set('spammaster.basic_registration', '1')
+    ->set('spammaster.basic_comment', '1')
+    ->set('spammaster.basic_contact', '1')
+    ->set('spammaster.extra_recaptcha', '0')
+    ->set('spammaster.extra_recaptcha_login', '0')
+    ->set('spammaster.extra_recaptcha_registration', '0')
+    ->set('spammaster.extra_recaptcha_comment', '0')
+    ->set('spammaster.extra_recaptcha_contact', '0')
+    ->set('spammaster.extra_honeypot', '1')
+    ->set('spammaster.extra_honeypot_login', '1')
+    ->set('spammaster.extra_honeypot_registration', '1')
+    ->set('spammaster.extra_honeypot_comment', '1')
+    ->set('spammaster.extra_honeypot_contact', '1')
+    ->set('spammaster.extra_contact_cyrillic', '1')
+    ->set('spammaster.extra_contact_asian', '1')
+    ->set('spammaster.extra_contact_arabic', '1')
+    ->set('spammaster.extra_contact_spam', '1')
+    ->set('spammaster.extra_comment_cyrillic', '1')
+    ->set('spammaster.extra_comment_asian', '1')
+    ->set('spammaster.extra_comment_arabic', '1')
+    ->set('spammaster.extra_comment_spam', '1')
+    ->set('spammaster.signature_registration', '1')
+    ->set('spammaster.signature_login', '1')
+    ->set('spammaster.signature_comment', '1')
+    ->set('spammaster.signature_contact', '1')
+    ->set('spammaster.email_alert_3', '1')
+    ->set('spammaster.email_daily_report', '0')
+    ->set('spammaster.email_weekly_report', '0')
+    ->set('spammaster.email_improve', '1')
+    ->set('spammaster.cleanup_firewall', '3')
+    ->set('spammaster.cleanup_registration', '3')
+    ->set('spammaster.cleanup_comment', '3')
+    ->set('spammaster.cleanup_contact', '3')
+    ->set('spammaster.cleanup_honeypot', '3')
+    ->set('spammaster.cleanup_recaptcha', '3')
+    ->set('spammaster.cleanup_whitelist', '3')
+    ->set('spammaster.cleanup_system', '3')
+    ->set('spammaster.cleanup_mail', '3')
+    ->set('spammaster.cleanup_cron', '3')
+    ->save();
+  // Get settings.
+  $site_settings = \Drupal::config('system.site');
+  $spammaster_version = \Drupal::state()->get('spammaster.version');
+
+  // Create lic hash.
+  $spammaster_lic_hash = md5(uniqid(mt_rand(), TRUE));
+
+  // Colect data.
+  $spammaster_platform = 'Drupal';
+  $spammaster_platform_version = \Drupal::VERSION;
+  $spammaster_platform_type = 'NO';
+  $spammaster_n_websites = '0';
+  $spammaster_multisite_joined = $spammaster_platform_type . ' - ' . $spammaster_n_websites;
+  $spammaster_type = 'TRIAL';
+  $spammaster_lic_nounce = "PW9pdXNkbmVXMndzUw==";
+  $spammaster_cron = "FALSE";
+  $spammaster_site_name = $site_settings->get('name');
+  $spammaster_site_url = \Drupal::request()->getHost();
+  $address_unclean = $spammaster_site_url;
+  $address = preg_replace('#^https?://#', '', $address_unclean);
+  $spammaster_admin_email = $site_settings->get('mail');
+  $spammaster_ip = $_SERVER['SERVER_ADDR'];
+  // If empty ip.
+  if (empty($spammaster_ip) || $spammaster_ip == '0') {
+    $spammaster_ip = 'I ' . gethostbyname($_SERVER['HTTP_HOST']);
+  }
+  $spammaster_hostname = gethostbyaddr($_SERVER['SERVER_ADDR']);
+  // If empty host.
+  if (empty($spammaster_hostname) || $spammaster_hostname == '0') {
+    $spammaster_hostname = 'H ' . gethostbyname($_SERVER['HTTP_HOST']);
+  }
+
+  // Encode ssl post link for security.
+  $spammaster_license_url = 'aHR0cHM6Ly93d3cuc3BhbW1hc3Rlci5vcmcvd3AtY29udGVudC9wbHVnaW5zL3NwYW0tbWFzdGVyLWFkbWluaXN0cmF0b3IvaW5jbHVkZXMvbGljZW5zZS9saWNfdHJpYWwucGhw';
+
+  // Call drupal hhtpclient.
+  $client = \Drupal::httpClient();
+  // Post data.
+  $request = $client->post(base64_decode($spammaster_license_url), [
+    'form_params' => [
+      'spam_license_key' => $spammaster_lic_hash,
+      'spam_trial_nounce' => $spammaster_lic_nounce,
+      'platform' => $spammaster_platform,
+      'platform_version' => $spammaster_platform_version,
+      'platform_type' => $spammaster_multisite_joined,
+      'spam_master_version' => $spammaster_version,
+      'spam_master_type' => $spammaster_type,
+      'blog_name' => $spammaster_site_name,
+      'blog_address' => $address,
+      'blog_email' => $spammaster_admin_email,
+      'blog_hostname' => $spammaster_hostname,
+      'blog_ip' => $spammaster_ip,
+      'spam_master_cron' => $spammaster_cron,
+    ],
+  ]);
+  // Decode json data.
+  $response = json_decode($request->getBody(), TRUE);
+  if (empty($response)) {
+    $spammaster_type_set = 'EMPTY';
+    $spammaster_status = 'INACTIVE';
+    $spammaster_protection_total_number = '0';
+    $spammaster_alert_level_received = '';
+    $spammaster_alert_level_p_text = '';
+  }
+  else {
+    $spammaster_status = $response['status'];
+    if ($spammaster_status == 'MALFUNCTION_3') {
+      $spammaster_type_set = 'MALFUNCTION_3';
+      $spammaster_protection_total_number = 'MALFUNCTION_3';
+      $spammaster_alert_level_received = 'MALFUNCTION_3';
+      $spammaster_alert_level_p_text = 'MALFUNCTION_3';
+    }
+    else {
+      $spammaster_type_set = $response['type'];
+      $spammaster_protection_total_number = $response['threats'];
+      $spammaster_alert_level_received = $response['alert'];
+      $spammaster_alert_level_p_text = $response['percent'];
+    }
+  }
+  // Store received data in module settings.
+  \Drupal::configFactory()->getEditable('spammaster.settings')
+    ->set('spammaster.license_key', $spammaster_lic_hash)
+    ->save();
+
+  // Store state values.
+  $lic_values = [
+    'spammaster.type' => $spammaster_type_set,
+    'spammaster.license_status' => $spammaster_status,
+    'spammaster.license_alert_level' => $spammaster_alert_level_received,
+    'spammaster.license_protection' => $spammaster_protection_total_number,
+    'spammaster.license_probability' => $spammaster_alert_level_p_text,
+  ];
+  \Drupal::state()->setMultiple($lic_values);
+
+  // Mail service call.
+  $spammaster_mail_service = \Drupal::service('spammaster.mail_service');
+  $spammaster_mail_service->spamMasterLicTrialCreation();
+}
+
+/**
+ * Updates to module 01.
+ */
+function spammaster_update_8120() {
+  // 19042018.
+  \Drupal::configFactory()->getEditable('spammaster.settings.version')->delete();
+}
+
+/**
+ * Updates to module 02.
+ */
+function spammaster_update_8122() {
+  // 27102019.
+  $db = \Drupal::database();
+  $schema = $db->schema();
+  $table_name = 'spammaster_white';
+  $table_schema = [
+    'description' => 'White table.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'ID of White IP or email.',
+      ],
+      'date' => [
+        'type' => 'varchar',
+        'length' => 19,
+        'not null' => TRUE,
+        'description' => 'Insertion time and date.',
+      ],
+      'white' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'White IP or email',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema->createTable($table_name, $table_schema);
+  // Delete defunct spammaster-buffer keys from logs.
+  \Drupal::database()->delete('spammaster_keys')
+    ->condition('spamkey', 'spammaster-buffer')
+    ->execute();
+
+}
+
+/**
+ * Updates to module 03.
+ */
+function spammaster_update_8123() {
+  // 29102019.
+  \Drupal::configFactory()->getEditable('spammaster.settings_protection')
+    ->set('spammaster.cleanup_firewall', '3')
+    ->set('spammaster.cleanup_registration', '3')
+    ->set('spammaster.cleanup_comment', '3')
+    ->set('spammaster.cleanup_contact', '3')
+    ->set('spammaster.cleanup_honeypot', '3')
+    ->set('spammaster.cleanup_recaptcha', '3')
+    ->set('spammaster.cleanup_whitelist', '3')
+    ->set('spammaster.cleanup_system', '3')
+    ->set('spammaster.cleanup_mail', '3')
+    ->set('spammaster.cleanup_cron', '3')
+    ->save();
+  // Delete defunct spammaster-cleanup keys from logs.
+  \Drupal::database()->delete('spammaster_keys')
+    ->condition('spamkey', 'spammaster-cleanup')
+    ->execute();
+
+}
+
+/**
+ * Updates to module 04.
+ */
+function spammaster_update_8154() {
+  // 12105020.
+  \Drupal::configFactory()->getEditable('spammaster.type')->delete();
+  \Drupal::configFactory()->getEditable('spammaster.license_status')->delete();
+  \Drupal::configFactory()->getEditable('spammaster.license_alert_level')->delete();
+  \Drupal::configFactory()->getEditable('spammaster.license_protection')->delete();
+  \Drupal::configFactory()->getEditable('spammaster.license_probability')->delete();
+
+  // Store state values.
+  $updated_values = [
+    'spammaster.extra_cyrillic_char' => 'д,и,ж,Ч,Б',
+    'spammaster.extra_asian_char' => '的,是,一,不,了,人,我,在,有,他,这,为,你,出,就,那,要,自,她,于,木,作,工,程,裝,潢,統,包,室,內,設,計,家,谩,膷,艡,铆,茅,眉,ョ,プ,て,い,ン,が,る,ノ,。,ト,ự,ữ,đ,ắ,ủ,ă,ả,ạ,ơ,ố,ộ,ư,부,스,타,빗',
+    'spammaster.extra_arabic_char' => 'أ,ن,ا,ح,ب,ه,ل,ا,ي,ة,إ,أ,و,هَ,ج',
+    'spammaster.extra_spam_char' => 'ɑ,ɑ,Ь,Ᏼ,ƅ,Ⲥ,Ԁ,ԁ,Ɗ,Ꭰ,ɗ,ｅ,ｅ,Ꮐ,Ꮋ,һ,ߋ,օ,ⲟ,Ⲣ,ⲣ,Ꮲ,Ꭱ,ｒ,Ꮪ,Ⴝ,Ꭲ,Ƭ,ᥙ,ҝ,ⲭ,ｚ,Ꮤ,ѡ,ʏ,ʏ,ү,ү,Ⲩ,қ,ҝ,᧐,…,・',
+  ];
+  \Drupal::state()->setMultiple($updated_values);
+}
+
+/**
+ * Updates to module 05.
+ */
+function spammaster_update_8_9_1_64() {
+  // 17082020.
+  \Drupal::configFactory()->getEditable('spammaster.settings_protection')
+    ->set('spammaster.extra_honeypot', '1')
+    ->set('spammaster.extra_honeypot_login', '1')
+    ->set('spammaster.extra_honeypot_registration', '1')
+    ->set('spammaster.extra_honeypot_comment', '1')
+    ->set('spammaster.extra_honeypot_contact', '1')
+    ->save();
+}
+
+/**
+ * Implements Spam Master db schema hook().
+ */
+function spammaster_schema() {
+  $schema['spammaster_threats'] = [
+    'description' => 'Threats table.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'ID of IP or email threat.',
+      ],
+      'date' => [
+        'type' => 'varchar',
+        'length' => 19,
+        'not null' => TRUE,
+        'description' => 'Insertion time and date.',
+      ],
+      'threat' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'Threat IP or email',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  $schema['spammaster_keys'] = [
+    'description' => 'Variable, log, and other info.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'ID of key.',
+      ],
+      'date' => [
+        'type' => 'varchar',
+        'length' => 19,
+        'not null' => TRUE,
+        'description' => 'Insertion time and date.',
+      ],
+      'spamkey' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'description' => 'Key type.',
+      ],
+      'spamvalue' => [
+        'type' => 'text',
+        'size' => 'normal',
+        'not null' => TRUE,
+        'description' => 'Key value',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  $schema['spammaster_white'] = [
+    'description' => 'White table.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'ID of White IP or email.',
+      ],
+      'date' => [
+        'type' => 'varchar',
+        'length' => 19,
+        'not null' => TRUE,
+        'description' => 'Insertion time and date.',
+      ],
+      'white' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'White IP or email',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}

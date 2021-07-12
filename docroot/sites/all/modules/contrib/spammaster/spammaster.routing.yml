@@ -1,0 +1,55 @@
+spammaster.spammasterfirewall:
+  path: '/firewall'
+  defaults:
+    _controller: '\Drupal\spammaster\Controller\SpamMasterFirewallController::spamMasterFirewall'
+    _title: 'Spam Master Firewall'
+  requirements:
+    _permission: 'access content'
+
+spammaster.spammasterstatistics:
+  path: '/statistics'
+  defaults:
+    _controller: '\Drupal\spammaster\Controller\SpamMasterStatisticsController::spamMasterStatistics'
+    _title: 'Spam Master Statistics'
+  requirements:
+    _permission: 'administer site configuration'
+
+spammaster.settings:
+  path: '/admin/config/system/spammaster'
+  defaults:
+    _form: 'Drupal\spammaster\Form\SpamMasterSettingsForm'
+    _title: 'Spam Master'
+  requirements:
+    _permission: 'administer site configuration'
+
+spammaster.settings_protection:
+  path: '/admin/config/system/spammaster/protection'
+  defaults:
+    _form: 'Drupal\spammaster\Form\SpamMasterProtectionForm'
+    _title: 'Spam Master'
+  requirements:
+    _permission: 'administer site configuration'
+ 
+spammaster.settings_buffer:
+  path: '/admin/config/system/spammaster/buffer'
+  defaults:
+    _form: 'Drupal\spammaster\Form\SpamMasterBufferForm'
+    _title: 'Spam Master'
+  requirements:
+    _permission: 'administer site configuration'
+
+spammaster.settings_white:
+  path: '/admin/config/system/spammaster/white'
+  defaults:
+    _form: 'Drupal\spammaster\Form\SpamMasterWhiteForm'
+    _title: 'Spam Master'
+  requirements:
+    _permission: 'administer site configuration'
+
+spammaster.settings_log:
+  path: '/admin/config/system/spammaster/log'
+  defaults:
+    _form: 'Drupal\spammaster\Form\SpamMasterLogForm'
+    _title: 'Spam Master'
+  requirements:
+    _permission: 'administer site configuration'
