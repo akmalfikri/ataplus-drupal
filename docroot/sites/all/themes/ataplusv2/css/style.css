@@ -1697,3 +1697,7 @@ width: 100% !important;
 table caption {
 font-size: 2rem;
 }
+
+.no-campaign .boxes3 {
+    min-height:400px;
+}
