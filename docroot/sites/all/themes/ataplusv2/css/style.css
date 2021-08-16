@@ -1701,3 +1701,8 @@ font-size: 2rem;
 .no-campaign .boxes3 {
     min-height:400px;
 }
+
+.view-upcoming-deals .boxes3 {
+    min-height:500px;
+    margin-bottom:30px;
+}
