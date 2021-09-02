@@ -1,0 +1,11 @@
+name: 'User Restrictions Test'
+description: 'Specifies tests for module User restrictions.'
+type: module
+# core: '8.x'
+package: Testing
+
+# Information added by Drupal.org packaging script on 2019-04-23
+version: '8.x-1.0-rc1'
+core: '8.x'
+project: 'user_restrictions'
+datestamp: 1555988288
