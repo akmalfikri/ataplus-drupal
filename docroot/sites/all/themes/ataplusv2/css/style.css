@@ -471,7 +471,7 @@ input[type=submit], .btn {
 }
 #user-register-form .radio label, #user-register-form .checkbox label,
 #user-form .radio label, #user-form .checkbox label  {
-	padding-left:20px;
+	padding-left :40px;
 }
 
 .select {height: 45px;
@@ -1057,6 +1057,7 @@ ul.pull-right.list-none.text-right li a {
 input#edit-legal-main-terms-and-conditions, #edit-field-investor-declaration-wrapper input {
     width: 20px !important;
     height: 20px !important;
+    margin: -13px 0px 0px -30px;
 }
 .form-item.form-type-checkbox.form-item-legal-main-terms-and-conditions label {width:100% !important;}
 /*--una tambah mobile---*/
