@@ -736,7 +736,7 @@
 <!-- End Disclaimer -->
 
 <!-- Start Modal -->
-
+{% if logged_in %}
 <div class="modal fade" id="modal-invest-1">
   <div class="modal-dialog bg-white" style="padding:10px">
     <div style="padding:10px" class="header"><h1 class="banner-title dark-blue text-center" style="margin:10px 0">Investor Details</h1></div>
@@ -764,6 +764,7 @@
   </div>
 </div>
 
+
 <div class="modal fade" id="modal-invest-2">
   <div class="modal-dialog bg-white" style="padding:10px">
     <div style="padding:10px" class="header"><h1 class="banner-title dark-blue text-center" style="margin:10px 0">Schedule 1</h1></div>
@@ -772,6 +773,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="modal fade" id="modal-invest-3">
   <div class="modal-dialog bg-white" style="padding:10px">
@@ -786,5 +788,6 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 <!-- End Modal -->
