@@ -367,7 +367,8 @@
         <h3 class="purple">Why Are We Different</h3>
         <h4>专注于中文市场</H4>
         <p>MyStartr通过将项目及投资人面向华人社区而脱颖而出。马来西亚大部分的中小型企业是属于华人。</p>
-        <img src="">
+        <img alt="Table" data-entity-type="file" data-entity-uuid="f69297b3-3571-4c69-8806-e220de289bf2" height="350" src="/sites/default/files/inline-images/MyStartr%20Table_1.png" width="1100" class="align-center">
+       
         <p>因此，提供一个他们最熟悉的中文ECF平台至关重要。</p>
 
         <h4>从零到一的支持</h4>
@@ -382,8 +383,7 @@
         <h4>专业团队</h4>
         <p>我们拥有一支坚信股权众筹价值的专业团队，对所托付的工作，都是“使命必达”的态度。</p>
 
-        <img src="">
-
+         <img alt="Contest photo" data-align="center" data-entity-type="file" data-entity-uuid="625e90f1-3729-4306-9a51-9cd1d28bb3f3" src="/sites/default/files/inline-images/group%20photo.jpg" />
 
         </div>
 
@@ -412,7 +412,7 @@
         <h3 class="purple">Our Market Opportunity</h3>
         <p>股权众筹是一个新兴的金融市场，马来西亚证券委员会(Securities Commission Malaysia)在2015年引入了监管框架。自2016年以来，ECF行业已成功举办约169次众筹活动，总筹款金额为199.23万令吉，一共有164家发行者从中受益。大多数活动都是在过去两年完成的，特别是2020年，这表明与前几年相比，ECF市场开始获得了市场的关注。据估计，在未来5年里，它将继续呈指数增长。</p>
         <p>2020年，ECF的市场规模为RM127.73 mil，与资本市场中其他细分市场的规模相比，仍然较小。</p>
-        <img src="">
+        <img alt="market opportunity" data-entity-type="file" data-entity-uuid="e3b4a4b4-cceb-4f83-baea-d5827ef5cccc" src="/sites/default/files/inline-images/Table%20market%20opportunity%201_0.png" class="align-center">
 
         <p>市场增长主要由：</p>
         <ol>
@@ -422,7 +422,7 @@
 
         <p>考虑到2020年ECF的强劲增长，我们估计复合年增长率(CAGR)为45%，从2021年的3.8320亿令吉增至2026年的36亿令吉。</p>
 
-        <img src="">
+       <img alt="market opportunity 2" data-entity-type="file" data-entity-uuid="cdc8d67e-65b4-4283-b8ed-078926dc323b" src="/sites/default/files/inline-images/Table%20market%20opportunity%202_1.png" class="align-center">
 
 
 
@@ -457,7 +457,16 @@
           <li>通过IPO上市。</li>
         </ul>
 
-        <img src="">
+        
+
+        </div>
+
+        <hr>
+
+        {% if content.field_our_achievements|render is not empty %}
+        <div class="paddtop20 introduction">
+        <h3 class="purple">Our Achievements</h3>
+        <img alt="Achievements" data-entity-type="file" data-entity-uuid="377ef129-ecda-4ccb-861e-6c0ec7eb1744" src="/sites/default/files/inline-images/Achivements%201.PNG" class="align-center">
 
         <ul>
           <li>在2020年，我们的总众筹金额目标是1000万令吉，但最终结果是2000万令吉。</li>
@@ -469,20 +478,11 @@
         </div>
 
         <hr>
-
-        {% if content.field_our_achievements|render is not empty %}
-        <div class="paddtop20 introduction">
-        <h3 class="purple">{{ progress_title }}</h3>
-        {{content.field_our_achievements.0}}
-
-        </div>
-
-        <hr>
         {% endif %}
 
         <div class="paddtop20 introduction">
         <h3 class="purple">Indicative Usage of Funds</h3>
-        {{content.field_usage_of_funds.0}}
+        <img alt="Use of Funds" data-entity-type="file" data-entity-uuid="3052d07d-a9ea-4d18-acd2-72b9d1e520fd" src="/sites/default/files/inline-images/Use%20of%20fund_0.PNG" class="align-center">
 
         </div>
 
