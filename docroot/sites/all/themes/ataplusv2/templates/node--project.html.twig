@@ -220,7 +220,7 @@
 <div class="tab-content container marginbottom60" id="deal-page-content" >
 
 <!-- Start tab Overview -->
-    <div id="overview" class="tab-pane fade in active paddbottom40">
+    <div id="overview" class="paddtop20 tab-pane fade in active paddbottom40">
         <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
         <div class="paddtop20 introduction">
         {% if content.field_highlights %}
@@ -322,7 +322,7 @@
 
  {% if node.field_investment_.value == "Investment" %}
 
-      <div id="termsheet" class="tab-pane fade">
+      <div id="termsheet" class="paddtop20 tab-pane fade">
 
         <div class="term-sheet">
         <h3 class="purple">Term Sheet</h3>
@@ -654,13 +654,13 @@
 
 <!-- Start tab Discussion -->
 {% if logged_in %}
-    <div id="discussion" class="tab-pane fade   ">
+    <div id="discussion" class="tab-pane fade paddtop20">
         <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
           {{content.field_discussion.0}}
         </div>
     </div>
 {% else %}
-    <div id="discussion_out" class="tab-pane fade   ">
+    <div id="discussion_out" class="tab-pane fade paddtop20">
         <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
           <a href="/user/login" class="btn ghost-btn-purple blocked font18">Log In to View</a>
         </div>
@@ -671,7 +671,7 @@
 <!-- Start tab Downloads -->
 {% if logged_in %}
     {% if logged_in %}
-      <div id="downloads" class="tab-pane fade  ">
+      <div id="downloads" class="tab-pane fade paddtop20">
           <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
             {{ content.field_downloads }}
           </div>
@@ -689,7 +689,7 @@
 
     {% else %}
 
-      <div id="downloads_out" class="tab-pane fade  ">
+      <div id="downloads_out" class="tab-pane fade paddtop20">
           <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
             <a href="/user/login" class="btn ghost-btn-purple blocked font18">Log In to View</a>
           </div>
@@ -700,7 +700,7 @@
 
 <!-- Start tab Investments -->
   {% if content.flag_invested %}
-    <div id="investments" class="tab-pane fade  ">
+    <div id="investments" class="tab-pane fade paddtop20">
 
       {{ drupal_view('commitment', 'block_1') }}
 
@@ -710,7 +710,7 @@
 
 <!-- Start tab Updates -->
 {% if logged_in %}
-    <div id="updates" class="tab-pane fade  ">
+    <div id="updates" class="tab-pane fade paddtop20">
       {% if is_author %}
         <a href="/node/add/deals_update?deal={{nid}}" class="btn ghost-btn-purple blocked font18">Add update</a>
       {% endif %}
@@ -720,7 +720,7 @@
       {{ drupal_view('updates', 'block_1') }}
     </div>
 {% else %}
-  <div id="updates_out" class="tab-pane fade  ">
+  <div id="updates_out" class="tab-pane fade paddtop20">
     <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
       <a href="/user/login" class="btn ghost-btn-purple blocked font18">Log In to View</a>
     </div>
