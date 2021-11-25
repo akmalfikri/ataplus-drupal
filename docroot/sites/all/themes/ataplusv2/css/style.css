@@ -1707,3 +1707,7 @@ font-size: 2rem;
     min-height:500px;
     margin-bottom:30px;
 }
+
+.table-responsive {
+    overflow-x:hidden;
+}
