@@ -189,10 +189,12 @@
         <li><a class="blue" data-toggle="tab" href="#termsheet">Term Sheet</a></li>
         {% endif %}
 
-          {% if logged_in and node.field_deals_status.value == "Active" %}
-          <li><a class="blue"  data-toggle="tab" href="#discussion">Discussion</a></li>
+          {% if logged_in  %}
+            {% if node.field_deals_status.value == "Active" %}
+              <li><a class="blue"  data-toggle="tab" href="#discussion">Discussion</a></li>
+            {% endif %}
           {% else %}
-          <li><a class="blue"  data-toggle="tab" href="#discussion_out">Discussion</a></li>
+            <li><a class="blue"  data-toggle="tab" href="#discussion_out">Discussion</a></li>
           {% endif %}
 
         {% if logged_in %}
@@ -324,7 +326,7 @@
 
         <div class="term-sheet">
         <h3 class="purple">Term Sheet</h3>
-        <!--<h4 class="purple marginbottom40">Excerpt One Liner</h4>-->
+        
 
         <div class="table-responsive">
 
