@@ -124,17 +124,19 @@
 
       {% endif %}
 
-      <span class="fontmedium2 dark-blue font28 blocked">
+      {% if node.field_deals_status.value == "Pre"  %}
+      <span class="fontmedium2 dark-grey font28 blocked">Going Live Soon</span>
 
-      {% if node.field_deals_status.value == "Active" && amount > 0 %}
+      {% endif %}
+
+      {% if amount > 0 %}
+
+      <span class="fontmedium2 dark-blue font28 blocked">
 
       RM {{ amount }} <!-- TODO : Change this once the value raised can be calculated --></span>
 
       <span class="dark-grey">raised</span>
-      {% elseif node.field_deals_status.value == "Pre"  %}
-      <span class="fontmedium2 dark-grey font28 blocked">Going Live Soon</span>
-
-      {% endif %}
+     
       </div>
       <div class="amount-progress">
         <div class="progress">
@@ -146,6 +148,8 @@
         </div>
         </div>
       </div>
+
+      {% endif %}
 
       <div class="deal-details">
         <table class="table" id="deal-details">

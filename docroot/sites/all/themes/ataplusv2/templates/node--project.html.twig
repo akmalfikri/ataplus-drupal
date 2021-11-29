@@ -124,9 +124,11 @@
 
       {% endif %}
 
+       {% if node.field_deals_status.value == "Active" && amount > 0 %}
+
       <span class="fontmedium2 dark-blue font28 blocked">
 
-      {% if node.field_deals_status.value == "Active" && amount > 0 %}
+     
 
       RM {{ amount }} <!-- TODO : Change this once the value raised can be calculated --></span>
 
