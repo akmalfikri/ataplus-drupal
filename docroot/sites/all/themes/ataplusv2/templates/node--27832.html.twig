@@ -120,7 +120,7 @@
       <div class="amount-raised text-center margintop20">
       {% if node.field_deals_status.value == "Closed" %}
 
-      <!--<span class="fontmedium2 dark-grey font28 blocked">Campaign Closed</span>-->
+      <span class="fontmedium2 dark-grey font28 blocked">Campaign Closed</span>
 
       {% endif %}
 
@@ -131,7 +131,7 @@
       RM {{ amount }} <!-- TODO : Change this once the value raised can be calculated --></span>
 
       <span class="dark-grey">raised</span>
-      {% else  %}
+      {% elseif node.field_deals_status.value == "Pre"  %}
       <span class="fontmedium2 dark-grey font28 blocked">Going Live Soon</span>
 
       {% endif %}
