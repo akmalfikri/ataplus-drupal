@@ -118,7 +118,7 @@
     <div class="col-sm-3 nomargin nopadding bg-white">
 
       <div class="amount-raised text-center margintop20">
-        {% if node.field_deals_status.value == "Closed" %}
+      {% if node.field_deals_status.value == "Closed" %}
 
       <!--<span class="fontmedium2 dark-grey font28 blocked">Campaign Closed</span>-->
 
@@ -126,10 +126,15 @@
 
       <span class="fontmedium2 dark-blue font28 blocked">
 
+      {% if node.field_deals_status.value == "Active" && amount > 0 %}
+
       RM {{ amount }} <!-- TODO : Change this once the value raised can be calculated --></span>
 
       <span class="dark-grey">raised</span>
+      {% else  %}
+      <span class="fontmedium2 dark-grey font28 blocked">Going Live Soon</span>
 
+      {% endif %}
       </div>
       <div class="amount-progress">
         <div class="progress">
