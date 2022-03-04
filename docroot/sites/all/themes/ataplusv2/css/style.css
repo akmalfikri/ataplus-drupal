@@ -513,6 +513,10 @@ label {
 	background: url(../img/bg-legal2.jpg);
 	background-size:cover;
 }
+.legal3 {
+	background: url(../img/tennis.jpg);
+	background-size:cover;
+}
 .legal2 .btn { display:block; }
 .learning {
 
