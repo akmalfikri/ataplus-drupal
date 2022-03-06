@@ -441,6 +441,12 @@
            <dl><dt>Disclaimer </dt><dd>{{content.field_disclaimer.0}}</dd></dl>
           {% endif %}
 
+          {% if content.field_getfunding_referral_ %}
+          <dl><dt>Disclosure</dt><dd>
+          <p>This issuer is referred by a 3rd party which is {{content.field_getfunding_referral_.0}}</p>
+          </dd></dl>
+          {% endif %}
+
           <dl><dt>Disclaimer by Securities Commission</dt><dd>
           <p>(i) No shares will be alotted or issued based on this document after six months from the closing of the offer period</p>
           <p>(ii) This issue, offer or invitation for the offering is a proposal not requiring authorisation of the Securities Commission under section 212(8) of the CMSA 2007</p>
@@ -641,6 +647,12 @@
           <td class="bg-dark-purple white">Disclaimer</td>
           <td class="bg-grey">{{content.field_disclaimer.0}}</td>
           </tr>
+          {% endif %}
+
+          {% if content.field_getfunding_referral_|render is not empty %}
+          <tr> <td class="bg-dark-purple white">Disclosure</td><td class="bg-dark-grey white">
+          <p>This issuer is referred by a 3rd party which is {{content.field_getfunding_referral_.0}}</p>
+          </td></tr>
           {% endif %}
 
           <tr> <td class="bg-dark-purple white">Disclaimer by Securities Commission</td><td class="bg-dark-grey white">
