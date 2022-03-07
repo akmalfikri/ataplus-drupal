@@ -443,7 +443,7 @@
 
           {% if content.field_getfunding_referral_ %}
           <dl><dt>Disclosure</dt><dd>
-          <p>This issuer is referred by a 3rd party which is {{content.field_getfunding_referral_.0}}</p>
+          <p>This issuer is referred by a 3rd party which is {{content.field_getfunding_referral_.0}}. <strong>Ata Plus is not associated or related to the issuer and the referral party.</strong></p>
           </dd></dl>
           {% endif %}
 
@@ -651,7 +651,7 @@
 
           {% if content.field_getfunding_referral_|render is not empty %}
           <tr> <td class="bg-dark-purple white">Disclosure</td><td class="bg-dark-grey white">
-          <p>This issuer is referred by a 3rd party which is {{content.field_getfunding_referral_.0}}</p>
+          <p>This issuer is referred by a 3rd party which is {{content.field_getfunding_referral_.0}}. <strong>Ata Plus is not associated or related to the issuer and the referral party.</strong></p>
           </td></tr>
           {% endif %}
 
