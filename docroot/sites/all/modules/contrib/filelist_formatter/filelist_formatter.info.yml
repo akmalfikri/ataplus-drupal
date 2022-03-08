@@ -1,0 +1,12 @@
+type: module
+name: Filelist formatter
+description: 'A field formatter for rendering values as HTML lists with size.'
+package: Fields
+core_version_requirement: ^8.8 || ^9
+dependencies:
+  - file
+
+# Information added by Drupal.org packaging script on 2020-05-15
+version: '8.x-1.4'
+project: 'filelist_formatter'
+datestamp: 1589540782
