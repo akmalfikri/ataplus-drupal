@@ -1720,3 +1720,8 @@ font-size: 2rem;
 .bg-dark-grey {
     background: #666;
 }
+
+thead {
+    background-color: rgba(169, 23, 126, 0.5);
+    color:#fff;
+}
