@@ -1725,3 +1725,9 @@ thead {
     background-color:#a9177e;
     color:#fff;
 }
+
+.alert-pink {
+    color: #DF1283;
+    background-color: #fff;
+    border-color: #DF1283;
+}
