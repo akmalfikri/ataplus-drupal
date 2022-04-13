@@ -422,7 +422,7 @@ input[type=email]:focus , .select:focus{
 #user-register-form input[type=email]:focus,
 #user-form input[type=text]:focus,
 #user-form input[type=password]:focus,
-#user-form input[type=email]:focus,
+#user-form input[type=email]:focus
  {
 	width:100%;
 	background:none !important;
@@ -1442,7 +1442,7 @@ h2.block-title {
 }
 
 .carousel-indicators {
-    bottom: -5px !imporant;
+    bottom: -5px !important;
 }
 
 
@@ -1725,6 +1725,7 @@ font-size: 2rem;
 thead {
     background-color:#a9177e;
     color:#fff;
+    font-weight:700;
 }
 
 .alert-pink {
