@@ -181,7 +181,11 @@
           <a href="/user/login?destination={{url}}" id="logininvestbutton_{{machine}}" style="width:70%" class="btn ghost-btn-pink centered blocked font18">Log In to Invest</a><br /><br />
         {% endif %}
       {% else %}
-      <a href="/donate/deal/{{node.id}}" style="width:70%" class="btn ghost-btn-pink centered blocked font18">Donate</a>
+        {% if logged_in %}
+          <a href="/donate/deal/{{node.id}}" style="width:70%" class="btn ghost-btn-pink centered blocked font18">Donate</a>
+        {% else %}
+          <a href="/user/login?destination={{url}}" id="logininvestbutton_{{machine}}" style="width:70%" class="btn ghost-btn-pink centered blocked font18">Log In to Donate</a><br /><br />
+        {% endif %}
       {% endif %}
       {% endif %}
     </div>
