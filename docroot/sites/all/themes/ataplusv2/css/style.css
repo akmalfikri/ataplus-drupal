@@ -1728,7 +1728,12 @@ thead {
 }
 
 .alert-pink {
-    color: #DF1283;
-    background-color: #fff;
+    color: #fff;
+    background-color: #DF1283;
     border-color: #DF1283;
+}
+
+.atadeals-invest-amount-form .amount-label{
+    position: absolute;
+    margin-left: -100px;
 }
