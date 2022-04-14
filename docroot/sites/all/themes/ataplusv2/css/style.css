@@ -1736,3 +1736,7 @@ thead {
     background-color: #DF1283;
     border-color: #DF1283;
 }
+
+.carousel-caption .btn {
+    margin-top:200px;
+}
