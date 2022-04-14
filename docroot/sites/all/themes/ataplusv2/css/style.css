@@ -991,6 +991,10 @@ ul.pull-right.list-none.text-right li a {
 	width: 100%;
 }
 
+.carousel-caption .btn {
+    margin-top:200px;
+}
+
 .discover-deal-page .form-group{
 	margin-bottom: 0;
 }
@@ -1735,8 +1739,4 @@ thead {
     color: #fff;
     background-color: #DF1283;
     border-color: #DF1283;
-}
-
-.carousel-caption .btn {
-    margin-top:200px;
 }
