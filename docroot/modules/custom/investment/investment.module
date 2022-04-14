@@ -48,6 +48,10 @@ function investment_theme()
       'variables' => ['tranID' => null, 'orderID' => null, 'amount' => null, 'paydate' => null, 'status' => null, 'url' => null, 'investment_payment_table' => null],
       'template' => 'invest_confirm'
     ],
+    'donation_status' => [
+      'variables' => ['tranID' => null, 'orderID' => null, 'amount' => null, 'paydate' => null, 'status' => null, 'url' => null, 'investment_payment_table' => null],
+      'template' => 'invest_confirm'
+    ],
   ];
 }
 
@@ -74,7 +78,26 @@ function investment_mail($key, &$message, $params)
                 '@amount' => $params['amount']
               ], $options);
 
-            $params['headers']['Bcc'] = 'zayan@ata-plus.com , elain@ata-plus.com';
+            $params['headers']['Bcc'] = 'elain@ata-plus.com';
+            break;
+
+            case 'donate':
+            $message['from']    = 'invest@ata-plus.com';
+            $message['subject'] = t('@deal : Thank You for Your Donation', [
+              '@deal' => $params['deal']
+            ], $options);
+            $message['body'][]  = t("Dear @name,\n\nThank you very much for your donation into @issuer.\n\nWe acknowledge your donation and hereby confirm that we have received the following details of your donation deposited into the appointed Trustee Account:\n\nFull Name: @name\nTime: @time\nDonation Amount (RM): @amount\nTransaction ID: @tranId\nOrder ID: @orderId\n\nWe will inform you accordingly on the progress of @deal donation.\n\nOnce again, we are truly grateful for your support.\n\nShould you have any enquiries regarding the donation, please do not hesitate to drop us an email at invest@ata-plus.com.\n\nThank you, have a nice day!\n\nBest regards,\n\nTeam Ata\nwww.ata-plus.com\nAta Plus Sdn Bhd", [
+                '@deal' => $params['deal'],
+                '@issuer' => $params['issuer'],
+                '@name' => $params['name'],
+                '@time' => $params['time'],
+                '@equity' => $params['equity'],
+                '@orderId' => $params['orderId'],
+                '@tranId' => $params['tranId'],
+                '@amount' => $params['amount']
+              ], $options);
+
+            $params['headers']['Bcc'] = 'elain@ata-plus.com';
             break;
     }
 }

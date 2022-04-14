@@ -280,7 +280,14 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
                         'tranId' => $tranId,
                         'amount' => $investment->get('field_amount2')->value,
                     ];
-                    $mailManager->mail('investment', 'invest', $user->mail->value, 'en', $params, null, true);
+
+                    $transType = 'invest';
+
+                    if(strpos($orderId, 'ONDONIND') !== false){
+                        $transType = 'donate';
+                    }
+                    
+                    $mailManager->mail('investment', $transType, $user->mail->value, 'en', $params, null, true);
                 } else {
                     $transaction->set('field_transaction_status', 'failed');
                     $transaction->set('field_transaction_message', sprintf('Transaction failed with status code %s,%s - %s', $status, $params['error_code'], $params['error_desc']));
