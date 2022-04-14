@@ -300,7 +300,7 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
 
             $template = 'investment_status';
 
-            if(strpos($orderId, 'DON') !== false){
+            if(strpos($orderId, 'ONDONIND') !== false){
                 $template = 'donation_status';
             }
 
