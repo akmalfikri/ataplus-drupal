@@ -86,7 +86,7 @@ function investment_mail($key, &$message, $params)
             $message['subject'] = t('@deal : Thank You for Your Donation', [
               '@deal' => $params['deal']
             ], $options);
-            $message['body'][]  = t("Dear @name,\n\nThank you very much for your donation into @issuer.\n\nWe acknowledge your donation and hereby confirm that we have received the following details of your donation deposited into the appointed Trustee Account:\n\nFull Name: @name\nTime: @time\nDonation Amount (RM): @amount\nTransaction ID: @tranId\nOrder ID: @orderId\n\nWe will inform you accordingly on the progress of @deal donation.\n\nOnce again, we are truly grateful for your support.\n\nShould you have any enquiries regarding the donation, please do not hesitate to drop us an email at invest@ata-plus.com.\n\nThank you, have a nice day!\n\nBest regards,\n\nTeam Ata\nwww.ata-plus.com\nAta Plus Sdn Bhd", [
+            $message['body'][]  = t("Dear @name,\n\nThank you very much for your donation into @deal.\n\nWe acknowledge your donation and hereby confirm that we have received the following details of your donation deposited into the appointed Trustee Account:\n\nFull Name: @name\nTime: @time\nDonation Amount (RM): @amount\nTransaction ID: @tranId\nOrder ID: @orderId\n\nWe will inform you accordingly on the progress of @deal donation.\n\nOnce again, we are truly grateful for your support.\n\nShould you have any enquiries regarding the donation, please do not hesitate to drop us an email at invest@ata-plus.com.\n\nThank you, have a nice day!\n\nBest regards,\n\nTeam Ata\nwww.ata-plus.com\nAta Plus Sdn Bhd", [
                 '@deal' => $params['deal'],
                 '@issuer' => $params['issuer'],
                 '@name' => $params['name'],
