@@ -296,9 +296,16 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
             }
 
             \Drupal::logger('transaction')->info(sprintf('Payment with %s ORDER ID have been received.', $orderId));
+            
+
+            $template = 'investment_status';
+
+            if(strpos($orderId, 'DON') !== false){
+                $template = 'donation_status';
+            }
 
             return [
-                '#theme' => 'investment_status',
+                '#theme' => $template,
                 '#tranID' => $tranId,
                 '#orderID' => $orderId,
                 '#amount' => $amount,
