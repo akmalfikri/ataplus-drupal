@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Investment\Controller\InvestmentController;
 use Drupal\user\Entity\User;
 use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\node\Entity\Node;
 
 /**
  * Implements the ModalForm form controller.
