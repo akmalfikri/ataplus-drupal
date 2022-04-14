@@ -204,7 +204,6 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
         $fPayDate = $fPayDate->format('Y-m-d\TH:i:s');
 
         if ($skey === $key1) {
-            \Drupal::logger('transaction')->info(sprintf('Payment with %s ORDER ID have been received.', $orderId));
 
             $query = \Drupal::entityQuery('node')
                         ->condition('type', 'transaction')
@@ -295,6 +294,8 @@ class InvestmentController extends ControllerBase implements ContainerInjectionI
                 $transaction->save();
                 $deal->save();
             }
+
+            \Drupal::logger('transaction')->info(sprintf('Payment with %s ORDER ID have been received.', $orderId));
 
             return [
                 '#theme' => 'investment_status',

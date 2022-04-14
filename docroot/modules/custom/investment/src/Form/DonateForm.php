@@ -99,12 +99,22 @@ class DonateForm extends FormBase {
 
       $url = "https://www.onlinepayment.com.my/MOLPay/pay/".$merchantID."/?orderid=".$orderid."&amount=".$amount."&vcode=".$vcode;
 
-      $response = new TrustedRedirectResponse($url);
+       $transaction = Node::create([
+          'type'          => 'transaction',
+          'title'         => $orderid,
+          'field_amount'  => $amount,
+        ]);
 
-      $metadata = $response->getCacheableMetadata();
-      $metadata->setCacheMaxAge(0);
-
-      $form_state->setResponse($response);
+          $transaction->field_username->target_id = '1';
+          $transaction->field_deal_name->target_id = $node_id;
+          $transaction->save();
+  
+          $response = new TrustedRedirectResponse($url);
+  
+          $metadata = $response->getCacheableMetadata();
+          $metadata->setCacheMaxAge(0);
+  
+          $form_state->setResponse($response);
 
   }
 
