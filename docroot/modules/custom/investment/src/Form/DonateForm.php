@@ -77,6 +77,8 @@ class DonateForm extends FormBase {
         $user_id = "ANY";
       }
 
+      $trans_id = $this->generateOrderId();
+      
       $user_investor_type = "IND";
       $payment_type = "DON";
 
@@ -88,7 +90,7 @@ class DonateForm extends FormBase {
 
       $new_number = str_pad($node_id, 5, 0, STR_PAD_LEFT);
 
-      $orderid = "ATA".$new_number."ON".$payment_type.$user_investor_type."-".$user_id;
+      $orderid = "ATA".$new_number."ON".$payment_type.$user_investor_type."-".$user_id."-".$trans_id;
 
       $verifykey = "1a5d64cd93b4d650dc8eb3df953c93f4"; // live version
       $verifykey2 = "95a785b2beeaaeddafc0463ef45dd6f8"; // Dev version
@@ -106,5 +108,23 @@ class DonateForm extends FormBase {
 
   }
 
+  public function generateOrderId($length=6)
+    {
+        $available  = [2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        $data       = $available;
+        $string     = [];
+
+        for ($i = 0; $i < $length; $i++) {
+            $index = rand(0, count($data) - 1);
+            $string[] = $data[$index];
+            array_splice($data, $index, 1);
+
+            if (count($data) == 0) {
+                $data = $available;
+            }
+        }
+
+        return implode('', $string);
+    }
 
 }

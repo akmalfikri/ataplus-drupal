@@ -169,12 +169,12 @@ class InvestForm extends FormBase
         $user = User::load($userId);
 
         $orderId = sprintf(
-        'ATA%06dON%s-%s/%s',
-      $nodeId,
-      "IND",
-      $userId,
-      $this->generateOrderId()
-    );
+          'ATA%06dON%s-%s/%s',
+          $nodeId,
+          "IND",
+          $userId,
+          $this->generateOrderId()
+        );
 
         $amount = sprintf('%.2f', $form_state->getValue('amount'));
         $merchantId = $this->config[$this->environment]['merchant_id'];
