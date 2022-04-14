@@ -1263,7 +1263,9 @@ input#edit-legal-main-terms-and-conditions, #edit-field-investor-declaration-wra
     text-transform: uppercase;
     font-weight: 500;
     text-align:left;
-    width: 100%;}
+    width: 100%;
+    margin-left:0px;
+    }
     .equity-holder {
     margin-bottom: 20px;}
     .user-profile label{    font-weight: 500;padding:15px 0 0 0; font-size:17px !important;}
