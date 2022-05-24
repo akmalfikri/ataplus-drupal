@@ -4,7 +4,14 @@
             <h4 class="dark-blue marginbottom20">{{paragraph.field_member_name.value}} {% if paragraph.field_link_to_bio is not empty %} <a href="{{ paragraph.field_link_to_bio.0['#url'] }}" target="_blank"><i class="fa fa-linkedin-square dark-grey"></a> {% endif %}</h4>
             <h4 class="dark-grey marginbottom10">{{paragraph.field_member_position.value}}</h4>
             <h5 class="dark-grey marginbottom20">{{paragraph.field_member_s_education.value}}</h5>
-            <p class="dark-blue">{{paragraph.field_member_.value}}</p>
+            <p class="dark-blue">
+                {% if paragraph.field_member_.value is not empty %}
+                    {{paragraph.field_member_.value}}
+                {% elseif paragraph.field_member_biography.value is not empty %}
+                    {{paragraph.field_member_biography.value}}
+                {% else %}
+                {% endif %}
+            </p>
             
          </div>
 </div>
