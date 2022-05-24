@@ -204,6 +204,10 @@
           {% else %}
             <li><a class="blue"  data-toggle="tab" href="#discussion_out">Discussion</a></li>
           {% endif %}
+        
+        {% if content.field_team|render is not empty %}
+           <li><a class="blue" data-toggle="tab" href="#team">The Team</a></li>
+        {% endif %}
 
         {% if logged_in %}
         <li><a class="blue" data-toggle="tab" href="#downloads">Downloads</a></li>
@@ -305,26 +309,32 @@
         {{content.field_usage_of_funds.0}}
 
         </div>
-
-        <hr>
-
-        <div class="the-team marginbottom40">
-        <h3 class="purple">The Team</h3>
-
-            {{content.field_team}}
-
-        {% if content.field_team_notes|render is not empty %}
-
-          <div class="well">{{content.field_team_notes.0}}</div>
-
-        {% endif %}
-
-        </div>
-
       </div>
     </div>
 
 <!-- End Overview -->
+
+<!-- Start tab The Team -->
+
+    {% if content.field_team|render is not empty %}
+    <div id="overview" class="paddtop20 tab-pane fade in active paddbottom40">
+      <div class="the-team marginbottom40">
+      <h3 class="purple">The Team</h3>
+
+          {{content.field_team}}
+
+          {% if content.field_team_notes|render is not empty %}
+
+            <div class="well">{{content.field_team_notes.0}}</div>
+
+          {% endif %}
+
+      </div>
+    </div>
+    {% endif %}
+
+
+<!-- End The Team -->
 
 <!-- Start tab Term sheet -->
 
