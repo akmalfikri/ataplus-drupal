@@ -1,7 +1,7 @@
 <div id="team" class="row marginbottom20">
          <div class="col-sm-3"><img src="{{file_url(paragraph.field_image.entity.fileuri)}}" width="100%"></div>
          <div class="col-sm-9">
-            <h4 class="dark-blue marginbottom20">{{paragraph.field_member_name.value}} <a href="{{ paragraph.field_link_to_bio.0['#url'] }}" target="_blank"><i class="fa fa-linkedin-square dark-grey"></a></h4>
+            <h4 class="dark-blue marginbottom20">{{paragraph.field_member_name.value}} {% if paragraph.field_link_to_bio|render is not empty %} <a href="{{ paragraph.field_link_to_bio.0['#url'] }}" target="_blank"><i class="fa fa-linkedin-square dark-grey"></a> {% endif %}</h4>
             <h4 class="dark-grey marginbottom10">{{paragraph.field_member_position.value}}</h4>
             <h5 class="dark-grey marginbottom20">{{paragraph.field_member_s_education.value}}</h5>
             <p class="dark-blue">{{paragraph.field_member_.value}}</p>
