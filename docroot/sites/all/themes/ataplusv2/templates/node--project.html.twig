@@ -65,7 +65,7 @@
  *   in different view modes.
  */
 #}
-<!-- Header -->
+<!-- Header 1-->
 <div class="image-video-holder  paddbottom40">
       {% if content.field_video|render is not empty %}
 
@@ -97,7 +97,7 @@
     <div class="col-sm-9 nomargin nopadding bg-grey">
       <div class="deal-left-column col-sm-2 nopadding">
           {{content.flag_follow}}
-         <!--<a data-toggle="modal" class="follow-link blocked" href="#announcement">Follow</a>-->
+         <!--<a data-toggle="modal" class="follow-link blocked" href="#announcement">Follow</a>2-->
          <img src="{{ file_url(node.field_avatar.entity.fileuri) }}" width="100%">
          <a class="contact-link blocked" href="mailto:{{ node.field_contact_email.value }}?Subject=ATA Plus-{{ node.label }}" target="_top">Contact</a>
 
@@ -133,7 +133,7 @@
 
       <span class="fontmedium2 dark-blue font28 blocked">
 
-      RM {{ amount }} <!-- TODO : Change this once the value raised can be calculated --></span>
+      RM {{ amount }} <!-- TODO : Change this once the value raised can be calculated 3--></span>
 
       <span class="dark-grey">raised</span>
      
@@ -141,7 +141,7 @@
       <div class="amount-progress">
         <div class="progress">
 
-        <!-- TODO : Change aria-valuenow to the value of percentage received -->
+        <!-- TODO : Change aria-valuenow to the value of percentage received 4-->
           <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="{{ percentage_raised }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ percentage_raised }}%">
           <span class="sr-only">{{ percentage_raised }}% Complete</span>
 
@@ -161,7 +161,7 @@
         <tr><th>Investors</th><td class="dark-blue fontreg">{{ content.field_no_of_investors.0 }}</td></tr>
         <tr><th>Min Target</th><td class="dark-blue fontreg">
 
-        <!--TODO: Change this value into calculated value -->
+        <!--TODO: Change this value into calculated value 5-->
         {{ content.field_minimum_offering_size.0 }}
         </td></tr>
         <tr><th>Max Target</th><td class="dark-blue fontreg">{{ content.field_maximum_offering_size.0 }}</td></tr>
@@ -187,9 +187,9 @@
     </div>
 </div>
 
-<!-- End Top -->
+<!-- End Top 6-->
 
-<!-- Tabs -->
+<!-- Tabs 7-->
 
 <ul class="nav nav-tabs container" id="deal-page">
         <li class="active"><a class="blue" data-toggle="tab" href="#overview">Overview</a></li>
@@ -224,14 +224,14 @@
         {% endif %}
 </ul>
 
-<!-- End Tabs Menu -->
+<!-- End Tabs Menu 8-->
 
 
-<!-- Start Tab content -->
+<!-- Start Tab content 9-->
 
 <div class="tab-content container marginbottom60" id="deal-page-content" >
 
-<!-- Start tab Overview -->
+<!-- Start tab Overview 10-->
     <div id="overview" class="paddtop20 tab-pane fade in active paddbottom40">
         <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
         <div class="paddtop20 introduction">
@@ -312,9 +312,9 @@
       </div>
     </div>
 
-<!-- End Overview -->
+<!-- End Overview 11-->
 
-<!-- Start tab The Team -->
+<!-- Start tab The Team 12-->
 
     {% if content.field_team|render is not empty %}
     <div id="the-team" class="paddtop20 tab-pane fade in active paddbottom40">
@@ -334,9 +334,9 @@
     {% endif %}
 
 
-<!-- End The Team -->
+<!-- End The Team 13-->
 
-<!-- Start tab Term sheet -->
+<!-- Start tab Term sheet 14-->
 
  {% if node.field_investment_.value == "Investment" %}
 
@@ -363,7 +363,7 @@
 
           <!--{% if content.field_post_money_valuation %}
            <dl><dt>Valuation </dt><dd>{{content.field_post_money_valuation.0}}</dd></dl>
-          {% endif %}-->
+          {% endif %}15-->
 
           {% if content.field_minimum_offering_size %}
            <dl><dt>Minimum Fundraising Target </dt><dd>{{content.field_minimum_offering_size.0}}</dd></dl>
@@ -395,11 +395,11 @@
 
           <!--{% if content.field_number_of_shares_per_block %}
            <dl><dt>Number of shares per block </dt><dd>{{content.field_number_of_shares_per_block.0}}</dd></dl>
-          {% endif %}-->
+          {% endif %}16-->
 
           <!--{% if content.field_minimum_block_per_investme %}
            <dl><dt>Minimum block per Investment </dt><dd>{{content.field_minimum_block_per_investme.0}}</dd></dl>
-          {% endif %}-->
+          {% endif %}17-->
 
           {% if content.field_minimum_investment_amount %}
            <dl><dt>Minimum Investment Amount </dt><dd>{{content.field_minimum_investment_amount.0}}</dd></dl>
@@ -497,7 +497,7 @@
           <td class="bg-dark-purple white">Valuation</td>
           <td class="bg-grey">{{content.field_post_money_valuation.0}}</td>
           </tr>
-          {% endif %}-->
+          {% endif %}18-->
 
           {% if content.field_minimum_offering_size|render is not empty %}
           <tr>
@@ -553,14 +553,14 @@
           <td class="bg-dark-purple white">Number of shares per block</td>
           <td class="bg-grey">{{content.field_number_of_shares_per_block.0}}</td>
           </tr>
-          {% endif %}-->
+          {% endif %}19-->
 
           <!--{% if content.field_minimum_block_per_investme|render is not empty %}
           <tr>
           <td class="bg-dark-purple white">Minimum block per Investment</td>
           <td class="bg-grey">{{content.field_minimum_block_per_investme.0}}</td>
           </tr>
-          {% endif %}-->
+          {% endif %}20-->
 
           {% if content.field_minimum_investment_amount|render is not empty %}
           <tr>
@@ -586,7 +586,7 @@
           <td class="bg-dark-purple white">Impact on Shareholding Structure Upon Completion of the Offering</td>
           <td class="bg-grey">{{content.field_previous_terms}}</td>
           </tr>
-          {% endif %}-->
+          {% endif %}21-->
 
           {% if not (node.field_investor_eligibility.isEmpty == true) and content.field_investor_eligibility is defined %}
 
@@ -680,9 +680,9 @@
         </div>
         {% endif %}
 
-<!-- End Term sheet -->
+<!-- End Term sheet 22-->
 
-<!-- Start tab Discussion -->
+<!-- Start tab Discussion 23-->
 {% if logged_in %}
     <div id="discussion" class="tab-pane fade paddtop20">
         <div class="col-sm-12 nomargin nopadding bg-white " style="padding-right:40px">
@@ -696,9 +696,9 @@
         </div>
     </div>
 {% endif %}
-<!-- End Discussion -->
+<!-- End Discussion 24-->
 
-<!-- Start tab Downloads -->
+<!-- Start tab Downloads 25-->
 {% if logged_in %}
     {% if logged_in %}
       <div id="downloads" class="tab-pane fade paddtop20">
@@ -726,9 +726,9 @@
       </div>
 
 {% endif %}
-<!-- End Downloads -->
+<!-- End Downloads 26-->
 
-<!-- Start tab Investments -->
+<!-- Start tab Investments 27-->
   {% if content.flag_invested %}
     <div id="investments" class="tab-pane fade paddtop20">
 
@@ -736,9 +736,9 @@
 
     </div>
   {% endif %}
-<!-- End investments -->
+<!-- End investments 28-->
 
-<!-- Start tab Updates -->
+<!-- Start tab Updates 29-->
 {% if logged_in %}
     <div id="updates" class="tab-pane fade paddtop20">
       {% if is_author %}
@@ -756,15 +756,15 @@
     </div>
   </div>
 {% endif %}
-<!-- End updates -->
+<!-- End updates 30-->
 
 </div>
 
-<!-- End Contents -->
+<!-- End Contents 31-->
 
 </div>
 
-<!-- Start Disclaimer -->
+<!-- Start Disclaimer 32-->
 <div class="padd60 white risk-disclaimer">
   <div class="container">
     <h1 class="banner-title text-center">Risk Disclaimer</h1>
@@ -775,9 +775,9 @@
   </div>
 </div>
 
-<!-- End Disclaimer -->
+<!-- End Disclaimer 33-->
 
-<!-- Start Modal -->
+<!-- Start Modal 34-->
 {% if logged_in %}
 <div class="modal fade" id="modal-invest-1">
   <div class="modal-dialog bg-white" style="padding:10px">
@@ -798,7 +798,7 @@
         <!--<div class="form-inline">
           <div class="radio" style="margin-right:15px"><input type="radio" name="investment"><label style="padding-left:10px">Yes</label></div>
           <div class="radio"><input type="radio" name="investment"><label style="padding-left:10px">No</label></div>
-        </div>-->
+        </div>35-->
 
         <a class="margintop40 centered btn ghost-btn-white blocked" href="#" id="show-modal-2">I Accept</a>
       </div>
@@ -832,4 +832,4 @@
 </div>
 {% endif %}
 
-<!-- End Modal -->
+<!-- End Modal 36-->
