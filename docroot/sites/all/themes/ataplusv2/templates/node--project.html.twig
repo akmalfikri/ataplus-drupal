@@ -195,6 +195,9 @@
 
 <ul class="nav nav-tabs container" id="deal-page">
         <li class="active"><a class="blue" data-toggle="tab" href="#overview">Overview</a></li>
+        {% if content.field_team|render is not empty %}
+           <li><a class="blue" data-toggle="tab" href="#the-team">The Team</a></li>
+        {% endif %}
         {% if node.field_investment_.value == "Investment" %}
         <li><a class="blue" data-toggle="tab" href="#termsheet">Term Sheet</a></li>
         {% endif %}
@@ -206,10 +209,6 @@
           {% else %}
             <li><a class="blue"  data-toggle="tab" href="#discussion_out">Discussion</a></li>
           {% endif %}
-        
-        {% if content.field_team|render is not empty %}
-           <li><a class="blue" data-toggle="tab" href="#the-team">The Team</a></li>
-        {% endif %}
 
         {% if logged_in %}
         <li><a class="blue" data-toggle="tab" href="#downloads">Downloads</a></li>
