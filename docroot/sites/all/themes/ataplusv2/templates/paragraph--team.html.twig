@@ -8,7 +8,7 @@
                 {% if paragraph.field_member_.value is not empty %}
                     {{paragraph.field_member_.value}}
                 {% elseif paragraph.field_member_biography.value is not empty %}
-                    {{paragraph.field_member_biography.0}}
+                    {{paragraph.field_member_biography[0].value}}
                 {% else %}
                 {% endif %}
             </p>
