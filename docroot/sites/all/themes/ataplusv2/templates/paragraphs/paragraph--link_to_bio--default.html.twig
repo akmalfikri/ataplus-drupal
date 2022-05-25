@@ -1,0 +1,13 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+{% block paragraph %}
+    {% block content %}
+      <a href="{{ content.field_link_to_bio.0['#url'] }}" target="_blank"><i class="fa fa-linkedin-square dark-grey"></a>
+    {% endblock %}
+{% endblock paragraph %}
