@@ -1741,6 +1741,6 @@ thead {
     border-color: #DF1283;
 }
 
-.fa-linkedin-square:hover {
-    color:#0a66c2;
+.fa-linkedin:hover {
+    color:#0a66c2 !important;
 }
