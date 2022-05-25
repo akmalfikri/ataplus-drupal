@@ -1740,3 +1740,7 @@ thead {
     background-color: #DF1283;
     border-color: #DF1283;
 }
+
+.fa-linkedin-square:hover {
+    color:#0a66c2;
+}
