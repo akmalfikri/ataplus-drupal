@@ -1,4 +1,4 @@
 {% for item in items %}
    <a href="{{ item.content }}" target="_blank"><i class="fa fa-linkedin-square dark-grey"></i></a>
-   {{ dump(item.content) }}
+   <pre>{{ dump(item.content) }}</pre>
 {% endfor %}
