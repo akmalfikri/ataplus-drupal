@@ -47,9 +47,15 @@
   ]
 %}
 {% block paragraph %}
-  <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      {{ content }}
+    <div id="team" class="row marginbottom20">
+        <div class="col-sm-3"><img src="{{file_url(content.field_image.entity.fileuri)}}" width="100%"></div>
+        <div class="col-sm-9">
+            Biography
+            <p class="dark-blue">
+            {{ content.field_member_biography }}
+            </p>
+        </div>
+    </div>
     {% endblock %}
-  </div>
 {% endblock paragraph %}
