@@ -156,7 +156,7 @@
         <table class="table" id="deal-details">
         {% if (node.field_deals_status.value != "Pre") %}
         <tr><th>{{ percentage_raised }}% of target</th>
-          <td>{% if (days_left >= 0) and  %}
+          <td>{% if (days_left >= 0) %}
               {{content.field_end_date_time.0}}
               {% else %} 0 days left
               {% endif %}</td>
