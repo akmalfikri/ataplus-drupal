@@ -358,6 +358,10 @@
            <dl><dt>Type of Equity </dt><dd>{{content.field_type_of.0}}</dd></dl>
           {% endif %}
 
+           {% if content.field_fund_raising_period %}
+           <dl><dt>Fund Raising Period </dt><dd>{{content.field_fund_raising_period.0}}</dd></dl>
+          {% endif %}
+
           {% if content.field_pre_money_valuation %}
             <dl><dt>Pre Money Valuation </dt><dd>{{content.field_pre_money_valuation.0}}</dd></dl>
             {% elseif content.field_pre_money_valuation_decima %}
@@ -483,6 +487,13 @@
           </tr>
           {% endif %}
 
+          {% if content.field_fund_raising_period|render is not empty %}
+          <tr>
+          <td class="bg-dark-purple white">Fund Raising Period</td>
+          <td class="bg-grey">{{content.field_fund_raising_period.0}}</td>
+          </tr>
+          {% endif %}
+
           {% if content.field_pre_money_valuation|render is not empty %}
             <tr>
               <td class="bg-dark-purple white">Pre Money Valuation</td>
@@ -501,7 +512,7 @@
           <td class="bg-grey">{{content.field_post_money_valuation.0}}</td>
           </tr>
           {% endif %}18-->
-
+          
           {% if content.field_minimum_offering_size|render is not empty %}
           <tr>
           <td class="bg-dark-purple white">Minimum Fundraising Target</td>
