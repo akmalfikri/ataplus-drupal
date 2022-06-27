@@ -188,7 +188,7 @@
       <a href="/donate/deal/{{node.id}}" style="width:70%" class="btn ghost-btn-pink centered blocked font18">Donate</a>
       {% endif %}
       {% endif %}
-      {% if (node.field_deals_status.value != "Pre") %}
+      {% if (node.field_deals_status.value == "Pre") %}
         {% if content.field_mailchimp_tag_id %}
           <a href="#modal-invest-4" data-toggle="modal" style="width:70%" id="subscribebutton_{{machine}}" class="btn ghost-btn-pink centered blocked font18">Find out more</a>
         {% endif %}
