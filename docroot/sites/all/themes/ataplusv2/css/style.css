@@ -992,7 +992,7 @@ ul.pull-right.list-none.text-right li a {
 }
 
 .carousel-caption .btn {
-    margin-top:200px;
+    margin-top:100px;
 }
 
 .discover-deal-page .form-group{
@@ -1642,6 +1642,18 @@ min-height:450px;
     }
     .modal .banner-title {
         font-size:1.8em;
+    }
+
+    .carousel-caption h3 {
+        font-size: 20px;
+            margin: 0 auto;
+    }
+    .carousel-caption p {
+        font-size: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+            padding-top:10px;
+            line-height: 1.5em;
     }
 }
 
