@@ -1655,6 +1655,9 @@ min-height:450px;
             padding-top:10px;
             line-height: 1.5em;
     }
+    .carousel-caption .btn {
+        margin: 20px 0px 0px 0px;
+    }
 }
 
 .deal-page hr {
