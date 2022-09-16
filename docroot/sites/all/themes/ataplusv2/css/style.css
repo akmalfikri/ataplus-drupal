@@ -857,7 +857,7 @@ img.greyscale:hover {
     display: inline-block !important;
 }
 .user-register-form.user-form .form-item label {
-    width: 19% !important;
+    width: 100% !important;
     display: inline-block !important;
 }
 .password-strength, .password-confirm {
